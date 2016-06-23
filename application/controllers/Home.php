@@ -3,23 +3,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
-	public function index()
-	{
-		$this->load->view('index');
+	function __construct(){
+            parent::__construct();
+            $this->load->model('Model_home');
+    }
+	public function dashboard($content){
+		$data['content']=$content;
+		$this->load->view('index',$data);
+	}
+	public function index(){
+		$data['title']="Sistem Akademik";
+		$data['sidebar']=$this->load->view('sidebar','',true);
+		
+		$bread['title1']="Dashboard";
+		$bread['title2']="Monitoring";
+		$bread['list']=array("Sekolah","Dashboard");
+		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+		
+
+		$content=$this->load->view('home/dashboard',$data,true);
+		$this->dashboard($content);
+	}
+	public function sekolah(){
+		$data['title']="Manajemen Sekolah | Sistem Akademik";		
+		$data['sidebar']=$this->load->view('sidebar','',true);
+
+		$bread['title1']="Sekolah";
+		$bread['title2']="Manajemen Sekolah";
+		$bread['list']=array("Sekolah","Manajemen Sekolah");
+		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+		
+
+		$content=$this->load->view('home/manajemen_sekolah',$data,true);
+		$this->dashboard($content);
 	}
 }
