@@ -20,7 +20,7 @@
  <link rel="stylesheet" href="<?php echo base_url(); ?>aset/dist/css/skins/_all-skins.min.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>aset/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
+<script src="<?php echo base_url(); ?>aset/plugins/jQuery/jQuery-2.2.0.min.js"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -330,7 +330,6 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.0 -->
-<script src="<?php echo base_url(); ?>aset/plugins/jQuery/jQuery-2.2.0.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
