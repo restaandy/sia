@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Dashboard extends CI_Controller {
 
 	function __construct(){
             parent::__construct();
@@ -12,9 +12,9 @@ class Home extends CI_Controller {
 		$this->load->view('index',$data);
 	}
 	public function index(){
-		$bread['title1']="Home";
+		$bread['title1']="Dashboard";
 		$bread['title2']="Monitoring";
-		$bread['list']=array("Home","Dashboard");
+		$bread['list']=array("Dashboard");
 
 		$data['title']="Sistem Akademik";
 		$data['sidebar']=$this->load->view('sidebar','',true);

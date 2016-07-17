@@ -11,7 +11,7 @@
 			<div class="col-md-4">
 			<div class="form-group">
 				<label>Nama Sekolah</label>
-				<input class="form-control" type="text" name="nama_sekolah" required />
+				<input class="form-control" type="text" name="nama_sekolah" maxlength="100" required />
 			</div>
 			<div class="form-group">
 				<label>Username</label>
@@ -21,16 +21,54 @@
 				<label>Password</label>
 				<input class="form-control" type="password" name="password" required />
 			</div>
+			<div class="form-group">
+				<label>Visi</label>
+				<textarea class="form-control" type="text" name="visi"></textarea>
+			</div>
+			<div class="form-group">
+				<label>Misi</label>
+				<textarea class="form-control" type="text" name="misi"></textarea>
+			</div>
+
 			</div>
 			<div class="col-md-4">
 			<div class="form-group">
-				<label>Alamat</label>
-				<textarea class="form-control" name="alamat"></textarea>
+				<label>Telepon</label>
+				<input class="form-control" type="password" name="telp" maxlength="50" required />
 			</div>
 			<div class="form-group">
-				<label>Visi & Misi</label>
-				<input class="form-control" type="text" name="visimisi" />
+				<label>Alamat Email</label>
+				<input class="form-control" type="email" name="email" maxlength="100" required />
 			</div>
+			<div class="form-group">
+				<label>Website</label>
+				<input class="form-control" type="password" name="website" maxlength="100" required />
+			</div>
+			<div class="form-group">
+				<label>Provinsi</label>
+				<select class="form-control" name="prov"></select>
+			</div>
+			<div class="form-group">
+				<label>Kabupaten / Kota</label>
+				<select class="form-control" name="kabkota"></select>
+			</div>
+
+			</div>	
+			<div class="col-md-4">
+			
+			<div class="form-group">
+				<label>Kecamatan</label>
+				<select class="form-control" name="kec"></select>
+			</div>
+			<div class="form-group">
+				<label>Desa / Kelurahan</label>
+				<select class="form-control" name="kel"></select>
+			</div>
+			<div class="form-group">
+				<label>Alamat Tambahan</label>
+				<textarea class="form-control" name="almt_tambahan"></textarea>
+			</div>
+			
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary" name="simpan">Simpan</button>
 				<button type="reset" class="btn btn-reset" name="reset">Reset</button>

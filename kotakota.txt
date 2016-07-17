@@ -1,8 +1,5 @@
-Kabupaten Bintan
-Kabupaten Karimun
-Kabupaten Kepulauan Anambas
-Kabupaten Lingga
-Kabupaten Natuna
-Kota Batam
-Kota Tanjung Pinang
-
+Kabupaten Bulungan
+Kabupaten Malinau
+Kabupaten Nunukan
+Kabupaten Tana Tidung
+Kabupaten Tarakan

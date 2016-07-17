@@ -10,31 +10,41 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-        <li class="header">MAIN NAVIGATION</li>
-        
+        <li class="header">Super Admin Menu</li>
+        <li><a href="<?php echo base_url();?>dashboard"><i class="fa fa-circle-o"></i> Dashboard</a></li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Sekolah</span> <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="<?php echo base_url();?>home"><i class="fa fa-circle-o"></i> Dashboard</a></li>
-            <li><a href="<?php echo base_url(); ?>home/sekolah"><i class="fa fa-circle-o"></i> Manajemen Sekolah</a></li>
+            <li><a href="<?php echo base_url();?>sekolah"><i class="fa fa-circle-o"></i> Sekolah</a></li>
+            <li><a href="<?php echo base_url(); ?>sekolah/sekolah"><i class="fa fa-circle-o"></i> Manajemen Sekolah</a></li>
+          </ul>
+        </li>
+
+        <li class="header">Admin Menu</li>
+        <li><a href="<?php echo base_url();?>home"><i class="fa fa-circle-o"></i> Home</a></li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Siswa</span> <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<?php echo base_url();?>siswa"><i class="fa fa-circle-o"></i> Siswa</a></li>
+            <li><a href="<?php echo base_url(); ?>siswa/siswa"><i class="fa fa-circle-o"></i> Manajemen Siswa</a></li>
           </ul>
         </li>
 
         <li class="treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i>
-             <span>Layout Options</span>
+             <span>Nilai</span>
             <i class="fa fa-angle-left pull-right"></i>
            
             
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Lihat & Cetak Nilai</a></li>
+            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Input & Edit Nilai</a></li>
           </ul>
         </li>
 
