@@ -10,6 +10,10 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
+        <?php 
+          if($this->session->userdata('hold')=="A"){
+            ?>
+
         <li class="header">Super Admin Menu</li>
         <li><a href="<?php echo base_url();?>dashboard"><i class="fa fa-circle-o"></i> Dashboard</a></li>
         <li class="treeview">
@@ -21,6 +25,12 @@
             <li><a href="<?php echo base_url(); ?>sekolah/sekolah"><i class="fa fa-circle-o"></i> Manajemen Sekolah</a></li>
           </ul>
         </li>
+        <?php
+          }
+         ?>
+        <?php 
+          if($this->session->userdata('hold')=="AS"){
+            ?>
 
         <li class="header">Admin Menu</li>
         <li><a href="<?php echo base_url();?>home"><i class="fa fa-circle-o"></i> Home</a></li>
@@ -33,7 +43,17 @@
             <li><a href="<?php echo base_url(); ?>siswa/siswa"><i class="fa fa-circle-o"></i> Manajemen Siswa</a></li>
           </ul>
         </li>
-
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>Guru</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Guru</a></li>
+            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Manajemen Guru</a></li>
+          </ul>
+        </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i>
@@ -48,19 +68,7 @@
           </ul>
         </li>
 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-pie-chart"></i>
-            <span>Charts</span>
-            <i class="fa fa-angle-left pull-right"></i>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-          </ul>
-        </li>
+        
         <li class="treeview">
           <a href="#">
             <i class="fa fa-laptop"></i>
@@ -102,4 +110,7 @@
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+      <?php
+          }
+         ?>
       </ul>

@@ -5,6 +5,9 @@ class Dashboard extends CI_Controller {
 
 	function __construct(){
             parent::__construct();
+            if($this->session->userdata('hold')==null){
+            	redirect('login');
+            }else{}
             $this->load->model('Model_home');
     }
 	public function dashboard($content){
@@ -28,5 +31,9 @@ class Dashboard extends CI_Controller {
 //action----------
 	public function save_sekolah(){
 		print_r($this->input->post());
+	}
+	public function logout(){
+		$this->session->sess_destroy();
+		redirect('login');
 	}
 }	

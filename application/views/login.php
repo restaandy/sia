@@ -8,14 +8,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>DIKLAT JATENG</title>
+    <title>Login | Sistem Akademik</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url()."aset/bootstrap/css/bootstrap.min.css"; ?>" rel="stylesheet">
     <!-- SLIDE -->
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url()."aset/external/css/font-awesome.min.css"; ?>">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,18 +26,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="<?php echo base_url()."aset/bootstrap/js/jquery.min.js"; ?>"></script>
+    <script src="<?php echo base_url()."aset/plugins/jQuery/jQuery-2.2.0.min.js"; ?>"></script>
     <script src="<?php echo base_url()."aset/bootstrap/js/bootstrap.min.js"; ?>"></script>
 
       <?php
       $newdata = array(
-          'angka1'  => rand(0,20),
-          'angka2'     => rand(0,20)
+          'angka1' => rand(0,20),
+          'angka2' => rand(0,20)
       );
-
       $this->session->set_userdata($newdata);
-
-      $this->session->set_userdata('hasil',$this->session->userdata('angka1')+$this->session->userdata('angka2'));
+      $this->session->set_userdata('hasil_capta',$this->session->userdata('angka1')+$this->session->userdata('angka2'));
 
       ?>
 
@@ -72,23 +70,37 @@ box-shadow: 5px 8px 8px -1px rgba(0,0,0,0.75);border: 1px solid #333;">
           <!-- LOgin -->
           
             <div class="col-xs-3">
-              <center><img src="<?php echo base_url()."aset/img/logo.png" ?>" width="70%"></center>
+              <center><img src="<?php echo base_url()."aset/img/logo.jpg" ?>" width="70%"></center>
             </div>
             <div class="col-xs-9" style="text-align: center;">
               <p style="margin-top: 3px;font-size: 2em;" class="login-font">Form Login</p>
             </div>
-            <form action="<?php echo base_url()."auth/login" ?>" method="POST">
+            <form action="<?php echo base_url()."login/cek_authentikasi" ?>" method="POST">
+            <p style="font-size:12px;color:red;"><?php echo $this->session->flashdata('login'); ?></p>
             <table class="table">
               
                 <tr>
-                  <td><label>NIP</label></td>
+                  <td><label>Username</label></td>
                   <td><label>:</label></td>
-                  <td><input type="text" class="form-control input-sm" name="nip" placeholder="Masukan NIP . . ."></td>
+                  <td><input type="text" class="form-control input-sm" name="username" placeholder="Masukan username . . ."></td>
                 </tr>
                 <tr>
                   <td><label>Password</label></td>
                   <td><label>:</label></td>
                   <td><input type="password" name="password" class="form-control input-sm" placeholder="Masukan Password . . ."></td>
+                </tr>
+                
+                <tr>
+                    <td><label>Sebagai</lebel></td>
+                    <td><label>:</label></td>
+                    <td>
+
+                        <select class="form-control input-sm" name="sebagai">
+                            <option value="AS">Admin Sekolah</option>
+                            <option value="G">Pengajar</option>
+                            <option value="S">Siswa</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td><label>Captcha</label></td>
@@ -100,35 +112,22 @@ box-shadow: 5px 8px 8px -1px rgba(0,0,0,0.75);border: 1px solid #333;">
                                     <?php echo $this->session->userdata('angka1')." + ".$this->session->userdata('angka2')." = "; ?></p>
                             </div>
                             <div class="col-xs-6" style="padding-left: 5px;float: left;">
-                                <input  type="number" class="form-control input-sm nomor2" name="hasil_capt" placeholder="Hasil . . ." required="required"><span style="color: red;" id="pesan2"></span>
+                                <input  type="number" class="form-control input-sm nomor2" name="capta" placeholder="Hasil . . ." required="required"><span style="color: red;" id="pesan2"></span>
                             </div>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <select class="form-control input-sm" name="sebagai">
-                            <option value="peserta">Peserta Didik</option>
-                            <option value="coach">Coach / Consellor</option>
-                            <option value="sv">Supervisor</option>
-                            <option value="admin">Administrator</option>
-                        </select>
-                    </td>
-                </tr>
-
-                <tr>
                   <td colspan="3" style="text-align:right;">
                     <button class="btn btn-default btn-sm">Batal</button>
-                    <input type="submit" value="Masuk" class="btn btn-danger btn-sm">
+                    <input type="submit" name="login" value="masuk" class="btn btn-danger btn-sm">
                   </td>
                 </tr>
             </table>
             </form>
           </div>
           <div class="panel-footer" style="padding: 0px;">
-              <p style="font-size: 0.8em;margin-top: 5px;;text-align: center;">Copyright © 2016  BADAN DIKLAT JATENG</p>
+              <p style="font-size: 0.8em;margin-top: 5px;;text-align: center;">Sistem Akademik Sekolah by : Andy resta</p>
           </div>
       </div>
     </div>

@@ -5,10 +5,11 @@
 		<legend>Tambah Sekolah</legend>
 		<div class="col-md-8">
 		<div class="row">
-		<?php echo validation_errors(); ?>
 
-		<?php echo form_open('home/save_sekolah'); ?>		
-			<div class="col-md-4">
+		<?php echo validation_errors(); ?>
+		<p style="font-size:15px;margin-left:20px;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('sekolah'); ?></p>
+		<?php echo form_open('sekolah/save_sekolah'); ?>		
+			<div class="col-md-4">			
 			<div class="form-group">
 				<label>Nama Sekolah</label>
 				<input class="form-control" type="text" name="nama_sekolah" maxlength="100" required />
@@ -34,15 +35,15 @@
 			<div class="col-md-4">
 			<div class="form-group">
 				<label>Telepon</label>
-				<input class="form-control" type="password" name="telp" maxlength="50" required />
+				<input class="form-control" type="text" name="telp" maxlength="50" />
 			</div>
 			<div class="form-group">
 				<label>Alamat Email</label>
-				<input class="form-control" type="email" name="email" maxlength="100" required />
+				<input class="form-control" type="email" name="email" maxlength="100"/>
 			</div>
 			<div class="form-group">
 				<label>Website</label>
-				<input class="form-control" type="password" name="website" maxlength="100" required />
+				<input class="form-control" type="text" name="website" maxlength="100" />
 			</div>
 			<div class="form-group">
 				<label>Provinsi</label>

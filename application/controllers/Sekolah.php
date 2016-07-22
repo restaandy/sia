@@ -5,7 +5,7 @@ class Sekolah extends CI_Controller {
 
 	function __construct(){
             parent::__construct();
-            $this->load->model('Model_home');
+            $this->load->model('Model_sekolah');
     }
 	public function dashboard($content){
 		$data['content']=$content;
@@ -31,7 +31,7 @@ class Sekolah extends CI_Controller {
 		$data['title']="Manajemen Sekolah | Sistem Akademik";		
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
-		$data['datasekolah']=$this->Model_home->get_sekolah();
+		$data['datasekolah']=$this->Model_sekolah->get_sekolah();
 
 		$content=$this->load->view('sekolah/manajemen_sekolah',$data,true);
 		$this->dashboard($content);
@@ -40,6 +40,38 @@ class Sekolah extends CI_Controller {
 //=========================================================================
 //action----------
 	public function save_sekolah(){
-		print_r($this->input->post());
+		$data=$this->input->post();
+		$data_temp=array_keys($data);
+		$data_input=array();
+		foreach ($data_temp as $key) {
+			if($key=='simpan'){
+			  
+			}else if($key=="password"){
+		     $pas =md5($data[$key]);
+             $pass = sha1('jksdhf832746aiH{}{()&(*&(*'.$pas.'HdfevgyDDw{}{}{;;*766&*&*');		
+			 $data_input[$key]=$pass;	
+			}else{
+			 $data_input[$key]=$data[$key];	
+			}
+		}
+		#cek username exist
+		$nuser=$this->Model_sekolah->cek_username_sekolah($data_input['username']);
+		if($nuser>0){
+			$this->session->set_flashdata('sekolah','Username sudah ada, silahkan ganti');
+			$this->session->set_flashdata('warna','red');
+			redirect('sekolah/sekolah');
+		}else{
+
+			$bool=$this->Model_sekolah->save_sekolah($data_input);
+			if($bool==true){
+				$this->session->set_flashdata('sekolah','Sekolah Berhasil Ditambah');
+				$this->session->set_flashdata('warna','blue');
+			}else{
+				$this->session->set_flashdata('warna','red');
+				$this->session->set_flashdata('sekolah','Sekolah Gagal Ditambah');
+			}
+		}
+		redirect('sekolah/sekolah');
+		//print_r($data_input);
 	}
 }	

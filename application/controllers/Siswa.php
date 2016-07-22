@@ -31,7 +31,7 @@ class Siswa extends CI_Controller {
 		$data['title']="Manajemen Siswa | Sistem Akademik";		
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
-		$data['datasiswa']=$this->Model_siswa->get_siswa(1);
+		$data['datasiswa']=$this->Model_siswa->get_siswa($this->session->userdata('id'));
 
 		$content=$this->load->view('siswa/manajemen_siswa',$data,true);
 		$this->dashboard($content);
