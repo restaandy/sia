@@ -64,6 +64,21 @@ class Login extends CI_Controller {
 	 }
 	}
 
+	public function load_form($data=array('nama'=>'','email'=>''),$kecuali=array(),$tambahan='',$alamatpost='sfs'){
+		$kolom=array_keys($data);
+		echo "<form method='POST' action='".$alamatpost."'>";
+		foreach ($kolom as $key) {
+			if(in_array($key,$kecuali)){}
+			else{
+				echo "
+				<div class='form-group'>
+				 <input type='type' name='".$key."' value='".$data[$key]."'>
+				</div>
+				";
+			}	
+		}
+		echo "</form>";
+	}
 //=========================================================================
 //action----------
 }	

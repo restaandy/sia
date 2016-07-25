@@ -1,5 +1,9 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>aset/external/css/datatables.min.css">
 <script type="text/javascript" src="<?php echo base_url(); ?>aset/external/js/datatables.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>aset/plugins/datepicker/datepicker3.css">
+<script type="text/javascript" src="<?php echo base_url(); ?>aset/plugins/datepicker/bootstrap-datepicker.js"></script>
+
 <div class="panel panel-default">
 	<div class="panel-body">
 		<legend>Tambah Siswa</legend>
@@ -10,28 +14,9 @@
 		<?php echo form_open('siswa/save_siswa'); ?>		
 			<div class="col-md-4">
 			<div class="form-group">
-				<label>Nama Sekolah</label>
+				<label>Nama Siswa</label>
 				<input class="form-control" type="text" name="nama_sekolah" maxlength="100" required />
 			</div>
-			<div class="form-group">
-				<label>Username</label>
-				<input class="form-control" type="text" maxlength="15" name="username" required />
-			</div>
-			<div class="form-group">
-				<label>Password</label>
-				<input class="form-control" type="password" name="password" required />
-			</div>
-			<div class="form-group">
-				<label>Visi</label>
-				<textarea class="form-control" type="text" name="visi"></textarea>
-			</div>
-			<div class="form-group">
-				<label>Misi</label>
-				<textarea class="form-control" type="text" name="misi"></textarea>
-			</div>
-
-			</div>
-			<div class="col-md-4">
 			<div class="form-group">
 				<label>Telepon</label>
 				<input class="form-control" type="password" name="telp" maxlength="50" required />
@@ -44,6 +29,17 @@
 				<label>Website</label>
 				<input class="form-control" type="password" name="website" maxlength="100" required />
 			</div>
+			<label>Tanggal Lahir</label>
+            <div class="input-group date" data-provide="datepicker" data-date-format="yyyy-mm-dd">
+                <input type="text" name="tgl_lahir" class="form-control">
+                <div class="input-group-addon">
+                 <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+
+			</div>
+			<div class="col-md-4">
+			
 			<div class="form-group">
 				<label>Provinsi</label>
 				<select class="form-control" name="prov"></select>
@@ -52,10 +48,6 @@
 				<label>Kabupaten / Kota</label>
 				<select class="form-control" name="kabkota"></select>
 			</div>
-
-			</div>	
-			<div class="col-md-4">
-			
 			<div class="form-group">
 				<label>Kecamatan</label>
 				<select class="form-control" name="kec"></select>
@@ -68,6 +60,12 @@
 				<label>Alamat Tambahan</label>
 				<textarea class="form-control" name="almt_tambahan"></textarea>
 			</div>
+			</div>
+
+			<div class="col-md-4">
+			
+			
+			
 			
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary" name="simpan">Simpan</button>
@@ -110,5 +108,10 @@
 <script>
 $(document).ready(function(){
     $('#tabelsekolah').DataTable();
+    $('.datepicker').datepicker({
+     format: 'yyyy-mm-dd',
+     startDate: '-3d'
+    });
 });
+
 </script>

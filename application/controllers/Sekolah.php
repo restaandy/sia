@@ -6,6 +6,11 @@ class Sekolah extends CI_Controller {
 	function __construct(){
             parent::__construct();
             $this->load->model('Model_sekolah');
+            if($this->session->userdata('hold')==null||$this->session->userdata('hold')!="A"){
+            	redirect('login');
+            }else{
+            	
+            }
     }
 	public function dashboard($content){
 		$data['content']=$content;
