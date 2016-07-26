@@ -8,9 +8,9 @@ class Dashboard extends CI_Controller {
             if($this->session->userdata('hold')==null){
             	redirect('login');
             }else{
-            	
+              $this->load->model('Model_home');	
             }
-            $this->load->model('Model_home');
+            
     }
 	public function dashboard($content){
 		$data['content']=$content;

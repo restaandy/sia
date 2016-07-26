@@ -13,6 +13,7 @@
 
 		<?php echo form_open('siswa/save_siswa'); ?>		
 			<div class="col-md-4">
+			<legend>Data Pribadi</legend>	
 			<div class="form-group">
 				<label>Nama Siswa</label>
 				<input class="form-control" type="text" name="nama_sekolah" maxlength="100" required />
@@ -39,7 +40,7 @@
 
 			</div>
 			<div class="col-md-4">
-			
+			<legend>Alamat</legend>
 			<div class="form-group">
 				<label>Provinsi</label>
 				<select class="form-control" name="prov"></select>

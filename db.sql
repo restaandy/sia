@@ -101,13 +101,37 @@ DROP TABLE IF EXISTS `obj_guru`;
 CREATE TABLE `obj_guru` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_sekolah` int(11) DEFAULT NULL,
+  `nip` varchar(50) NOT NULL,
   `nama_guru` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `username` varchar(20) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `tmp_lahir` varchar(50) DEFAULT NULL,
+  `tgl_lahir` date DEFAULT NULL,
+  `jenkel` enum('L','P') DEFAULT NULL,
+  `agama` enum('islam','kristen','katholik','budha','hindu','konghucu') DEFAULT NULL,
+  `prov` tinyint(4) DEFAULT NULL,
+  `kabkot` tinyint(4) DEFAULT NULL,
+  `kec` int(7) DEFAULT NULL,
+  `kel` int(7) DEFAULT NULL,
+  `alamat_tmb` text,
+  `no_telp` varchar(50) DEFAULT NULL,
+  `email` varchar(70) DEFAULT NULL,
+  `asal_pt` varchar(70) DEFAULT NULL,
+  `gelar_dpn` varchar(15) DEFAULT NULL,
+  `gelar_blk` varchar(15) DEFAULT NULL,
+  `thn_lulus` int(7) DEFAULT NULL,
+  `jurusan` varchar(50) DEFAULT NULL,
+  `jabatan` varchar(50) DEFAULT NULL,
+  `foto` text,
+  `status` enum('pns','gtt') DEFAULT NULL,
+  `nomor_sk` varchar(30) DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`,`nip`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `obj_guru` */
 
-insert  into `obj_guru`(`id`,`id_sekolah`,`nama_guru`) values (1,1,'Aji Budianto'),(2,1,'Farian Rahmanto'),(3,2,'Purwanto'),(4,2,'Bambang Marsudi');
+insert  into `obj_guru`(`id`,`id_sekolah`,`nip`,`nama_guru`,`username`,`password`,`tmp_lahir`,`tgl_lahir`,`jenkel`,`agama`,`prov`,`kabkot`,`kec`,`kel`,`alamat_tmb`,`no_telp`,`email`,`asal_pt`,`gelar_dpn`,`gelar_blk`,`thn_lulus`,`jurusan`,`jabatan`,`foto`,`status`,`nomor_sk`,`last_login`) values (1,1,'1','Aji Budianto',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,1,'2','Farian Rahmanto',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,2,'3','Purwanto',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,2,'4','Bambang Marsudi',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `obj_kelas` */
 
@@ -116,7 +140,8 @@ DROP TABLE IF EXISTS `obj_kelas`;
 CREATE TABLE `obj_kelas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_sekolah` int(11) DEFAULT NULL,
-  `nama_mapel` varchar(100) DEFAULT NULL,
+  `tingkat` enum('X','XI','XII') DEFAULT NULL,
+  `nama_kelas` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -130,12 +155,15 @@ CREATE TABLE `obj_mapel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_sekolah` int(11) DEFAULT NULL,
   `nama_mapel` varchar(100) DEFAULT NULL,
+  `komp_inti` text,
+  `komp_dasar` text,
+  `status_mapel` enum('wajib','minat') DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `obj_mapel` */
 
-insert  into `obj_mapel`(`id`,`id_sekolah`,`nama_mapel`) values (1,1,'TKJ'),(2,1,'RPLD'),(3,2,'TKJ'),(4,2,'RPLD');
+insert  into `obj_mapel`(`id`,`id_sekolah`,`nama_mapel`,`komp_inti`,`komp_dasar`,`status_mapel`) values (1,1,'TKJ',NULL,NULL,NULL),(2,1,'RPLD',NULL,NULL,NULL),(3,2,'TKJ',NULL,NULL,NULL),(4,2,'RPLD',NULL,NULL,NULL);
 
 /*Table structure for table `obj_sekolah` */
 
@@ -160,9 +188,11 @@ CREATE TABLE `obj_sekolah` (
   `status_sistem` char(1) DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `obj_sekolah` */
+
+insert  into `obj_sekolah`(`id`,`nama_sekolah`,`username`,`password`,`prov`,`kabkota`,`kec`,`kel`,`almt_tambahan`,`telp`,`website`,`email`,`visi`,`misi`,`bergabung`,`status_sistem`,`last_login`) values (1,'SMK N 1 Slawi','smea','3a496598e5964f98d618e854606ae86f36ba5133',NULL,NULL,NULL,NULL,'','','','','','',NULL,NULL,NULL);
 
 /*Table structure for table `obj_siswa` */
 
@@ -176,6 +206,8 @@ CREATE TABLE `obj_siswa` (
   `password` varchar(255) DEFAULT NULL,
   `tgl_lahir` date DEFAULT NULL,
   `tmp_lahir` varchar(100) DEFAULT NULL,
+  `foto` text,
+  `agama` enum('islam','kristen','katholik','budha','hindu','konghucu','lain-lain') DEFAULT NULL,
   `prov` tinyint(4) DEFAULT NULL,
   `kabkot` tinyint(4) DEFAULT NULL,
   `kec` int(7) DEFAULT NULL,
@@ -184,6 +216,14 @@ CREATE TABLE `obj_siswa` (
   `no_hp` varchar(20) DEFAULT NULL,
   `email` text,
   `jenkel` enum('L','P') DEFAULT NULL,
+  `nama_ayah` varchar(100) DEFAULT NULL,
+  `nama_ibu` varchar(100) DEFAULT NULL,
+  `no_telp_ortu` varchar(30) DEFAULT NULL,
+  `alamat_ortu` text,
+  `pekerjaan_ibu` varchar(70) DEFAULT NULL,
+  `pekerjaan_ayah` varchar(70) DEFAULT NULL,
+  `asal_sekolah` varchar(100) DEFAULT NULL,
+  `status_masuk` enum('baru','pindahan') DEFAULT NULL,
   `akdm_stat` enum('aktif','lulus','do','pindah','wafat') DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   `ip_login` varchar(20) DEFAULT NULL,
@@ -192,7 +232,7 @@ CREATE TABLE `obj_siswa` (
 
 /*Data for the table `obj_siswa` */
 
-insert  into `obj_siswa`(`no_induk`,`id_sekolah`,`nama`,`username`,`password`,`tgl_lahir`,`tmp_lahir`,`prov`,`kabkot`,`kec`,`kel`,`almt_tambahan`,`no_hp`,`email`,`jenkel`,`akdm_stat`,`last_login`,`ip_login`) values ('1',1,'Sri Minggat',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('2',1,'Paijo Pujo',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('3',2,'Slamet Wijayanto',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('4',2,'Komar Marudin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `obj_siswa`(`no_induk`,`id_sekolah`,`nama`,`username`,`password`,`tgl_lahir`,`tmp_lahir`,`foto`,`agama`,`prov`,`kabkot`,`kec`,`kel`,`almt_tambahan`,`no_hp`,`email`,`jenkel`,`nama_ayah`,`nama_ibu`,`no_telp_ortu`,`alamat_ortu`,`pekerjaan_ibu`,`pekerjaan_ayah`,`asal_sekolah`,`status_masuk`,`akdm_stat`,`last_login`,`ip_login`) values ('1',1,'Sri Minggat',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('2',1,'Paijo Pujo',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('3',2,'Slamet Wijayanto',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('4',2,'Komar Marudin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `tmpt_kabkot` */
 
