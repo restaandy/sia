@@ -1,10 +1,11 @@
 <style>
 .datepicker{z-index:1151 !important;}
+.modal {overflow-y: scroll}
 </style>
-<form>
+<form method="POST" enctype="multipart/form-data" action="<?php echo base_url(); ?>siswa/edit_siswa">
 	<div class="col-md-12">
 		<div class="form-group">
-	    <img width="200" height="200" src="<?php echo base_url(); ?>aset/img/<?php echo $siswa['foto']; ?>">
+	    <img width="200" height="200" src="<?php echo base_url(); ?>aset/img/<?php echo $siswa['foto']; ?>" onerror="this.onerror=null;this.src='<?php echo base_url()."aset/img/no-image.png"; ?>';">
 	    <input type="file" name="foto" class="form-control">
 	    </div>
 	</div>
@@ -12,7 +13,7 @@
 	<legend>Data Profil Siswa</legend>
 	<div class="form-group">
 		<label>NISN</label>
-		<input type="text" class="form-control" name="no_induk" value="<?php echo $siswa['no_induk']; ?>">
+		<input type="text" class="form-control" name="no_induk" value="<?php echo $siswa['no_induk']; ?>" readonly>
 	</div>
 	<div class="form-group">
 		<label>NIS</label>
@@ -21,14 +22,6 @@
 	<div class="form-group">
 		<label>Nama</label>
 		<input type="text" class="form-control" name="nama" value="<?php echo $siswa['nama']; ?>">
-	</div>
-	<div class="form-group">
-		<label>Username</label>
-		<input type="text" class="form-control" name="username" value="<?php echo $siswa['username']; ?>">
-	</div>
-	<div class="form-group">
-		<label>Password</label>
-		<input type="text" class="form-control" name="password" value="">
 	</div>
 	<label>Tanggal Lahir</label>
     <div class="input-group date" data-provide="datepicker" data-date-format="yyyy-mm-dd">
@@ -71,34 +64,36 @@
 	</div>
 	<div class="form-group">
 		<label>Email</label>
-		<input type="text" class="form-control" name="email" value="<?php echo $siswa['email']; ?>">
+		<input type="email" class="form-control" name="email" value="<?php echo $siswa['email']; ?>">
 	</div>
 	<div class="form-group">
 		<label>Asal Sekolah</label>
-		<input type="text" class="form-control" name="email" value="<?php echo $siswa['asal_sekolah']; ?>">
+		<input type="text" class="form-control" name="text" value="<?php echo $siswa['asal_sekolah']; ?>">
 	</div>
 	</div>
 	<div class="col-md-4">
 	<legend>Data Alamat Siswa</legend>
 		<div class="form-group">
 		<label>Provinsi</label>
-		<select class="form-control" name="agama">
+		<select class="form-control" name="prov" id="prov" onchange="prov_act(event,'<?php echo base_url(); ?>')">
+			<option value="0">-- Pilih Provinsi --</option>
 			<?php
 			foreach ($prov as $key) {
 			  ?>
-			  <option value="<?php echo $key; ?>" <?php echo $key==$siswa['tgl_lahir']? 'selected':''; ?> ><?php echo $key; ?></option>
+			  <option value="<?php echo $key['id']; ?>" <?php echo $key['id']==$siswa['prov']? 'selected':''; ?> ><?php echo $key['provinsi']; ?></option>
 			  <?php
 			}
 			?>
 		</select>
 	</div>
-	<div class="form-group">
+	<div class="form-group"> 
 		<label>Kabupaten / Kota</label>
-		<select class="form-control" name="agama">
+		<select class="form-control" name="kabkot" id="kabkota" onchange="kabkota_act(event,'<?php echo base_url(); ?>')">
+			<option value="0">-- Pilih Kab / Kota --</option>
 			<?php
-			foreach ($kabkota as $key) {
+			foreach ($kabkot as $key) {
 			  ?>
-			  <option value="<?php echo $key; ?>" <?php echo $key==$siswa['tgl_lahir']? 'selected':''; ?> ><?php echo $key; ?></option>
+			  <option value="<?php echo $key['id']; ?>" <?php echo $key['id']==$siswa['kabkot']? 'selected':''; ?> ><?php echo $key['kabkot']; ?></option>
 			  <?php
 			}
 			?>
@@ -106,11 +101,12 @@
 	</div>
 	<div class="form-group">
 		<label>Kecamatan</label>
-		<select class="form-control" name="agama">
+		<select class="form-control" name="kec" id="kec" onchange="kec_act(event,'<?php echo base_url(); ?>')">
+			<option value="0">-- Pilih Kecamatan --</option>
 			<?php
 			foreach ($kec as $key) {
 			  ?>
-			  <option value="<?php echo $key; ?>" <?php echo $key==$siswa['tgl_lahir']? 'selected':''; ?> ><?php echo $key; ?></option>
+			  <option value="<?php echo $key['id']; ?>" <?php echo $key['id']==$siswa['kec']? 'selected':''; ?> ><?php echo $key['kecamatan']; ?></option>
 			  <?php
 			}
 			?>
@@ -118,11 +114,12 @@
 	</div>
 	<div class="form-group">
 		<label>Kelurahan</label>
-		<select class="form-control" name="agama">
+		<select class="form-control" name="kel" id="kel">
+			<option value="0">-- Pilih Kelurahan --</option>
 			<?php
-			foreach ($kel as $key) {
+			foreach ($keldesa as $key) {
 			  ?>
-			  <option value="<?php echo $key; ?>" <?php echo $key==$siswa['tgl_lahir']? 'selected':''; ?> ><?php echo $key; ?></option>
+			  <option value="<?php echo $key['id']; ?>" <?php echo $key['id']==$siswa['kel']? 'selected':''; ?> ><?php echo $key['keldesa']; ?></option>
 			  <?php
 			}
 			?>
@@ -189,7 +186,11 @@
 	</div>
 	<div class="form-group">
 		<label>Tahun Masuk</label>
-		<input type="text" class="form-control" name="thn_masuk" value="<?php echo $siswa['thn_masuk']; ?>">
+		<input type="number" class="form-control" name="thn_masuk" value="<?php echo $siswa['thn_masuk']; ?>">
+	</div>
+	<div class="form-group">
+		<button type="submit" class="btn btn-primary" name="simpan" value="yes">Edit</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	</div>
 	</div>	
 </form>

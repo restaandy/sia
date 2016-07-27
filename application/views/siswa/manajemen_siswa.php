@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>aset/plugins/datepicker/datepicker3.css">
 <script type="text/javascript" src="<?php echo base_url(); ?>aset/plugins/datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>aset/external/js/custom.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>aset/external/js/modal_siswa.js"></script>
 
 <div class="panel panel-default">
 	<div class="panel-body">
@@ -78,6 +78,7 @@
 		<div class="col-md-4"></div>
 		<br><br>
 		<legend>Data Sekolah</legend>
+		<p style="font-size:20px;;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('siswaupdate'); ?></p>
 		<table id="tabelsekolah" class="table table-striped">
 		<thead>
 			<tr>
@@ -104,9 +105,11 @@
 				<td><?php echo $key['status_masuk'] ?></td>
 				<td><?php echo $key['akdm_stat'] ?></td>
 				<td><?php echo $key['thn_masuk'] ?></td>
-				<td><a href="#" data-idsekolah="<?php echo $key['id_sekolah'] ?>"
+				<td>
+					<button class="btn btn-primary btn-xs" data-idsekolah="<?php echo $key['id_sekolah'] ?>"
 				 data-noinduk="<?php echo $key['no_induk'] ?>" 
-				 onclick="tampildatasiswa(event,'<?php echo base_url(); ?>')">Edit</a></td>
+				 onclick="tampildatasiswa(event,'<?php echo base_url(); ?>')">Edit</button>
+					<button class="btn btn-danger btn-xs">Reset</button>
 			</tr> 
 			 <?php
 			$x++;	
@@ -130,19 +133,8 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
       </div>
     </div>
   </div>
 </div>
-
-<script>
-$(document).ready(function(){
-    $('#tabelsekolah').DataTable();
-    $('.datepicker').datepicker({
-     format: 'yyyy-mm-dd',
-     startDate: '-3d'
-    });
-});
-
-</script>

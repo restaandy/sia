@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Siswa extends CI_Controller {
+class Guru extends CI_Controller {
 
 	function __construct(){
             parent::__construct();
             if($this->session->userdata('hold')!="AS"){
             	redirect('login');
             }else{
-              $this->load->model('Model_siswa');	
+              $this->load->model('Model_guru');	
             }
             
     }
@@ -28,20 +28,20 @@ class Siswa extends CI_Controller {
 		$content=$this->load->view('home/dashboard',$data,true);
 		$this->dashboard($content);
 	}
-	function siswa(){
-		$bread['title1']="Siswa";
-		$bread['title2']="Manajemen Siswa";
-		$bread['list']=array("Siswa","Manajemen Siswa");
+	function guru(){
+		$bread['title1']="Guru";
+		$bread['title2']="Manajemen Guru";
+		$bread['list']=array("Guru","Manajemen Guru");
 
-		$data['title']="Manajemen Siswa | Sistem Akademik";		
+		$data['title']="Manajemen Guru | Sistem Akademik";		
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
-		$data['datasiswa']=$this->Model_siswa->get_siswa($this->session->userdata('id'));
+		$data['dataguru']=$this->Model_guru->get_guru($this->session->userdata('id'));
 
-		$content=$this->load->view('siswa/manajemen_siswa',$data,true);
+		$content=$this->load->view('guru/manajemen_guru',$data,true);
 		$this->dashboard($content);
 	}
-	public function edit_siswa(){
+	public function edit_guru(){
 		if($this->input->post('simpan')=="yes"){
 			$data=$this->input->post();
 			$keymap=array_keys($data);
@@ -66,42 +66,40 @@ class Siswa extends CI_Controller {
 		}
 		
 	}
-	public function save_siswa(){
+	public function save_guru(){
 		if($this->input->post('simpan')=="yes"){
-			$namasiswa=$this->input->post('nama');
-			$no_induk=$this->input->post('no_induk');
-			$no_induk_sekolah=$this->input->post('no_induk_sekolah');
+			$namaguru=$this->input->post('nama_guru');
+			$nip=$this->input->post('nip');
+			$email=$this->input->post('email');
+			$status=$this->input->post('status');
 			$idsekolah=$this->session->userdata('id');
-			$akdm_stat=$this->session->userdata('akdm_stat');
-			$status_masuk=$this->session->userdata('status_masuk');
-			$pas =md5("sia".$no_induk_sekolah);
-            $pass = sha1('jksdhf832746aiH{}{()&(*&(*'.$pas.'HdfevgyDDw{}{}{;;*766&*&*');
-			if($this->input->post('thn_masuk')=="ini"){
-				$thnmasuk=date('Y');
+			if($status=="gtt"){
+				$username=$email;
+				$pas=md5("gurumulia");
+                $pass = sha1('jksdhf832746aiH{}{()&(*&(*'.$pas.'HdfevgyDDw{}{}{;;*766&*&*');
+			}else{
+				$username=$nip;
+				$pas=md5("sia".$nip);
+                $pass = sha1('jksdhf832746aiH{}{()&(*&(*'.$pas.'HdfevgyDDw{}{}{;;*766&*&*');
 			}
-			if($this->input->post('thn_masuk')=="lalu"){
-				$thnmasuk=$this->input->post('thn_masuk_lalu');
-			}	
 			$data=array(
-				'nama'=>$namasiswa,
-				'no_induk'=>$no_induk,
-				'no_induk_sekolah'=>$no_induk_sekolah,
-				'username'=>$no_induk."".$no_induk_sekolah,
-				'password'=>$pass,
+				'nip'=>$nip,
 				'id_sekolah'=>$idsekolah,
-				'thn_masuk'=>$thnmasuk,
-				'akdm_stat'=>$akdm_stat,
-				'status_masuk'=>$status_masuk
+				'nama_guru'=>$namaguru,
+				'username'=>$username,
+				'password'=>$pass,
+				'email'=>$email,
+				'status'=>$status
 				);
-			$hasil=$this->Model_siswa->simpan_siswa($data);
+			$hasil=$this->Model_guru->simpan_guru($data,$username,$status);
 			if($hasil){
-				$this->session->set_flashdata('siswa','Data sudah masuk');
+				$this->session->set_flashdata('guru','Data sudah masuk');
 			    $this->session->set_flashdata('warna','blue');
 			}else{
-				$this->session->set_flashdata('siswa','Data gagal masuk, pastikan NISN berbeda');
+				$this->session->set_flashdata('guru','Data gagal masuk, pastikan NIP / Email berbeda');
 			    $this->session->set_flashdata('warna','red');
 			}
-			redirect("siswa/siswa");
+			redirect("guru/guru");
 		}
 	}
 
