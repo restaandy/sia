@@ -333,6 +333,10 @@
 <!-- jQuery UI 1.11.4 -->
 
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+<!-- Modal -->
+
+
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>

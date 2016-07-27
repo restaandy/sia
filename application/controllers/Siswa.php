@@ -5,7 +5,12 @@ class Siswa extends CI_Controller {
 
 	function __construct(){
             parent::__construct();
-            $this->load->model('Model_siswa');
+            if($this->session->userdata('hold')!="AS"){
+            	redirect('login');
+            }else{
+              $this->load->model('Model_siswa');	
+            }
+            
     }
 	public function dashboard($content){
 		$data['content']=$content;
@@ -35,6 +40,44 @@ class Siswa extends CI_Controller {
 
 		$content=$this->load->view('siswa/manajemen_siswa',$data,true);
 		$this->dashboard($content);
+	}
+	public function save_siswa(){
+		if($this->input->post('simpan')=="yes"){
+			$namasiswa=$this->input->post('nama');
+			$no_induk=$this->input->post('no_induk');
+			$no_induk_sekolah=$this->input->post('no_induk_sekolah');
+			$idsekolah=$this->session->userdata('id');
+			$akdm_stat=$this->session->userdata('akdm_stat');
+			$status_masuk=$this->session->userdata('status_masuk');
+			$pas =md5("sia".$no_induk_sekolah);
+            $pass = sha1('jksdhf832746aiH{}{()&(*&(*'.$pas.'HdfevgyDDw{}{}{;;*766&*&*');
+			if($this->input->post('thn_masuk')=="ini"){
+				$thnmasuk=date('Y');
+			}
+			if($this->input->post('thn_masuk')=="lalu"){
+				$thnmasuk=$this->input->post('thn_masuk_lalu');
+			}	
+			$data=array(
+				'nama'=>$namasiswa,
+				'no_induk'=>$no_induk,
+				'no_induk_sekolah'=>$no_induk_sekolah,
+				'username'=>$no_induk."".$no_induk_sekolah,
+				'password'=>$pass,
+				'id_sekolah'=>$idsekolah,
+				'thn_masuk'=>$thnmasuk,
+				'akdm_stat'=>$akdm_stat,
+				'status_masuk'=>$status_masuk
+				);
+			$hasil=$this->Model_siswa->simpan_siswa($data);
+			if($hasil){
+				$this->session->set_flashdata('siswa','Data sudah masuk');
+			    $this->session->set_flashdata('warna','blue');
+			}else{
+				$this->session->set_flashdata('siswa','Data gagal masuk, pastikan NISN berbeda');
+			    $this->session->set_flashdata('warna','red');
+			}
+			redirect("siswa/siswa");
+		}
 	}
 
 //=========================================================================

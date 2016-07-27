@@ -1,5 +1,5 @@
 /*
-SQLyog Enterprise - MySQL GUI v8.18 
+SQLyog Professional v10.42 
 MySQL - 5.6.17 : Database - sia
 *********************************************************************
 */
@@ -199,11 +199,12 @@ insert  into `obj_sekolah`(`id`,`nama_sekolah`,`username`,`password`,`prov`,`kab
 DROP TABLE IF EXISTS `obj_siswa`;
 
 CREATE TABLE `obj_siswa` (
-  `no_induk` varchar(20) NOT NULL,
-  `id_sekolah` int(11) DEFAULT NULL,
+  `no_induk` varchar(30) NOT NULL,
+  `no_induk_sekolah` varchar(20) NOT NULL,
+  `id_sekolah` int(11) NOT NULL,
   `nama` varchar(100) DEFAULT NULL,
-  `username` varchar(20) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `tgl_lahir` date DEFAULT NULL,
   `tmp_lahir` varchar(100) DEFAULT NULL,
   `foto` text,
@@ -225,6 +226,7 @@ CREATE TABLE `obj_siswa` (
   `asal_sekolah` varchar(100) DEFAULT NULL,
   `status_masuk` enum('baru','pindahan') DEFAULT NULL,
   `akdm_stat` enum('aktif','lulus','do','pindah','wafat') DEFAULT NULL,
+  `thn_masuk` year(4) DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   `ip_login` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`no_induk`)
@@ -232,7 +234,7 @@ CREATE TABLE `obj_siswa` (
 
 /*Data for the table `obj_siswa` */
 
-insert  into `obj_siswa`(`no_induk`,`id_sekolah`,`nama`,`username`,`password`,`tgl_lahir`,`tmp_lahir`,`foto`,`agama`,`prov`,`kabkot`,`kec`,`kel`,`almt_tambahan`,`no_hp`,`email`,`jenkel`,`nama_ayah`,`nama_ibu`,`no_telp_ortu`,`alamat_ortu`,`pekerjaan_ibu`,`pekerjaan_ayah`,`asal_sekolah`,`status_masuk`,`akdm_stat`,`last_login`,`ip_login`) values ('1',1,'Sri Minggat',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('2',1,'Paijo Pujo',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('3',2,'Slamet Wijayanto',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('4',2,'Komar Marudin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `obj_siswa`(`no_induk`,`no_induk_sekolah`,`id_sekolah`,`nama`,`username`,`password`,`tgl_lahir`,`tmp_lahir`,`foto`,`agama`,`prov`,`kabkot`,`kec`,`kel`,`almt_tambahan`,`no_hp`,`email`,`jenkel`,`nama_ayah`,`nama_ibu`,`no_telp_ortu`,`alamat_ortu`,`pekerjaan_ibu`,`pekerjaan_ayah`,`asal_sekolah`,`status_masuk`,`akdm_stat`,`thn_masuk`,`last_login`,`ip_login`) values ('1','1',1,'aji budianto','11','32273ecf69fafee5cbf8c997f45e35d937e22558',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,2015,NULL,NULL);
 
 /*Table structure for table `tmpt_kabkot` */
 
