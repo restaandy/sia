@@ -15,17 +15,50 @@ Class Model_guru extends CI_Model
   public function cek_user_guru($username,$status){
     if($status=="gtt"){$kolom="email";}
     else{$kolom="nip";}  
-  	$this->db->get_where('obj_guru', array($kolom => $username));
+  	$this->db->get_where('obj_guru', array($kolom=>$username));
   	return $this->db->affected_rows();
   }
-  public function update_siswa($data,$where){
-    $this->db->where('no_induk', $where);
-    $this->db->update('obj_siswa', $data);
-     if($this->db->affected_rows()>0){
-        return true;
-      }else{
-        return false;
+  public function cek_user_update_guru($username,$status,$id){
+    if($status=="gtt"){
+      $this->db->select('id,nip,email');
+      $this->db->from('obj_guru');
+      $this->db->where('id !=', $id);
+      $this->db->where('email', $username);
+      $this->db->get();
+      //$this->db->where('obj_guru', array('email'=>$username,'id !='=>$id));
+    }
+    else{
+      $this->db->select('id,nip,email');
+      $this->db->from('obj_guru');
+      $this->db->where('id !=', $id);
+      $this->db->where('nip', $username);
+      $this->db->get();
+      //$this->db->where('obj_guru', array('nip'=>$username,'id !='=>$id));
+    }  
+    return $this->db->affected_rows();
+  }
+  public function update_guru($data,$id,$status){
+    if($data['status']=="gtt"){
+      $cek=$this->cek_user_update_guru($data['email'],$data['status'],$id);  
+      if($cek>0){return false;}
+      else{
+       $this->db->where('id', $id);
+       $this->db->update('obj_guru', $data);
       }
+    }else{
+      $cek=$this->cek_user_update_guru($data['nip'],$data['status'],$id);
+      if($cek>0){return false;}
+      else{
+       $this->db->where('id', $id);
+       $this->db->update('obj_guru', $data);
+      }
+    }
+       if($this->db->affected_rows()>0){
+         return true;
+       }else{
+         return false;
+       }
+    
   }
   public function simpan_guru($data,$username,$status){
   	if($this->cek_user_guru($username,$status)>0){

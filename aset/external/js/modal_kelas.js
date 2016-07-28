@@ -1,66 +1,15 @@
-function tampildataguru(e,base_url){
+function tampildatakelas(e,base_url){
  waitingDialog.show('Loading');	
  var id=$(e.target).attr('data-id');
- $.post(base_url+'modal/modal_guru',{id:id},function(data){
-  $("#dataguru .modal-body").html(data);
+ $.post(base_url+'modal/modal_kelas',{id:id},function(data){
+  $("#datakelas .modal-body").html(data);
   waitingDialog.hide();
-  $("#dataguru").modal("show");
- });
-}
-
-function constrait_guru(e){
- if($(e.target).val()=="gtt"){
-   $("#email").attr("required",true);
-   $("#nip").removeAttr("required");
- }
- if($(e.target).val()=="pns"){
-   $("#nip").attr("required",true);
-   $("#email").removeAttr("required");
- }	
-}
-function constrait_guru2(e){
- if($(e.target).val()=="gtt"){
-   $("#dataguru #email").attr("required",true);
-   $("#dataguru #nip").removeAttr("required");
- }
- if($(e.target).val()=="pns"){
-   $("#dataguru #nip").attr("required",true);
-   $("#dataguru #email").removeAttr("required");
- }	
-}
-
-function prov_act(e,base_url){
-waitingDialog.show('Loading');
- var idprov=$(e.target).val()
- $.post(base_url+'modal/get_kabkot',{idprov:idprov},function(data){
- 	$('#kabkota').html(data);
- 	waitingDialog.hide();
- });
-}
-function kabkota_act(e,base_url){
-waitingDialog.show('Loading');
- var idkabkot=$(e.target).val()
- $.post(base_url+'modal/get_kec',{idkabkot:idkabkot},function(data){
- 	$('#kec').html(data);
- 	waitingDialog.hide();
- });
-}
-function kec_act(e,base_url){
-waitingDialog.show('Loading');
- var idkec=$(e.target).val()
- $.post(base_url+'modal/get_keldesa',{idkec:idkec},function(data){
- 	$('#kel').html(data);
- 	waitingDialog.hide();
+  $("#datakelas").modal("show");
  });
 }
 
 $(document).ready(function(){
-	$(".ni").keyup(function(e){
-	  var str=$(e.target).val();
-	  var n=str.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '');	
-	  $(e.target).val(n);
-	});
-	 $('#tabelguru').DataTable();
+	 $('#tabelkelas').DataTable();
 	    $('.datepicker').datepicker({
 	     format: 'yyyy-mm-dd',
 	     startDate: '-3d'

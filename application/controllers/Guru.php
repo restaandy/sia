@@ -10,7 +10,6 @@ class Guru extends CI_Controller {
             }else{
               $this->load->model('Model_guru');	
             }
-            
     }
 	public function dashboard($content){
 		$data['content']=$content;
@@ -43,26 +42,25 @@ class Guru extends CI_Controller {
 	}
 	public function edit_guru(){
 		if($this->input->post('simpan')=="yes"){
-			$data=$this->input->post();
-			$keymap=array_keys($data);
-			$dataupdate=array();
-			$nisn=$this->input->post('no_induk');
-			foreach ($keymap as $key) {
-				if($key!="simpan"){
-				 $dataupdate[$key]=$data[$key];
+				$data=$this->input->post();
+				$datakey=array_keys($data);
+				$dataedit=array();
+				foreach ($datakey as $key) {
+					if($key!="simpan"){
+						$dataedit[$key]=$data[$key];
+					}
 				}
-			}
-			$hasil=$this->Model_siswa->update_siswa($dataupdate,$nisn);
-			if($hasil){
-				$this->session->set_flashdata('siswaupdate','Data telah terganti');
-			    $this->session->set_flashdata('warna','blue');
-			}else{
-				$this->session->set_flashdata('siswaupdate','Data gagal diganti');
-			    $this->session->set_flashdata('warna','red');
-			}
-			redirect("siswa/siswa");
+				$hasil=$this->Model_guru->update_guru($dataedit,$dataedit['id'],$dataedit['status']);
+				if($hasil){
+					$this->session->set_flashdata('guruupdate','Data telah terganti');
+			    	$this->session->set_flashdata('warna','blue');
+				}else{
+					$this->session->set_flashdata('guruupdate','Data gagal diganti');
+			    	$this->session->set_flashdata('warna','red');
+				}
+			redirect("guru/guru");
 		}else{
-			redirect("siswa/siswa");
+			redirect("guru/guru");
 		}
 		
 	}

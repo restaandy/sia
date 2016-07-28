@@ -7,6 +7,11 @@ Class Model_modal extends CI_Model
     $query=$query->result_array();
     return $query;
   }
+  public function get_kelas($id){
+    $query=$this->db->get_where('obj_kelas',array('id'=>$id));
+    $query=$query->result_array();
+    return $query;
+  }
   public function get_guru($id){
     $query=$this->db->get_where('obj_guru',array('id'=>$id));
     $query=$query->result_array();

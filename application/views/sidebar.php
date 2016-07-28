@@ -57,36 +57,40 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i>
-             <span>Nilai</span>
+             <span>Kelas</span>
             <i class="fa fa-angle-left pull-right"></i>
-           
-            
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Lihat & Cetak Nilai</a></li>
-            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Input & Edit Nilai</a></li>
+            <li><a href="<?php echo base_url(); ?>kelas"><i class="fa fa-circle-o"></i> Kelas</a></li>
+            <li><a href="<?php echo base_url(); ?>kelas/kelas"><i class="fa fa-circle-o"></i> Manajemen Kelas</a></li>
           </ul>
         </li>
-
-        
         <li class="treeview">
           <a href="#">
             <i class="fa fa-laptop"></i>
-            <span>UI Elements</span>
+            <span>Jurusan</span>
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-            <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-            <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-            <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-            <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> Bidang Keahlian</a></li>
+            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Program Keahlian</a></li>
+            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Paket Keahlian</a></li>
           </ul>
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-edit"></i> <span>Forms</span>
+            <i class="fa fa-laptop"></i>
+            <span>Mata Pelajaran</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> Mapel</a></li>
+            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Manajemen Mapel</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Ekstrakurikuler</span>
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">

@@ -62,9 +62,24 @@ class Modal extends CI_Controller {
 			echo "not-found";
 		}
 	}
+	public function modal_kelas(){
+		if(isset($_POST['id'])){
+			$id=$_POST['id'];
+			$tingkat=array("X","XI","XII");
+			$temp=$this->Model_modal->get_kelas($id);
+			foreach ($temp as $key) {
+			 	$temp=$key;
+			}
+		 $data['kelas']=$temp;
+		 $data['tingkat']=$tingkat;
+		 $this->load->view('modal/modal_kelas',$data);
+		}else{
+			echo "not-found";
+		}
+	}
     public function get_prov(){
     	$data=$this->Model_modal->get_prov();
-    	echo "<option>-- Pilih Provinsi --</option>";
+    	echo "<option value='0'>-- Pilih Provinsi --</option>";
     	foreach ($data as $key) {
     		echo "<option value='".$key['id']."'>".$key['provinsi']."</option>";
     	}
@@ -72,7 +87,7 @@ class Modal extends CI_Controller {
     public function get_kabkot(){
     	if(isset($_POST['idprov'])){
     	$data=$this->Model_modal->get_kabkot($_POST['idprov']);
-    	echo "<option>-- Pilih Kab / Kota --</option>";
+    	echo "<option value='0'>-- Pilih Kab / Kota --</option>";
     	foreach ($data as $key) {
     		echo "<option value='".$key['id']."'>".$key['kabkot']."</option>";
     	}
@@ -81,7 +96,7 @@ class Modal extends CI_Controller {
     public function get_kec(){
     	if(isset($_POST['idkabkot'])){
     	$data=$this->Model_modal->get_kec($_POST['idkabkot']);
-    	echo "<option>-- Pilih Kecamatan --</option>";
+    	echo "<option value='0'>-- Pilih Kecamatan --</option>";
     	foreach ($data as $key) {
     		echo "<option value='".$key['id']."'>".$key['kecamatan']."</option>";
     	}
@@ -90,7 +105,7 @@ class Modal extends CI_Controller {
     public function get_keldesa(){
     	if(isset($_POST['idkec'])){
     	$data=$this->Model_modal->get_keldesa($_POST['idkec']);
-    	echo "<option>-- Pilih Kelurahan --</option>";
+    	echo "<option value='0'>-- Pilih Kelurahan --</option>";
     	foreach ($data as $key) {
     		echo "<option value='".$key['id']."'>".$key['keldesa']."</option>";
     	}

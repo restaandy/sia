@@ -2,6 +2,15 @@
 .datepicker{z-index:1151 !important;}
 .modal {overflow-y: scroll}
 </style>
+<script>
+ $(document).ready(function(){
+	$(".ni").keyup(function(e){
+	  var str=$(e.target).val();
+	  var n=str.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '');	
+	  $(e.target).val(n);
+	});
+ });
+</script>
 <form method="POST" enctype="multipart/form-data" action="<?php echo base_url(); ?>guru/edit_guru">
 	<div class="col-md-12">
 		<div class="form-group">
@@ -13,8 +22,8 @@
 	<legend>Data Profil guru</legend>
 	<div class="form-group">
 		<label>NIP</label>
-		<input type="text" name="id" value="<?php echo $guru['nip']; ?>" class="hide" readonly>
-		<input type="text" class="form-control" name="nip" value="<?php echo $guru['nip']; ?>">
+		<input type="text" name="id" value="<?php echo $guru['id']; ?>" class="hide" readonly>
+		<input type="text" class="form-control ni" name="nip" id="nip" value="<?php echo $guru['nip']; ?>">
 	</div>
 	
 	<div class="form-group">
@@ -62,7 +71,7 @@
 	</div>
 	<div class="form-group">
 		<label>Email</label>
-		<input type="email" class="form-control" name="email" value="<?php echo $guru['email']; ?>">
+		<input type="email" class="form-control" id="email" name="email" value="<?php echo $guru['email']; ?>" <?php echo $guru['nip']==null || $guru['nip']==''?'required':''; ?>>
 	</div>
 	</div>
 	<div class="col-md-4">
@@ -132,7 +141,7 @@
 	<legend>Data Akademik guru</legend>
 		<div class="form-group">
 		<label>Status Guru</label>
-		<select class="form-control" name="agama">
+		<select class="form-control" name="status" onchange="constrait_guru2(event)">
 			<?php
 			foreach ($status as $key) {
 			  ?>

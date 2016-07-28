@@ -58,7 +58,7 @@
 		<div class="col-md-4"></div>
 		<br><br>
 		<legend>Data Guru</legend>
-		<p style="font-size:20px;;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('siswaupdate'); ?></p>
+		<p style="font-size:20px;;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('guruupdate'); ?></p>
 		<table id="tabelguru" class="table table-striped">
 		<thead>
 			<tr>
