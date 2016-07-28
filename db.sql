@@ -16,6 +16,48 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`sia` /*!40100 DEFAULT CHARACTER SET lat
 
 USE `sia`;
 
+/*Table structure for table `jur_bidang` */
+
+DROP TABLE IF EXISTS `jur_bidang`;
+
+CREATE TABLE `jur_bidang` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sekolah` int(11) DEFAULT NULL,
+  `bidang` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `jur_bidang` */
+
+/*Table structure for table `jur_paket` */
+
+DROP TABLE IF EXISTS `jur_paket`;
+
+CREATE TABLE `jur_paket` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sekolah` int(11) DEFAULT NULL,
+  `id_bidang` int(11) DEFAULT NULL,
+  `id_program` int(11) DEFAULT NULL,
+  `paket` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `jur_paket` */
+
+/*Table structure for table `jur_program` */
+
+DROP TABLE IF EXISTS `jur_program`;
+
+CREATE TABLE `jur_program` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sekolah` int(11) DEFAULT NULL,
+  `id_bidang` int(11) DEFAULT NULL,
+  `program` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `jur_program` */
+
 /*Table structure for table `kbm_belajar` */
 
 DROP TABLE IF EXISTS `kbm_belajar`;
@@ -101,7 +143,7 @@ DROP TABLE IF EXISTS `obj_guru`;
 CREATE TABLE `obj_guru` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_sekolah` int(11) DEFAULT NULL,
-  `nip` varchar(50) NOT NULL,
+  `nip` varchar(50) DEFAULT NULL,
   `nama_guru` varchar(100) DEFAULT NULL,
   `username` varchar(20) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
@@ -126,12 +168,12 @@ CREATE TABLE `obj_guru` (
   `status` enum('pns','gtt') DEFAULT NULL,
   `nomor_sk` varchar(30) DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`,`nip`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `obj_guru` */
 
-insert  into `obj_guru`(`id`,`id_sekolah`,`nip`,`nama_guru`,`username`,`password`,`tmp_lahir`,`tgl_lahir`,`jenkel`,`agama`,`prov`,`kabkot`,`kec`,`kel`,`alamat_tmb`,`no_telp`,`email`,`asal_pt`,`gelar_dpn`,`gelar_blk`,`thn_lulus`,`jurusan`,`jabatan`,`foto`,`status`,`nomor_sk`,`last_login`) values (1,1,'1','Aji Budianto',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,1,'2','Farian Rahmanto',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,2,'3','Purwanto',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,2,'4','Bambang Marsudi',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `obj_guru`(`id`,`id_sekolah`,`nip`,`nama_guru`,`username`,`password`,`tmp_lahir`,`tgl_lahir`,`jenkel`,`agama`,`prov`,`kabkot`,`kec`,`kel`,`alamat_tmb`,`no_telp`,`email`,`asal_pt`,`gelar_dpn`,`gelar_blk`,`thn_lulus`,`jurusan`,`jabatan`,`foto`,`status`,`nomor_sk`,`last_login`) values (1,1,'1','Aji Budianto',NULL,NULL,'Tegal','0000-00-00','L','islam',0,0,0,0,'																																								','09879','','','','',0,'','',NULL,'pns','',NULL),(2,1,'2','Farian Rahmanto',NULL,NULL,'Slawi','0000-00-00','L','islam',0,0,0,0,'					','','','','','',0,'','',NULL,'pns','',NULL),(3,2,'3','Purwanto',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'pns',NULL,NULL),(4,2,'4','Bambang Marsudi',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'pns',NULL,NULL);
 
 /*Table structure for table `obj_kelas` */
 
@@ -143,9 +185,11 @@ CREATE TABLE `obj_kelas` (
   `tingkat` enum('X','XI','XII') DEFAULT NULL,
   `nama_kelas` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `obj_kelas` */
+
+insert  into `obj_kelas`(`id`,`id_sekolah`,`tingkat`,`nama_kelas`) values (2,1,'X','RPL Dasar'),(3,1,'XI','RPL Lanjut'),(4,1,'XII','RPL Advance');
 
 /*Table structure for table `obj_mapel` */
 
@@ -154,6 +198,9 @@ DROP TABLE IF EXISTS `obj_mapel`;
 CREATE TABLE `obj_mapel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_sekolah` int(11) DEFAULT NULL,
+  `id_bidang` int(11) DEFAULT NULL,
+  `id_program` int(11) DEFAULT NULL,
+  `id_paket` int(11) DEFAULT NULL,
   `nama_mapel` varchar(100) DEFAULT NULL,
   `komp_inti` text,
   `komp_dasar` text,
@@ -163,7 +210,7 @@ CREATE TABLE `obj_mapel` (
 
 /*Data for the table `obj_mapel` */
 
-insert  into `obj_mapel`(`id`,`id_sekolah`,`nama_mapel`,`komp_inti`,`komp_dasar`,`status_mapel`) values (1,1,'TKJ',NULL,NULL,NULL),(2,1,'RPLD',NULL,NULL,NULL),(3,2,'TKJ',NULL,NULL,NULL),(4,2,'RPLD',NULL,NULL,NULL);
+insert  into `obj_mapel`(`id`,`id_sekolah`,`id_bidang`,`id_program`,`id_paket`,`nama_mapel`,`komp_inti`,`komp_dasar`,`status_mapel`) values (1,1,NULL,NULL,NULL,'TKJ',NULL,NULL,NULL),(2,1,NULL,NULL,NULL,'RPLD',NULL,NULL,NULL),(3,2,NULL,NULL,NULL,'TKJ',NULL,NULL,NULL),(4,2,NULL,NULL,NULL,'RPLD',NULL,NULL,NULL);
 
 /*Table structure for table `obj_sekolah` */
 
