@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Kelas extends CI_Controller {
+class Jurusan extends CI_Controller {
 
 	function __construct(){
             parent::__construct();
             if($this->session->userdata('hold')!="AS"){
             	redirect('login');
             }else{
-              $this->load->model('Model_kelas');	
+              $this->load->model('Model_jurusan');	
             }
     }
 	public function dashboard($content){
@@ -16,9 +16,9 @@ class Kelas extends CI_Controller {
 		$this->load->view('index',$data);
 	}
 	public function index(){
-		$bread['title1']="Kelas";
+		$bread['title1']="Jurusan";
 		$bread['title2']="Monitoring";
-		$bread['list']=array("Kelas");
+		$bread['list']=array("Jurusan");
 
 		$data['title']="Sistem Akademik";
 		$data['sidebar']=$this->load->view('sidebar','',true);
@@ -27,17 +27,41 @@ class Kelas extends CI_Controller {
 		$content=$this->load->view('home/dashboard',$data,true);
 		$this->dashboard($content);
 	}
-	function kelas(){
-		$bread['title1']="Kelas";
-		$bread['title2']="Manajemen Kelas";
-		$bread['list']=array("Kelas","Manajemen Kelas");
-		$data['tingkat']=array('X','XI','XII');
-		$data['title']="Manajemen Kelas | Sistem Akademik";		
+	function bidang_ahli(){
+		$bread['title1']="Jurusan";
+		$bread['title2']="Bidang Keahlian";
+		$bread['list']=array("Jurusan","Bidang Keahlian");
+		$data['title']="Bidang Keahlian | Sistem Akademik";		
+		
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
-		$data['datakelas']=$this->Model_kelas->get_kelas($this->session->userdata('id'));
+		$data['databidang']=$this->Model_jurusan->get_bidang_ahli($this->session->userdata('id'));
 
-		$content=$this->load->view('kelas/manajemen_kelas',$data,true);
+		$content=$this->load->view('jurusan/bidang_ahli',$data,true);
+		$this->dashboard($content);
+	}
+	function program_ahli(){
+		$bread['title1']="Jurusan";
+		$bread['title2']="Program Keahlian";
+		$bread['list']=array("Jurusan","Program Keahlian");
+		$data['title']="Program Keahlian | Sistem Akademik";		
+		$data['sidebar']=$this->load->view('sidebar','',true);
+		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+		$data['dataprogram']=$this->Model_jurusan->get_program_ahli($this->session->userdata('id'));
+
+		$content=$this->load->view('jurusan/program_ahli',$data,true);
+		$this->dashboard($content);
+	}
+	function paket_ahli(){
+		$bread['title1']="Jurusan";
+		$bread['title2']="Paket Keahlian";
+		$bread['list']=array("Jurusan","Paket Keahlian");
+		$data['title']="Paket Keahlian | Sistem Akademik";		
+		$data['sidebar']=$this->load->view('sidebar','',true);
+		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+		$data['datapaket']=$this->Model_jurusan->get_paket_ahli($this->session->userdata('id'));
+
+		$content=$this->load->view('jurusan/paket_ahli',$data,true);
 		$this->dashboard($content);
 	}
 	public function edit_kelas(){

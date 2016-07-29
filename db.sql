@@ -24,6 +24,7 @@ CREATE TABLE `jur_bidang` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_sekolah` int(11) DEFAULT NULL,
   `bidang` varchar(100) DEFAULT NULL,
+  `keterangan` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -39,6 +40,7 @@ CREATE TABLE `jur_paket` (
   `id_bidang` int(11) DEFAULT NULL,
   `id_program` int(11) DEFAULT NULL,
   `paket` varchar(100) DEFAULT NULL,
+  `keterangan` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -53,6 +55,7 @@ CREATE TABLE `jur_program` (
   `id_sekolah` int(11) DEFAULT NULL,
   `id_bidang` int(11) DEFAULT NULL,
   `program` varchar(100) DEFAULT NULL,
+  `keterangan` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
