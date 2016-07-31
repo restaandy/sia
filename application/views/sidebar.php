@@ -84,8 +84,8 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> Mapel</a></li>
-            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Manajemen Mapel</a></li>
+            <li><a href="<?php echo base_url(); ?>mapel"><i class="fa fa-circle-o"></i> Mapel</a></li>
+            <li><a href="<?php echo base_url(); ?>mapel/mapel"><i class="fa fa-circle-o"></i> Manajemen Mapel</a></li>
           </ul>
         </li>
         <li class="treeview">

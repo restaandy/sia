@@ -1,19 +1,22 @@
-function tampildatabidang(e,base_url){
+function tampildatapaket(e,base_url){
  waitingDialog.show('Loading');	
  var id=$(e.target).attr('data-id');
- $.post(base_url+'modal/modal_kelas',{id:id},function(data){
-  $("#databidang .modal-body").html(data);
+ $.post(base_url+'modal/modal_paket',{id:id},function(data){
+  $("#paketahli .modal-body").html(data);
   waitingDialog.hide();
-  $("#databidang").modal("show");
+  $("#paketahli").modal("show");
  });
 }
-
+function fillprogram(e,base_url){
+ waitingDialog.show('Loading');	
+ var id=$(e.target).val();
+ $.post(base_url+'modal/get_program_by_id',{id:id},function(data){
+  $("#id_program").html(data);
+  waitingDialog.hide();
+ });
+}
 $(document).ready(function(){
-	 $('#tabelkelas').DataTable();
-	    $('.datepicker').datepicker({
-	     format: 'yyyy-mm-dd',
-	     startDate: '-3d'
-    });
+	 $('#tabelpaket').DataTable();
 });
 
 // Modal loading

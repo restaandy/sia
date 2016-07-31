@@ -17,6 +17,26 @@ Class Model_modal extends CI_Model
     $query=$query->result_array();
     return $query;
   }
+ public function get_bidang($id){
+    $query=$this->db->get_where('jur_bidang',array('id'=>$id));
+    $query=$query->result_array();
+    return $query;
+  }
+   public function get_program($id){
+    $query=$this->db->get_where('jur_program',array('id'=>$id));
+    $query=$query->result_array();
+    return $query;
+  }
+  public function get_paket($id){
+    $query=$this->db->get_where('jur_paket',array('id'=>$id));
+    $query=$query->result_array();
+    return $query;
+  }
+  public function get_program_by_id($idbidang){
+    $query=$this->db->get_where('jur_program',array('id_bidang'=>$idbidang));
+    $query=$query->result_array();
+    return $query;
+  }
   public function get_prov(){
     $query=$this->db->get('tmpt_prov');
     $query=$query->result_array();

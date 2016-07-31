@@ -77,6 +77,45 @@ class Modal extends CI_Controller {
 			echo "not-found";
 		}
 	}
+	public function modal_bidang(){
+		if(isset($_POST['id'])){
+			$id=$_POST['id'];
+			$temp=$this->Model_modal->get_bidang($id);
+			foreach ($temp as $key) {
+			 	$temp=$key;
+			}
+		 $data['bidang']=$temp;
+		 $this->load->view('modal/modal_bidang',$data);
+		}else{
+			echo "not-found";
+		}
+	}
+	public function modal_paket(){
+		if(isset($_POST['id'])){
+			$id=$_POST['id'];
+			$temp=$this->Model_modal->get_paket($id);
+			foreach ($temp as $key) {
+			 	$temp=$key;
+			}
+		 $data['paket']=$temp;
+		 $this->load->view('modal/modal_paket',$data);
+		}else{
+			echo "not-found";
+		}
+	}
+	public function modal_program(){
+		if(isset($_POST['id'])){
+			$id=$_POST['id'];
+			$temp=$this->Model_modal->get_program($id);
+			foreach ($temp as $key) {
+			 	$temp=$key;
+			}
+		 $data['program']=$temp;
+		 $this->load->view('modal/modal_program',$data);
+		}else{
+			echo "not-found";
+		}
+	}
     public function get_prov(){
     	$data=$this->Model_modal->get_prov();
     	echo "<option value='0'>-- Pilih Provinsi --</option>";
@@ -110,6 +149,15 @@ class Modal extends CI_Controller {
     		echo "<option value='".$key['id']."'>".$key['keldesa']."</option>";
     	}
     }
+    }
+    public function get_program_by_id(){
+      if(isset($_POST['id'])){
+    	$data=$this->Model_modal->get_program_by_id($_POST['id']);
+    	echo "<option value=''>-- Pilih Program --</option>";
+    	foreach ($data as $key) {
+    		echo "<option value='".$key['id']."'>".$key['program']."</option>";
+    	}
+    }	
     }
 	public function index(){
 		$bread['title1']="Home";

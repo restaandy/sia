@@ -1,5 +1,5 @@
 /*
-SQLyog Professional v10.42 
+SQLyog Enterprise - MySQL GUI v8.18 
 MySQL - 5.6.17 : Database - sia
 *********************************************************************
 */
@@ -26,9 +26,11 @@ CREATE TABLE `jur_bidang` (
   `bidang` varchar(100) DEFAULT NULL,
   `keterangan` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `jur_bidang` */
+
+insert  into `jur_bidang`(`id`,`id_sekolah`,`bidang`,`keterangan`) values (1,1,'Teknik','Bidang teknik, teori dan praktek'),(2,1,'Kesehatan','kajian kesehatan orang');
 
 /*Table structure for table `jur_paket` */
 
@@ -42,9 +44,11 @@ CREATE TABLE `jur_paket` (
   `paket` varchar(100) DEFAULT NULL,
   `keterangan` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `jur_paket` */
+
+insert  into `jur_paket`(`id`,`id_sekolah`,`id_bidang`,`id_program`,`paket`,`keterangan`) values (1,1,1,2,'TI S1','Teknik Informatika S1');
 
 /*Table structure for table `jur_program` */
 
@@ -57,9 +61,11 @@ CREATE TABLE `jur_program` (
   `program` varchar(100) DEFAULT NULL,
   `keterangan` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `jur_program` */
+
+insert  into `jur_program`(`id`,`id_sekolah`,`id_bidang`,`program`,`keterangan`) values (2,1,1,'Teknik Informatika','Peljaran komputer');
 
 /*Table structure for table `kbm_belajar` */
 
@@ -209,11 +215,9 @@ CREATE TABLE `obj_mapel` (
   `komp_dasar` text,
   `status_mapel` enum('wajib','minat') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `obj_mapel` */
-
-insert  into `obj_mapel`(`id`,`id_sekolah`,`id_bidang`,`id_program`,`id_paket`,`nama_mapel`,`komp_inti`,`komp_dasar`,`status_mapel`) values (1,1,NULL,NULL,NULL,'TKJ',NULL,NULL,NULL),(2,1,NULL,NULL,NULL,'RPLD',NULL,NULL,NULL),(3,2,NULL,NULL,NULL,'TKJ',NULL,NULL,NULL),(4,2,NULL,NULL,NULL,'RPLD',NULL,NULL,NULL);
 
 /*Table structure for table `obj_sekolah` */
 
@@ -284,7 +288,7 @@ CREATE TABLE `obj_siswa` (
 
 /*Data for the table `obj_siswa` */
 
-insert  into `obj_siswa`(`no_induk`,`no_induk_sekolah`,`id_sekolah`,`nama`,`username`,`password`,`tgl_lahir`,`tmp_lahir`,`foto`,`agama`,`prov`,`kabkot`,`kec`,`kel`,`almt_tambahan`,`no_hp`,`email`,`jenkel`,`nama_ayah`,`nama_ibu`,`no_telp_ortu`,`alamat_ortu`,`pekerjaan_ibu`,`pekerjaan_ayah`,`asal_sekolah`,`status_masuk`,`akdm_stat`,`thn_masuk`,`last_login`,`ip_login`) values ('1','1',1,'aji budianto','11','32273ecf69fafee5cbf8c997f45e35d937e22558',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,2015,NULL,NULL);
+insert  into `obj_siswa`(`no_induk`,`no_induk_sekolah`,`id_sekolah`,`nama`,`username`,`password`,`tgl_lahir`,`tmp_lahir`,`foto`,`agama`,`prov`,`kabkot`,`kec`,`kel`,`almt_tambahan`,`no_hp`,`email`,`jenkel`,`nama_ayah`,`nama_ibu`,`no_telp_ortu`,`alamat_ortu`,`pekerjaan_ibu`,`pekerjaan_ayah`,`asal_sekolah`,`status_masuk`,`akdm_stat`,`thn_masuk`,`last_login`,`ip_login`) values ('','3',2,'rrr','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('1','2',1,'aaa','11','32273ecf69fafee5cbf8c997f45e35d937e22558',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,2015,NULL,NULL);
 
 /*Table structure for table `tmpt_kabkot` */
 

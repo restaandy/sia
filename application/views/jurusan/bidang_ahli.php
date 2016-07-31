@@ -1,3 +1,7 @@
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>aset/external/css/datatables.min.css">
+<script type="text/javascript" src="<?php echo base_url(); ?>aset/external/js/datatables.min.js"></script>
+
+<script type="text/javascript" src="<?php echo base_url(); ?>aset/external/js/modal_bidang.js"></script>
 <div class="panel panel-default">
 	<div class="panel-body">
 		<legend>Tambah Bidang Keahlian</legend>
@@ -6,11 +10,15 @@
 		<p style="font-size:15px;margin-left:20px;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('bidang'); ?></p>
 		<?php echo validation_errors(); ?>
 
-		<?php echo form_open('bjurusan/save_bidang'); ?>		
+		<?php echo form_open('jurusan/save_bidang'); ?>		
 			<div class="col-md-4">
 			<div class="form-group">
 				<label>Bidang keahlian</label>
-				<input class="form-control ni" type="text" name="nama_kelas" maxlength="50" required />
+				<input class="form-control" type="text" name="bidang" maxlength="50" required />
+			</div>
+			<div class="form-group">
+				<label>Keterangan Bidang keahlian</label>
+				<textarea class="form-control" name="keterangan"></textarea>
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary" name="simpan" value="yes">Simpan</button>
@@ -36,7 +44,7 @@
 		<br><br>
 		<legend>Data Bidang</legend>
 		<p style="font-size:20px;;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('bidangupdate'); ?></p>
-		<table id="tabelkelas" class="table table-striped">
+		<table id="tabelbidang" class="table table-striped">
 		<thead>
 			<tr>
 				<th width="6%">No</th>
