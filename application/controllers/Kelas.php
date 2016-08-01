@@ -40,6 +40,25 @@ class Kelas extends CI_Controller {
 		$content=$this->load->view('kelas/manajemen_kelas',$data,true);
 		$this->dashboard($content);
 	}
+	public function autocomplete(){
+		if(isset($_POST['autocomplete'])){
+			$idsekolah=$this->session->userdata('id');
+			$nama=$this->input->post('value');
+			$data=$this->Model_kelas->get_kelas($idsekolah,$nama);
+			$dataauto=array();
+			foreach ($data as $key) {
+				array_push($dataauto,
+					array(
+						'label'=>$key['nama_kelas']." - ".$key['tingkat'],
+						'value'=>$key['id']."-".$key['nama_kelas']
+						)
+					);
+			}
+			echo json_encode($dataauto); 
+		}else{
+
+		}
+	}
 	public function edit_kelas(){
 		if($this->input->post('simpan')=="yes"){
 				$nama_kelas=$this->input->post('nama_kelas');

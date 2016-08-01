@@ -7,7 +7,16 @@ Class Model_mapel extends CI_Model
    if($nama==''){
    	$query=$this->db->query("SELECT a.id,a.id_sekolah,b.`bidang`,c.`program`,d.`paket`,a.`nama_mapel`,a.`komp_dasar`,a.`komp_inti`,a.`status_mapel` FROM obj_mapel a LEFT JOIN jur_bidang b ON a.`id_bidang`=b.`id` LEFT JOIN jur_program c ON a.`id_program`=c.`id` LEFT JOIN jur_paket d ON a.`id_paket`=d.`id` where a.id_sekolah=".$idskolah.";");
    }else{
-   	$query=$this->db->query("SELECT a.id,a.id_sekolah,b.`bidang`,c.`program`,d.`paket`,a.`nama_mapel`,a.`komp_dasar`,a.`komp_inti`,a.`status_mapel` FROM obj_mapel a LEFT JOIN jur_bidang b ON a.`id_bidang`=b.`id` LEFT JOIN jur_program c ON a.`id_program`=c.`id` LEFT JOIN jur_paket d ON a.`id_paket`=d.`id` where a.id_sekolah=".$idskolah." and a.nama_mapel='".$nama."';");
+   	$query=$this->db->query("SELECT a.id,a.id_sekolah,b.`bidang`,c.`program`,d.`paket`,a.`nama_mapel`,a.`komp_dasar`,a.`komp_inti`,a.`status_mapel` FROM obj_mapel a LEFT JOIN jur_bidang b ON a.`id_bidang`=b.`id` LEFT JOIN jur_program c ON a.`id_program`=c.`id` LEFT JOIN jur_paket d ON a.`id_paket`=d.`id` where a.id_sekolah=".$idskolah." and a.nama_mapel like '".$nama."%';");
+   }
+   $query=$query->result_array();
+   return $query;
+  }
+  public function get_ta($nama=''){
+   if($nama==''){
+    $query=$this->db->query("Select * from kbm_ta");
+   }else{
+    $query=$this->db->query("Select * from kbm_ta where ta like '".$nama."%'");
    }
    $query=$query->result_array();
    return $query;

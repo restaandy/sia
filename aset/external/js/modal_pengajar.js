@@ -12,33 +12,69 @@ $(function() {
         var availableTags = [];
         $("#pegawai").autocomplete({
             source: function(term, suggest){
-                $.get('http://localhost/sia/pegawai/autocomplete',function(data){
+                $.post('http://localhost/sia/pegawai/autocomplete',{autocomplete:'yes',value:$('#pegawai').val()},function(data){
                     suggest(JSON.parse(data));
                 });
             },
-            focus: function( event, ui ) {
+            focus: function(event, ui ) {
                 $('#pegawai').val(ui.item.label);
                 return false;
             }
         });
 
         $("#pegawai").data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-            var $li = $('<li>'),
-                    $img = $('<img width="40" height="50" style="padding-right:5px;">');
+            var $li = $('<li>');
+            var foto=item.foto;
+            if(foto==null){foto="";}
 
-
+            $img = $('<img width="40" height="50" style="padding-right:5px;">');
             $img.attr({
-                src: '',//+item.icon,
-                alt: '',
+                src: 'http://localhost/sia/aset/img/pegawai/'+foto,
+                alt: ''+foto,
                 onError:'$(this).attr({src:"http://localhost/sia/aset/img/no-image.png"})'
             });
 
             $li.attr('data-value', item.label);
             $li.append('<a href="#">');
             $li.find('a').append($img).append(item.label);
-
             return $li.appendTo(ul);
         };
+        
+        //var availableTags = [];
+        $("#kelas").autocomplete({
+            source: function(term, suggest){
+                $.post('http://localhost/sia/kelas/autocomplete',{autocomplete:'yes',value:$('#kelas').val()},function(data){
+                    suggest(JSON.parse(data));
+                });
+            },
+            focus: function(event, ui ) {
+                $('#kelas').val(ui.item.label);
+                return false;
+            }
+        });
+        $("#mapel").autocomplete({
+            source: function(term, suggest){
+                $.post('http://localhost/sia/mapel/autocomplete',{autocomplete:'yes',value:$('#mapel').val()},function(data){
+                    suggest(JSON.parse(data));
+                });
+            },
+            focus: function(event, ui ) {
+                $('#mapel').val(ui.item.label);
+                return false;
+            }
+        });
+        
+        $("#ta").autocomplete({
+            source: function(term, suggest){
+                $.post('http://localhost/sia/mapel/autocompleteta',{autocomplete:'yes',value:$('#ta').val()},function(data){
+                    suggest(JSON.parse(data));
+                });
+            },
+            focus: function(event, ui ) {
+                $('#ta').val(ui.item.label);
+                return false;
+            }
+        });
         
     });
 

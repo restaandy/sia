@@ -43,6 +43,43 @@ class Mapel extends CI_Controller {
 		$content=$this->load->view('mapel/manajemen_mapel',$data,true);
 		$this->dashboard($content);
 	}
+	public function autocomplete(){
+		if(isset($_POST['autocomplete'])){
+			$idsekolah=$this->session->userdata('id');
+			$nama=$this->input->post('value');
+			$data=$this->Model_mapel->get_mapel($idsekolah,$nama);
+			$dataauto=array();
+			foreach ($data as $key) {
+				array_push($dataauto,
+					array(
+						'label'=>$key['nama_mapel'],
+						'value'=>$key['id']."-".$key['nama_mapel']
+						)
+					);
+			}
+			echo json_encode($dataauto); 
+		}else{
+
+		}
+	}
+	public function autocompleteta(){
+		if(isset($_POST['autocomplete'])){
+			$nama=$this->input->post('value');
+			$data=$this->Model_mapel->get_ta($nama);
+			$dataauto=array();
+			foreach ($data as $key) {
+				array_push($dataauto,
+					array(
+						'label'=>$key['ta']." - ".$key['keterangan']." (".$key['tahun'].")",
+						'value'=>$key['id']."-".$key['ta']
+						)
+					);
+			}
+			echo json_encode($dataauto); 
+		}else{
+
+		}
+	}
 	public function edit_mapel(){
 		if($this->input->post('simpan')=="yes"){
 			$datapost=$this->input->post();

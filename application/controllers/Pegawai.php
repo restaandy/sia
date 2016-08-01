@@ -41,13 +41,24 @@ class Pegawai extends CI_Controller {
 		$this->dashboard($content);
 	}
 	public function autocomplete(){
-		$data=array(
-			array('value'=>'aaa',
-			'label'=>'eee'),
-		    array('value'=>'ddd',
-			'label'=>'fff')
-			);
-		echo json_encode($data);
+		if(isset($_POST['autocomplete'])){
+			$idsekolah=$this->session->userdata('id');
+			$nama=$this->input->post('value');
+			$data=$this->Model_pegawai->get_pegawai($idsekolah,$nama);
+			$dataauto=array();
+			foreach ($data as $key) {
+				array_push($dataauto,
+					array(
+						'label'=>$key['nama_pegawai'],
+						'value'=>$key['id']."-".$key['nama_pegawai'],
+						'foto'=>$key['foto']
+						)
+					);
+			}
+			echo json_encode($dataauto); 
+		}else{
+
+		}
 	}
 	public function pengajar(){
 		$bread['title1']="Pegawai";
