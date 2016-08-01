@@ -68,7 +68,7 @@
 	</div>
 	<div class="form-group">
 		<label>Asal Sekolah</label>
-		<input type="text" class="form-control" name="text" value="<?php echo $siswa['asal_sekolah']; ?>">
+		<input type="text" class="form-control" name="asal_sekolah" value="<?php echo $siswa['asal_sekolah']; ?>">
 	</div>
 	</div>
 	<div class="col-md-4">

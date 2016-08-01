@@ -1,19 +1,49 @@
-function tampildatakelas(e,base_url){
+function tampildatapengajar(e,base_url){
  waitingDialog.show('Loading');	
- var id=$(e.target).attr('data-id');
- $.post(base_url+'modal/modal_kelas',{id:id},function(data){
-  $("#datakelas .modal-body").html(data);
+  var id=$(e.target).attr('data-id');
+ $.post(base_url+'modal/modal_pengajar',{id:id},function(data){
+  $("#datapengajar .modal-body").html(data);
   waitingDialog.hide();
-  $("#datakelas").modal("show");
+  $("#datapengajar").modal("show");
  });
 }
 
-$(document).ready(function(){
-	 $('#tabelkelas').DataTable();
-	    $('.datepicker').datepicker({
-	     format: 'yyyy-mm-dd',
-	     startDate: '-3d'
+$(function() {
+        var availableTags = [];
+        $("#pegawai").autocomplete({
+            source: function(term, suggest){
+                $.get('http://localhost/sia/pegawai/autocomplete',function(data){
+                    suggest(JSON.parse(data));
+                });
+            },
+            focus: function( event, ui ) {
+                $('#pegawai').val(ui.item.label);
+                return false;
+            }
+        });
+
+        $("#pegawai").data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+            var $li = $('<li>'),
+                    $img = $('<img width="40" height="50" style="padding-right:5px;">');
+
+
+            $img.attr({
+                src: '',//+item.icon,
+                alt: '',
+                onError:'$(this).attr({src:"http://localhost/sia/aset/img/no-image.png"})'
+            });
+
+            $li.attr('data-value', item.label);
+            $li.append('<a href="#">');
+            $li.find('a').append($img).append(item.label);
+
+            return $li.appendTo(ul);
+        };
+        
     });
+
+$(document).ready(function(){
+	 $('#tabelpengajar').DataTable();
 });
 
 // Modal loading

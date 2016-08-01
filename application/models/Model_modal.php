@@ -12,8 +12,13 @@ Class Model_modal extends CI_Model
     $query=$query->result_array();
     return $query;
   }
-  public function get_guru($id){
-    $query=$this->db->get_where('obj_guru',array('id'=>$id));
+  public function get_mapel($id){
+    $query=$this->db->get_where('obj_mapel',array('id'=>$id));
+    $query=$query->result_array();
+    return $query;
+  }
+  public function get_pegawai($id){
+    $query=$this->db->get_where('obj_pegawai',array('id'=>$id));
     $query=$query->result_array();
     return $query;
   }
@@ -34,6 +39,11 @@ Class Model_modal extends CI_Model
   }
   public function get_program_by_id($idbidang){
     $query=$this->db->get_where('jur_program',array('id_bidang'=>$idbidang));
+    $query=$query->result_array();
+    return $query;
+  }
+  public function get_paket_by_id($idpaket){
+    $query=$this->db->get_where('jur_paket',array('id_program'=>$idpaket));
     $query=$query->result_array();
     return $query;
   }

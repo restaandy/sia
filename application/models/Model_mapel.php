@@ -3,11 +3,11 @@
 Class Model_mapel extends CI_Model
 {
 
-  public function get_kelas($idskolah='',$nama=''){
+  public function get_mapel($idskolah='',$nama=''){
    if($nama==''){
-   	$query=$this->db->query("select * from obj_kelas where id_sekolah=".$idskolah."");
+   	$query=$this->db->query("SELECT a.id,a.id_sekolah,b.`bidang`,c.`program`,d.`paket`,a.`nama_mapel`,a.`komp_dasar`,a.`komp_inti`,a.`status_mapel` FROM obj_mapel a LEFT JOIN jur_bidang b ON a.`id_bidang`=b.`id` LEFT JOIN jur_program c ON a.`id_program`=c.`id` LEFT JOIN jur_paket d ON a.`id_paket`=d.`id` where a.id_sekolah=".$idskolah.";");
    }else{
-   	$query=$this->db->query("select * from obj_kelas where id_sekolah=".$idskolah." and nama_kelas like '".$nama."%'");
+   	$query=$this->db->query("SELECT a.id,a.id_sekolah,b.`bidang`,c.`program`,d.`paket`,a.`nama_mapel`,a.`komp_dasar`,a.`komp_inti`,a.`status_mapel` FROM obj_mapel a LEFT JOIN jur_bidang b ON a.`id_bidang`=b.`id` LEFT JOIN jur_program c ON a.`id_program`=c.`id` LEFT JOIN jur_paket d ON a.`id_paket`=d.`id` where a.id_sekolah=".$idskolah." and a.nama_mapel='".$nama."';");
    }
    $query=$query->result_array();
    return $query;
@@ -28,9 +28,9 @@ Class Model_mapel extends CI_Model
     
     return $this->db->affected_rows();
   }
-  public function update_kelas($data,$id){
+  public function update_mapel($data,$id){
        $this->db->where('id', $id);
-       $this->db->update('obj_kelas', $data);
+       $this->db->update('obj_mapel', $data);
        
        if($this->db->affected_rows()>0){
          return true;
@@ -39,8 +39,8 @@ Class Model_mapel extends CI_Model
        }
     
   }
-  public function simpan_kelas($data){ 	
-	    $this->db->insert('obj_kelas',$data);
+  public function simpan_mapel($data){ 	
+	    $this->db->insert('obj_mapel',$data);
 	    if($this->db->affected_rows()>0){
 	      return true;
 	    }else{

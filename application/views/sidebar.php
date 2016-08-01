@@ -46,12 +46,14 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-pie-chart"></i>
-            <span>Guru</span>
+            <span>Pegawai</span>
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url(); ?>guru"><i class="fa fa-circle-o"></i> Guru</a></li>
-            <li><a href="<?php echo base_url(); ?>guru/guru"><i class="fa fa-circle-o"></i> Manajemen Guru</a></li>
+            <li><a href="<?php echo base_url(); ?>pegawai"><i class="fa fa-circle-o"></i> Pegawai</a></li>
+            <li><a href="<?php echo base_url(); ?>pegawai/pengajar"><i class="fa fa-circle-o"></i> Pengajar Mapel</a></li>
+            <li><a href="<?php echo base_url(); ?>pegawai/jabatan"><i class="fa fa-circle-o"></i> Jabatan Pegawai</a></li>
+            <li><a href="<?php echo base_url(); ?>pegawai/pegawai"><i class="fa fa-circle-o"></i> Manajemen Pegawai</a></li>
           </ul>
         </li>
         <li class="treeview">

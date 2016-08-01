@@ -8,7 +8,8 @@ class Mapel extends CI_Controller {
             if($this->session->userdata('hold')!="AS"){
             	redirect('login');
             }else{
-              $this->load->model('Model_mapel');	
+              $this->load->model('Model_mapel');
+              $this->load->model('Model_jurusan');	
             }
     }
 	public function dashboard($content){
@@ -32,57 +33,58 @@ class Mapel extends CI_Controller {
 		$bread['title2']="Manajemen Mapel";
 		$bread['list']=array("Mapel","Manajemen Mapel");
 		$data['tingkat']=array('X','XI','XII');
+		$data['databidang']=$this->Model_jurusan->get_bidang_ahli($this->session->userdata('id'));
+
 		$data['title']="Manajemen Mapel | Sistem Akademik";		
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
-		$data['datakelas']=$this->Model_mapel->get_kelas($this->session->userdata('id'));
+		$data['datamapel']=$this->Model_mapel->get_mapel($this->session->userdata('id'));
 
 		$content=$this->load->view('mapel/manajemen_mapel',$data,true);
 		$this->dashboard($content);
 	}
-	public function edit_kelas(){
+	public function edit_mapel(){
 		if($this->input->post('simpan')=="yes"){
-				$nama_kelas=$this->input->post('nama_kelas');
-				$id=$this->input->post('id');
-				$tingkat=$this->input->post('tingkat');
-				$dataedit=array(
-					'nama_kelas'=>$nama_kelas,
-					'tingkat'=>$tingkat
-					);
-				$hasil=$this->Model_kelas->update_kelas($dataedit,$id);
+			$datapost=$this->input->post();
+			$keymap=array_keys($datapost);
+			foreach ($keymap as $key) {
+				if($key!="simpan" && $key!="id"){
+					$data[$key]=$datapost[$key];
+				}
+			}
+				$hasil=$this->Model_mapel->update_mapel($data,$this->input->post('id'));
 				if($hasil){
-					$this->session->set_flashdata('kelasupdate','Data telah terganti');
+					$this->session->set_flashdata('mapelupdate','Data telah terganti');
 			    	$this->session->set_flashdata('warna','blue');
 				}else{
-					$this->session->set_flashdata('kelasupdate','Data gagal diganti');
+					$this->session->set_flashdata('mapelupdate','Data gagal diganti');
 			    	$this->session->set_flashdata('warna','red');
 				}
-			redirect("kelas/kelas");
+			redirect("mapel/mapel");
 		}else{
-			redirect("kelas/kelas");
+			redirect("mapel/mapel");
 		}
 		
 	}
-	public function save_kelas(){
+	public function save_mapel(){
 		if($this->input->post('simpan')=="yes"){
-			$nama_kelas=$this->input->post('nama_kelas');
-			$tingkat=$this->input->post('tingkat');
-			$idsekolah=$this->session->userdata('id');
-			
-			$data=array(
-				'nama_kelas'=>$nama_kelas,
-				'tingkat'=>$tingkat,
-				'id_sekolah'=>$idsekolah
-				);
-			$hasil=$this->Model_kelas->simpan_kelas($data);
+			$datapost=$this->input->post();
+			$keymap=array_keys($datapost);
+			foreach ($keymap as $key) {
+				if($key!="simpan"){
+					$data[$key]=$datapost[$key];
+				}
+			}
+			$data['id_sekolah']=$this->session->userdata('id');
+			$hasil=$this->Model_mapel->simpan_mapel($data);
 			if($hasil){
-				$this->session->set_flashdata('kelas','Data sudah masuk');
+				$this->session->set_flashdata('mapel','Data sudah masuk');
 			    $this->session->set_flashdata('warna','blue');
 			}else{
-				$this->session->set_flashdata('kelas','Data gagal masuk,');
+				$this->session->set_flashdata('mapel','Data gagal masuk,');
 			    $this->session->set_flashdata('warna','red');
 			}
-			redirect("kelas/kelas");
+			redirect("mapel/mapel");
 		}
 	}
 

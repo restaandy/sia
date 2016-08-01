@@ -1,14 +1,14 @@
-function tampildataguru(e,base_url){
+function tampildatapegawai(e,base_url){
  waitingDialog.show('Loading');	
  var id=$(e.target).attr('data-id');
- $.post(base_url+'modal/modal_guru',{id:id},function(data){
-  $("#dataguru .modal-body").html(data);
+ $.post(base_url+'modal/modal_pegawai',{id:id},function(data){
+  $("#datapegawai .modal-body").html(data);
   waitingDialog.hide();
-  $("#dataguru").modal("show");
+  $("#datapegawai").modal("show");
  });
 }
 
-function constrait_guru(e){
+function constrait_pegawai(e){
  if($(e.target).val()=="gtt"){
    $("#email").attr("required",true);
    $("#nip").removeAttr("required");
@@ -18,14 +18,14 @@ function constrait_guru(e){
    $("#email").removeAttr("required");
  }	
 }
-function constrait_guru2(e){
+function constrait_pegawai2(e){
  if($(e.target).val()=="gtt"){
-   $("#dataguru #email").attr("required",true);
-   $("#dataguru #nip").removeAttr("required");
+   $("#datapegawai #email").attr("required",true);
+   $("#datapegawai #nip").removeAttr("required");
  }
  if($(e.target).val()=="pns"){
-   $("#dataguru #nip").attr("required",true);
-   $("#dataguru #email").removeAttr("required");
+   $("#datapegawai #nip").attr("required",true);
+   $("#datapegawai #email").removeAttr("required");
  }	
 }
 
@@ -60,7 +60,7 @@ $(document).ready(function(){
 	  var n=str.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '');	
 	  $(e.target).val(n);
 	});
-	 $('#tabelguru').DataTable();
+	 $('#tabelpegawai').DataTable();
 	    $('.datepicker').datepicker({
 	     format: 'yyyy-mm-dd',
 	     startDate: '-3d'

@@ -15,6 +15,14 @@ function fillprogram(e,base_url){
   waitingDialog.hide();
  });
 }
+function fillpaket(e,base_url){
+ waitingDialog.show('Loading');	
+ var id=$(e.target).val();
+ $.post(base_url+'modal/get_paket_by_id',{id:id},function(data){
+  $("#id_paket").html(data);
+  waitingDialog.hide();
+ });
+}
 $(document).ready(function(){
 	 $('#tabelpaket').DataTable();
 });

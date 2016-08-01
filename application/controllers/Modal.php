@@ -39,17 +39,17 @@ class Modal extends CI_Controller {
 			echo "not-found";
 		}
 	}
-	public function modal_guru(){
+	public function modal_pegawai(){
 		if(isset($_POST['id'])){
 			$id=$_POST['id'];
 			$jenkel=array("L","P");
 			$agama=array("islam","kristen","budha","hindu","katholik");
 			$status=array("gtt","pns");
-			$temp=$this->Model_modal->get_guru($id);
+			$temp=$this->Model_modal->get_pegawai($id);
 			foreach ($temp as $key) {
 			 	$temp=$key;
 			}
-		 $data['guru']=$temp;
+		 $data['pegawai']=$temp;
 		 $data['agama']=$agama;
 		 $data['jenkel']=$jenkel;	
 		 $data['status']=$status;
@@ -57,7 +57,7 @@ class Modal extends CI_Controller {
 		 $data['kabkot']=$this->Model_modal->get_kabkot($temp['prov']);
 		 $data['kec']=$this->Model_modal->get_kec($temp['kabkot']);
 		 $data['keldesa']=$this->Model_modal->get_keldesa($temp['kec']);
-		 $this->load->view('modal/modal_guru',$data);
+		 $this->load->view('modal/modal_pegawai',$data);
 		}else{
 			echo "not-found";
 		}
@@ -99,6 +99,19 @@ class Modal extends CI_Controller {
 			}
 		 $data['paket']=$temp;
 		 $this->load->view('modal/modal_paket',$data);
+		}else{
+			echo "not-found";
+		}
+	}
+	public function modal_mapel(){
+		if(isset($_POST['id'])){
+			$id=$_POST['id'];
+			$temp=$this->Model_modal->get_mapel($id);
+			foreach ($temp as $key) {
+			 	$temp=$key;
+			}
+		 $data['mapel']=$temp;
+		 $this->load->view('modal/modal_mapel',$data);
 		}else{
 			echo "not-found";
 		}
@@ -156,6 +169,15 @@ class Modal extends CI_Controller {
     	echo "<option value=''>-- Pilih Program --</option>";
     	foreach ($data as $key) {
     		echo "<option value='".$key['id']."'>".$key['program']."</option>";
+    	}
+    }	
+    }
+    public function get_paket_by_id(){
+      if(isset($_POST['id'])){
+    	$data=$this->Model_modal->get_paket_by_id($_POST['id']);
+    	echo "<option value=''>-- Pilih Paket --</option>";
+    	foreach ($data as $key) {
+    		echo "<option value='".$key['id']."'>".$key['paket']."</option>";
     	}
     }	
     }

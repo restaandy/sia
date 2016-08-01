@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Guru extends CI_Controller {
+class Pegawai extends CI_Controller {
 
 	function __construct(){
             parent::__construct();
             if($this->session->userdata('hold')!="AS"){
             	redirect('login');
             }else{
-              $this->load->model('Model_guru');	
+              $this->load->model('Model_pegawai');	
             }
     }
 	public function dashboard($content){
@@ -27,20 +27,40 @@ class Guru extends CI_Controller {
 		$content=$this->load->view('home/dashboard',$data,true);
 		$this->dashboard($content);
 	}
-	function guru(){
-		$bread['title1']="Guru";
-		$bread['title2']="Manajemen Guru";
-		$bread['list']=array("Guru","Manajemen Guru");
+	function pegawai(){
+		$bread['title1']="Pegawai";
+		$bread['title2']="Manajemen Pegawai";
+		$bread['list']=array("Pegawai","Manajemen Pegawai");
 
-		$data['title']="Manajemen Guru | Sistem Akademik";		
+		$data['title']="Manajemen Pegawai | Sistem Akademik";		
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
-		$data['dataguru']=$this->Model_guru->get_guru($this->session->userdata('id'));
+		$data['datapegawai']=$this->Model_pegawai->get_pegawai($this->session->userdata('id'));
 
-		$content=$this->load->view('guru/manajemen_guru',$data,true);
+		$content=$this->load->view('pegawai/manajemen_pegawai',$data,true);
 		$this->dashboard($content);
 	}
-	public function edit_guru(){
+	public function autocomplete(){
+		$data=array(
+			array('value'=>'aaa',
+			'label'=>'eee'),
+		    array('value'=>'ddd',
+			'label'=>'fff')
+			);
+		echo json_encode($data);
+	}
+	public function pengajar(){
+		$bread['title1']="Pegawai";
+		$bread['title2']="Pengajar";
+		$bread['list']=array("Pegawai","Pengajar");
+
+		$data['title']="Pengajar | Sistem Akademik";		
+		$data['sidebar']=$this->load->view('sidebar','',true);
+		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+		$content=$this->load->view('pegawai/pengajar',$data,true);
+		$this->dashboard($content);
+	}
+	public function edit_pegawai(){
 		if($this->input->post('simpan')=="yes"){
 				$data=$this->input->post();
 				$datakey=array_keys($data);
@@ -50,23 +70,23 @@ class Guru extends CI_Controller {
 						$dataedit[$key]=$data[$key];
 					}
 				}
-				$hasil=$this->Model_guru->update_guru($dataedit,$dataedit['id'],$dataedit['status']);
+				$hasil=$this->Model_pegawai->update_pegawai($dataedit,$dataedit['id'],$dataedit['status']);
 				if($hasil){
-					$this->session->set_flashdata('guruupdate','Data telah terganti');
+					$this->session->set_flashdata('pegawaiupdate','Data telah terganti');
 			    	$this->session->set_flashdata('warna','blue');
 				}else{
-					$this->session->set_flashdata('guruupdate','Data gagal diganti');
+					$this->session->set_flashdata('pegawaiupdate','Data gagal diganti');
 			    	$this->session->set_flashdata('warna','red');
 				}
-			redirect("guru/guru");
+			redirect("pegawai/pegawai");
 		}else{
-			redirect("guru/guru");
+			redirect("pegawai/pegawai");
 		}
 		
 	}
-	public function save_guru(){
+	public function save_pegawai(){
 		if($this->input->post('simpan')=="yes"){
-			$namaguru=$this->input->post('nama_guru');
+			$namapegawai=$this->input->post('nama_pegawai');
 			$nip=$this->input->post('nip');
 			$email=$this->input->post('email');
 			$status=$this->input->post('status');
@@ -83,27 +103,25 @@ class Guru extends CI_Controller {
 			$data=array(
 				'nip'=>$nip,
 				'id_sekolah'=>$idsekolah,
-				'nama_guru'=>$namaguru,
+				'nama_pegawai'=>$namapegawai,
 				'username'=>$username,
 				'password'=>$pass,
 				'email'=>$email,
 				'status'=>$status
 				);
-			$hasil=$this->Model_guru->simpan_guru($data,$username,$status);
+			$hasil=$this->Model_pegawai->simpan_pegawai($data,$username,$status);
 			if($hasil){
-				$this->session->set_flashdata('guru','Data sudah masuk');
+				$this->session->set_flashdata('pegawai','Data sudah masuk');
 			    $this->session->set_flashdata('warna','blue');
 			}else{
-				$this->session->set_flashdata('guru','Data gagal masuk, pastikan NIP / Email berbeda');
+				$this->session->set_flashdata('pegawai','Data gagal masuk, pastikan NIP / Email berbeda');
 			    $this->session->set_flashdata('warna','red');
 			}
-			redirect("guru/guru");
+			redirect("pegawai/pegawai");
 		}
 	}
 
 //=========================================================================
 //action----------
-	public function save_sekolah(){
-		print_r($this->input->post());
-	}
+
 }	
