@@ -68,6 +68,9 @@ class Pegawai extends CI_Controller {
 		$data['title']="Pengajar | Sistem Akademik";		
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+
+		$idsekolah=$this->session->userdata('id');
+		$data['datapengajar']=$this->Model_pegawai->get_pengajar($idsekolah);
 		$content=$this->load->view('pegawai/pengajar',$data,true);
 		$this->dashboard($content);
 	}
@@ -94,6 +97,46 @@ class Pegawai extends CI_Controller {
 			redirect("pegawai/pegawai");
 		}
 		
+	}
+	public function save_pengajar(){
+		if($this->input->post('simpan')=="yes"){
+			$id_pegawai=$this->input->post('pegawai');
+			$id_kelas=$this->input->post('kelas');
+			$id_mapel=$this->input->post('mapel');
+			$id_ta=$this->input->post('ta');
+			$idsekolah=$this->session->userdata('id');
+			$id_pegawai=explode("-",$id_pegawai);
+			$id_pegawai=$id_pegawai[0];
+
+			$id_kelas=explode("-",$id_kelas);
+			$id_kelas=$id_kelas[0];
+
+			$id_mapel=explode("-",$id_mapel);
+			$id_mapel=$id_mapel[0];
+
+			$id_ta=explode("-",$id_ta);
+			$id_ta=$id_ta[0];
+
+			$data=array(
+				'id_sekolah'=>$idsekolah,
+				'id_pegawai'=>$id_pegawai,
+				'id_kelas'=>$id_kelas,
+				'id_mapel'=>$id_mapel,
+				'id_ta'=>$id_ta
+				);
+			$hasil=$this->Model_pegawai->simpan_pengajar($data);
+			if($hasil){
+				$this->session->set_flashdata('pengajar','Data sudah masuk');
+			    $this->session->set_flashdata('warna','blue');
+			}else{
+				$this->session->set_flashdata('pengajar','Data gagal masuk, ');
+			    $this->session->set_flashdata('warna','red');
+			}
+			redirect("pegawai/pengajar");			
+
+		}else{
+			redirect("pegawai/pengajar");
+		}	
 	}
 	public function save_pegawai(){
 		if($this->input->post('simpan')=="yes"){

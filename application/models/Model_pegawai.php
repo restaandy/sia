@@ -12,6 +12,35 @@ Class Model_pegawai extends CI_Model
    $query=$query->result_array();
    return $query;
   }
+  public function get_pengajar($idskolah='',$ta='',$nama=''){
+   if($ta==''){
+    $query=$this->db->query("SELECT a.`id`,a.id_sekolah,
+  b.`nip`,
+  b.`nama_pegawai`,
+  c.`nama_kelas`,
+  d.`nama_mapel`,
+  e.`ta`,e.`keterangan`,e.`tahun` 
+FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON (a.`id_pegawai`=b.`id`) 
+      LEFT JOIN obj_kelas c ON (a.`id_kelas`=c.`id`) 
+      LEFT JOIN obj_mapel d ON (a.`id_mapel`=d.`id`)
+      LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`id`)
+WHERE a.`id_sekolah`=".$idskolah.";");
+   }else{
+    $query=$this->db->query("SELECT a.`id`,a.id_sekolah,
+  b.`nip`,
+  b.`nama_pegawai`,
+  c.`nama_kelas`,
+  d.`nama_mapel`,
+  e.`ta`,e.`keterangan`,e.`tahun` 
+FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON (a.`id_pegawai`=b.`id`) 
+      LEFT JOIN obj_kelas c ON (a.`id_kelas`=c.`id`) 
+      LEFT JOIN obj_mapel d ON (a.`id_mapel`=d.`id`)
+      LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`id`)
+WHERE a.`id_sekolah`=".$idskolah." and e.tahun=".$ta.";");
+   }
+   $query=$query->result_array();
+   return $query;
+  }
   public function cek_user_pegawai($username,$status){
     if($status=="gtt"){$kolom="email";}
     else{$kolom="nip";}  
@@ -71,6 +100,14 @@ Class Model_pegawai extends CI_Model
 	      return false;
 	    }
     }
+  }
+    public function simpan_pengajar($data){
+      $this->db->insert('kbm_mengajar',$data);
+      if($this->db->affected_rows()>0){
+        return true;
+      }else{
+        return false;
+      }
   }
   
 }

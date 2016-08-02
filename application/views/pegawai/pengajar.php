@@ -6,7 +6,7 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 	<legend>Tambah Pengajar</legend>
-	 <form>
+	 <form method="POST" action="<?php echo base_url(); ?>pegawai/save_pengajar">
 	 <div class="col-md-4">
 	 <div class="row">
 	 	<div class="form-group">
@@ -32,5 +32,46 @@
 	 </div>
 	 </div>	
 	 </form>
+	 <br><br><br><br>
+		<legend>Data Pengajar</legend>
+		<p style="font-size:20px;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('pengajarupdate'); ?></p>
+		<table id="tabelpengajar" class="table table-striped">
+		<thead>
+			<tr>
+				<th width="3%">No</th>
+				<th width="10%">NIP</th>
+				<th width="20%">Nama Pegawai</th>
+				<th width="17%">Mapel</th>
+				<th width="8%">Kelas</th>
+				<th width="10%">Tahun Ajaran</th>
+				<th width="10%">(View More / Edit)</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+			$x=1;
+			foreach ($datapengajar as $key) {
+			 ?>
+			<tr>
+				<td><?php echo $x; ?></td>
+				<td><?php echo $key['nip']; ?></td>
+				<td><?php echo $key['nama_pegawai']; ?></td>
+				<td><?php echo $key['nama_mapel']; ?></td>
+				<td><?php echo $key['nama_kelas']; ?></td>
+				<td><?php echo $key['ta']." - ".$key['keterangan']; ?></td>
+				<td>
+					<button class="btn btn-primary btn-xs" data-idsekolah="<?php echo $key['id_sekolah'] ?>"
+				 data-id="<?php echo $key['id'] ?>" 
+				 onclick="tampildatapegawai(event,'<?php echo base_url(); ?>')">Edit</button>
+					<button class="btn btn-danger btn-xs">Reset</button>
+			</tr> 
+			 <?php
+			$x++;	
+			}
+		?>
+			
+		</tbody>	
+		</table>	
 	</div>
+	
 </div>	

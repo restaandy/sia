@@ -20,6 +20,18 @@ $(function() {
                 $('#pegawai').val(ui.item.label);
                 return false;
             }
+            /*
+            ,
+            select: function (event, ui) {
+
+                alert("selected!");
+            },
+
+            change: function (event, ui) {
+
+                alert("changed!");
+            }
+            */
         });
 
         $("#pegawai").data( "ui-autocomplete" )._renderItem = function( ul, item ) {
