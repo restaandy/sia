@@ -1,21 +1,14 @@
+<?php
+$ta="";
+foreach ($datakelas as $key) {
+$ta=$key['ta']." (".$key['keterangan'].")";
+}
+?>
 <div class="panel panel-default">
 	<div class="panel-body">
         <div class="col-md-12"> 
         <div class="row">
-        <div class="col-md-3 col-xs-6">
-        <div class="form-group">
-        	<label>Tahun Ajaran</label>
-        	<select class="form-control" name="id_ta">
-        	 <?php
-        	 foreach ($ta as $key) {
-        	 	?>
-        	 	<option value="<?php echo $key['id']; ?>" <?php echo $key['status']=='aktif'?'selected':''; ?>><?php echo $key['ta']." (".$key['keterangan'].")"; ?></option>
-        	 	<?php
-        	 }
-        	 ?>	
-        	</select>
-        </div>
-        </div>
+        <p><?php echo $ta; ?></p>
         <?php
 			$x=1;$legend=true;
 			foreach ($datakelas as $key) {
