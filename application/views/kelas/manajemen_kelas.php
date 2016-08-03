@@ -10,7 +10,18 @@
 		<legend>Tambah Kelas</legend>
 		<div class="col-md-8">
 		<div class="row">
-		<p style="font-size:15px;margin-left:20px;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('kelas'); ?></p>
+		<?php
+		if($this->session->flashdata('kelas')!=null){
+			?>
+			<div class="alert alert-<?php echo $this->session->flashdata('warna')=='red'?'danger':'success';?> alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-<?php echo $this->session->flashdata('warna')=='red'?'ban':'check';?>"></i> Alert!</h4>
+                <?php echo $this->session->flashdata('kelas'); ?>
+        </div>
+			<?php
+		}
+		?>
+		
 		<?php echo validation_errors(); ?>
 
 		<?php echo form_open('kelas/save_kelas'); ?>		
@@ -54,7 +65,17 @@
 		<div class="col-md-4"></div>
 		<br><br>
 		<legend>Data Kelas</legend>
-		<p style="font-size:20px;;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('kelasupdate'); ?></p>
+		<?php
+		if($this->session->flashdata('kelasupdate')!=null){
+			?>
+			<div class="alert alert-<?php echo $this->session->flashdata('warna')=='red'?'danger':'success';?> alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-<?php echo $this->session->flashdata('warna')=='red'?'ban':'check';?>"></i> Alert!</h4>
+                <?php echo $this->session->flashdata('kelasupdate'); ?>
+        </div>
+			<?php
+		}
+		?>
 		<table id="tabelkelas" class="table table-striped">
 		<thead>
 			<tr>

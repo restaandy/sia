@@ -7,8 +7,8 @@ class Kelas extends CI_Controller {
             parent::__construct();
             if($this->session->userdata('hold')!="AS"){
             	redirect('login');
-            }else{
-              $this->load->model('Model_kelas');	
+            }else{	
+              $this->load->model('Model_kelas');
             }
     }
 	public function dashboard($content){
@@ -19,12 +19,18 @@ class Kelas extends CI_Controller {
 		$bread['title1']="Kelas";
 		$bread['title2']="Monitoring";
 		$bread['list']=array("Kelas");
-
 		$data['title']="Sistem Akademik";
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+		$data['ta']=$this->Model_kelas->get_ta_aktif();
 		
-		$content=$this->load->view('home/dashboard',$data,true);
+		$ta=$this->Model_kelas->get_ta_aktif(true);
+		$ta_aktif=0;
+		foreach ($ta as $key) {
+			$ta_aktif=$key['id'];
+		}
+		$data['datakelas']=$this->Model_kelas->get_kelas_aktif($this->session->userdata('id'));
+		$content=$this->load->view('kelas/kelas',$data,true);
 		$this->dashboard($content);
 	}
 	function kelas(){
@@ -103,6 +109,23 @@ class Kelas extends CI_Controller {
 			}
 			redirect("kelas/kelas");
 		}
+	}
+	public function datasiswa($id){
+		$idkelas=$this->enkripsi->decode($id);
+		if(is_numeric($id)){
+			$bread['title1']="Kelas";
+			$bread['title2']="Data Siswa";
+			$bread['list']=array("Kelas","Data Siswa");
+			$data['tingkat']=array('X','XI','XII');
+			$data['title']="Data Siswa | Sistem Akademik";		
+			$data['sidebar']=$this->load->view('sidebar','',true);
+			$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+			$data['datasiswa']=$this->Model_kelas->get_siswa_kelas($this->session->userdata('id'),$idkelas);
+
+			$content=$this->load->view('kelas/manajemen_kelas',$data,true);
+			$this->dashboard($content);		
+		}
+		
 	}
 
 //=========================================================================

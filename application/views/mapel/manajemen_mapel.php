@@ -7,7 +7,17 @@
 		<legend>Tambah Mata Pelajaran</legend>
 		<div class="col-md-8">
 		<div class="row">
-		<p style="font-size:15px;margin-left:20px;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('mapel'); ?></p>
+		<?php
+		if($this->session->flashdata('mapel')!=null){
+			?>
+			<div class="alert alert-<?php echo $this->session->flashdata('warna')=='red'?'danger':'success';?> alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-<?php echo $this->session->flashdata('warna')=='red'?'ban':'check';?>"></i> Alert!</h4>
+                <?php echo $this->session->flashdata('mapel'); ?>
+        </div>
+			<?php
+		}
+		?>
 		<?php echo validation_errors(); ?>
 
 		<?php echo form_open('mapel/save_mapel'); ?>		
@@ -81,7 +91,17 @@
 		
 		<br><br>
 		<legend>Data Mapel</legend>
-		<p style="font-size:20px;;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('mapelupdate'); ?></p>
+		<?php
+		if($this->session->flashdata('mapelupdate')!=null){
+			?>
+			<div class="alert alert-<?php echo $this->session->flashdata('warna')=='red'?'danger':'success';?> alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-<?php echo $this->session->flashdata('warna')=='red'?'ban':'check';?>"></i> Alert!</h4>
+                <?php echo $this->session->flashdata('mapelupdate'); ?>
+        </div>
+			<?php
+		}
+		?>
 		<table id="tabelprogram" class="table table-striped">
 		<thead>
 			<tr>

@@ -12,6 +12,52 @@ Class Model_kelas extends CI_Model
    $query=$query->result_array();
    return $query;
   }
+  public function get_kelas_aktif($idskolah,$id_ta=''){
+    if($id_ta==''){
+    $query=$this->db->query("SELECT a.`id`,a.id_sekolah,
+  b.`nip`,
+  b.`nama_pegawai`,
+  c.`nama_kelas`,c.tingkat,
+  d.`nama_mapel`,
+  e.`ta`,e.`keterangan`,e.`tahun` 
+FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON (a.`id_pegawai`=b.`id`) 
+      LEFT JOIN obj_kelas c ON (a.`id_kelas`=c.`id`) 
+      LEFT JOIN obj_mapel d ON (a.`id_mapel`=d.`id`)
+      LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`id`)
+WHERE a.`id_sekolah`=".$idskolah." and e.status='aktif';");
+  }else{
+    $query=$this->db->query("SELECT a.`id`,a.id_sekolah,
+  b.`nip`,
+  b.`nama_pegawai`,
+  c.`nama_kelas`,c.tingkat,
+  d.`nama_mapel`,
+  e.`ta`,e.`keterangan`,e.`tahun` 
+FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON (a.`id_pegawai`=b.`id`) 
+      LEFT JOIN obj_kelas c ON (a.`id_kelas`=c.`id`) 
+      LEFT JOIN obj_mapel d ON (a.`id_mapel`=d.`id`)
+      LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`id`)
+WHERE a.`id_sekolah`=".$idskolah." and e.id=".$id_ta.";");
+  }
+  $query=$query->result_array();
+  return $query;
+  }
+
+  public function get_siswa_kelas($idskolah,$idkelas){
+
+  }
+  public function get_ta_aktif($aktif=false){
+   if($aktif){
+    $query=$this->db->query("Select * from kbm_ta where status='aktif'");
+   }else{
+    $query=$this->db->query("Select * from kbm_ta");
+   }
+   $query=$query->result_array();
+   return $query;
+  }
+  public function cek_kelas_exist($idkelas,$idskolah){
+    $this->db->get_where('obj_kelas',array('id_sekolah'=>$idskolah,'id'=>$idkelas));
+    return $this->db->affected_rows();
+  }
   public function cek_user_guru($username,$status){
     if($status=="gtt"){$kolom="email";}
     else{$kolom="nip";}  
