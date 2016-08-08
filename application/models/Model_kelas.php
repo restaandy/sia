@@ -43,7 +43,12 @@ WHERE a.`id_sekolah`=".$idskolah." and e.id=".$id_ta.";");
   }
 
   public function get_siswa_kelas($idskolah,$idkelas){
-
+    $query=$this->db->query("SELECT a.`id`,b.`no_induk`,b.`nama` FROM kbm_belajar a
+       LEFT JOIN obj_siswa b ON a.`no_induk`=b.`no_induk`
+       JOIN kbm_mengajar c ON a.`id_mengajar`=c.`id`
+       WHERE a.`id_sekolah`=".$idskolah." AND c.`id`=".$idkelas.";");
+    $query=$query->result_array();
+    return $query; 
   }
   public function get_ta_aktif($aktif=false){
    if($aktif){

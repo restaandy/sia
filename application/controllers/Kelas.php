@@ -110,12 +110,13 @@ class Kelas extends CI_Controller {
 			$bread['title1']="Kelas";
 			$bread['title2']="Data Siswa";
 			$bread['list']=array("Kelas","Data Siswa");
-			$data['title']="Data Siswa | Sistem Akademik";		
+			$data['title']="Data Siswa | Sistem Akademik";	
+
 			$data['sidebar']=$this->load->view('sidebar','',true);
 			$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
 			$data['datasiswa']=$this->Model_kelas->get_siswa_kelas($this->session->userdata('id'),$idmengajar);
 
-			$content=$this->load->view('kelas/manajemen_kelas',$data,true);
+			$content=$this->load->view('kelas/data_siswa',$data,true);
 			$this->dashboard($content);		
 		}
 		
