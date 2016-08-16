@@ -9,6 +9,7 @@ class Kelas extends CI_Controller {
             	redirect('login');
             }else{	
               $this->load->model('Model_kelas');
+              $this->load->model('Model_siswa');
             }
     }
 	public function dashboard($content){
@@ -104,6 +105,25 @@ class Kelas extends CI_Controller {
 			redirect("kelas/kelas");
 		}
 	}
+	public function autocompletesiswa(){
+		if(isset($_POST['autocomplete'])){
+			$idsekolah=$this->session->userdata('id');
+			$nama=$this->input->post('value');
+			$data=$this->Model_siswa->get_siswa($idsekolah,$nama);
+			$dataauto=array();
+			foreach ($data as $key) {
+				array_push($dataauto,
+					array(
+						'label'=>$key['nama']." - ".$key['no_induk'],
+						'value'=>$key['no_induk']
+						)
+					);
+			}
+			echo json_encode($dataauto); 
+		}else{
+
+		}
+	}
 	public function datasiswa($id){
 		$idmengajar=$this->enkripsi->decode($id);
 		if(is_numeric($idmengajar)){
@@ -111,15 +131,43 @@ class Kelas extends CI_Controller {
 			$bread['title2']="Data Siswa";
 			$bread['list']=array("Kelas","Data Siswa");
 			$data['title']="Data Siswa | Sistem Akademik";	
-
+			$data['id_mengajar']=$idmengajar;
 			$data['sidebar']=$this->load->view('sidebar','',true);
 			$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
 			$data['datasiswa']=$this->Model_kelas->get_siswa_kelas($this->session->userdata('id'),$idmengajar);
-
+			$data['keterangan']=$this->Model_kelas->get_ket_kelas($idmengajar);
+			$data['encrypt']=$id;
 			$content=$this->load->view('kelas/data_siswa',$data,true);
 			$this->dashboard($content);		
 		}
 		
+	}
+	public function input_siswa_kelas(){
+		if($this->input->post('simpan')=="yes"){
+			$idmengajar=$this->input->post('id_mengajar');
+			$noinduk=$this->input->post('no_induk');
+			$idsekolah=$this->session->userdata('id');
+			$enc=$this->session->userdata('encrypt');
+			$datainsert=array();
+			$datatemp=array();
+			foreach ($noinduk as $key) {
+				$datainsert['id_sekolah']=$idsekolah;
+				$datainsert['id_mengajar']=$idmengajar;
+				$datainsert['no_induk']=$key;
+				array_push($datatemp,$datainsert);
+			}
+			$hasil=$this->Model_kelas->input_siswa_kelas($datatemp);
+			if($hasil){
+				$this->session->set_flashdata('kelas','Data sudah masuk');
+			    $this->session->set_flashdata('warna','blue');
+			}else{
+				$this->session->set_flashdata('kelas','Data gagal masuk,');
+			    $this->session->set_flashdata('warna','red');
+			}
+			redirect("datasiswa/".$enc);
+		}else{
+			redirect("login");
+		}
 	}
 
 //=========================================================================

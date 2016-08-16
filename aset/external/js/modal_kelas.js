@@ -15,6 +15,41 @@ $(document).ready(function(){
 	     startDate: '-3d'
     });
 });
+var x=1;
+function tambahfield(){
+    x++;
+	$('#bindautocom').append('<label>Nama Siswa '+x+'</label>'+	
+			'<div class="form-group">'+
+			'	<input type="text" name="no_induk[]" onkeydown="autocom(event)" class="form-control" >'+
+			'</div>'
+		);
+}
+function autocom(e){
+	var availableTags = [];
+        $(e.target).autocomplete({
+            source: function(term, suggest){
+                $.post('http://localhost/sia/kelas/autocompletesiswa',{autocomplete:'yes',value:$(e.target).val()},function(data){
+                    suggest(JSON.parse(data));
+                });
+            },
+            focus: function(event, ui ) {
+                $(e.target).val(ui.item.label);
+                return false;
+            }
+            /*
+            ,
+            select: function (event, ui) {
+
+                alert("selected!");
+            },
+
+            change: function (event, ui) {
+
+                alert("changed!");
+            }
+            */
+        });
+}
 
 // Modal loading
 var waitingDialog = waitingDialog || (function ($) {

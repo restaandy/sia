@@ -10,6 +10,7 @@ function tampildatapengajar(e,base_url){
 
 $(function() {
         var availableTags = [];
+        
         $("#pegawai").autocomplete({
             source: function(term, suggest){
                 $.post('http://localhost/sia/pegawai/autocomplete',{autocomplete:'yes',value:$('#pegawai').val()},function(data){

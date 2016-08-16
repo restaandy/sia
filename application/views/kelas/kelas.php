@@ -27,6 +27,7 @@ $ta=$key['ta']." (".$key['keterangan'].")";
 		        <div class="small-box bg-green">
 		          <div class="inner">
 		              <h4><u><?php echo $key['nama_kelas']; ?></u></h4>
+		              <p>Mapel : <?php echo $key['nama_mapel']; ?></p>
 		              <p>Kelas : <?php echo $key['tingkat']; ?></p>
 		              <p>Pengajar : <?php echo substr($key['nama_pegawai'],0,8)."_"; ?></p>
 		          </div>
@@ -62,7 +63,9 @@ $ta=$key['ta']." (".$key['keterangan'].")";
 		        <div class="small-box bg-yellow">
 		          <div class="inner">
 		              <h4><u><?php echo $key['nama_kelas']; ?></u></h4>
-		              <p><?php echo $key['tingkat']; ?></p>
+		              <p>Mapel : <?php echo $key['nama_mapel']; ?></p>
+		              <p>Kelas : <?php echo $key['tingkat']; ?></p>
+		              <p>Pengajar : <?php echo substr($key['nama_pegawai'],0,8)."_"; ?></p>
 		          </div>
 		          <div class="icon" style="padding:5px;">
               			<i class="ion-ios-star"></i>
@@ -94,7 +97,9 @@ $ta=$key['ta']." (".$key['keterangan'].")";
 		        <div class="small-box bg-red">
 		          <div class="inner">
 		              <h4><u><?php echo $key['nama_kelas']; ?></u></h4>
-		              <p><?php echo $key['tingkat']; ?></p>
+		              <p>Mapel : <?php echo $key['nama_mapel']; ?></p>
+		              <p>Kelas : <?php echo $key['tingkat']; ?></p>
+		              <p>Pengajar : <?php echo substr($key['nama_pegawai'],0,8)."_"; ?></p>
 		          </div>
 		          <div class="icon" style="padding:5px;">
               			<i class="ion-ios-star"></i>
