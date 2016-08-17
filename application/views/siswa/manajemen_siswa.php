@@ -27,6 +27,13 @@
 				<label>Nama Siswa</label>
 				<input class="form-control" type="text" name="nama" maxlength="100" required />
 			</div>
+			<div class="form-group">
+		<label>Jenis Kelamin</label>
+		<select class="form-control" name="jenkel">
+			<option value="L">Laki-laki</option>
+			<option value="P">Perempuan</option>
+		</select>
+	</div>
 			<label>Tahun Masuk</label>
 			<div class="form-group">
 				<input type="radio" name="thn_masuk" value="ini" onclick="pilih_tahun_masuk('ini')" checked> Tahun Ini

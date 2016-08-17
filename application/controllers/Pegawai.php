@@ -9,6 +9,7 @@ class Pegawai extends CI_Controller {
             	redirect('login');
             }else{
               $this->load->model('Model_pegawai');	
+              $this->load->model('Model_kelas');
             }
     }
 	public function dashboard($content){
@@ -49,7 +50,7 @@ class Pegawai extends CI_Controller {
 			foreach ($data as $key) {
 				array_push($dataauto,
 					array(
-						'label'=>$key['nama_pegawai'],
+						'label'=>$key['nama_pegawai']."  (".$key['status'].")",
 						'value'=>$key['id']."-".$key['nama_pegawai'],
 						'foto'=>$key['foto']
 						)
@@ -58,6 +59,43 @@ class Pegawai extends CI_Controller {
 			echo json_encode($dataauto); 
 		}else{
 
+		}
+	}
+	public function jabatan(){
+		$bread['title1']="Jabatan";
+		$bread['title2']="Jabatan";
+		$bread['list']=array("Pegawai","Jabatan");
+
+		$data['title']="Jabatan | Sistem Akademik";		
+		$data['sidebar']=$this->load->view('sidebar','',true);
+		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+		$idsekolah=$this->session->userdata('id');
+		$data['datajabatan']=$this->Model_pegawai->get_jabatan_pegawai($idsekolah);
+		$data['kelas']=$this->Model_kelas->get_kelas($idsekolah);
+		$content=$this->load->view('pegawai/jabatan',$data,true);
+		$this->dashboard($content);
+	}
+	public function input_jabatan(){
+		if($this->input->post('simpan')=="yes"){
+			$data['id_sekolah']=$this->session->userdata('id');
+			$data['jabatan']=$this->input->post('jabatan');
+			$pegawai=$this->input->post('id_pegawai');
+			$pegawai=explode("-", $pegawai);
+			$data['id_pegawai']=$pegawai[0];
+			if($data['jabatan']=='wali'){
+				$data['id_kelas']=$this->input->post('id_kelas');
+			}
+			$hasil=$this->Model_pegawai->input_jabatan($data);
+			if($hasil){
+				$this->session->set_flashdata('jabatan','Data sudah masuk');
+			    $this->session->set_flashdata('warna','blue');
+			}else{
+				$this->session->set_flashdata('jabatan','Data gagal masuk, ');
+			    $this->session->set_flashdata('warna','red');
+			}
+			redirect("pegawai/jabatan");
+		}else{
+			redirect("pegawai/jabatan");
 		}
 	}
 	public function pengajar(){

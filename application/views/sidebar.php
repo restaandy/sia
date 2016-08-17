@@ -88,6 +88,7 @@
           <ul class="treeview-menu">
             <li><a href="<?php echo base_url(); ?>mapel"><i class="fa fa-circle-o"></i> Mapel</a></li>
             <li><a href="<?php echo base_url(); ?>mapel/mapel"><i class="fa fa-circle-o"></i> Manajemen Mapel</a></li>
+            <li><a href="<?php echo base_url(); ?>mapel/sk"><i class="fa fa-circle-o"></i> Standar Kompetensi</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -117,6 +118,21 @@
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
       <?php
+          }
+          if($this->session->userdata('hold')=="P"){
+            ?>
+            <li><a href="<?php echo base_url();?>home"><i class="fa fa-circle-o"></i> Home</a></li>
+            <li class="treeview">
+          <a href="#">
+            <i class="fa fa-dashboard"></i>
+             <span>Kelas</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Kelas</a></li>
+          </ul>
+        </li>
+            <?php
           }
          ?>
       </ul>

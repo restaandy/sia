@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-Class Model_kelas extends CI_Model
+Class Model_user extends CI_Model
 {
 
   public function get_kelas($idskolah='',$nama=''){
@@ -17,8 +17,8 @@ Class Model_kelas extends CI_Model
    $query=$query->result_array();
    return $query;
   }
-  public function get_kelas_aktif($idskolah,$id_ta=''){
-    if($id_ta==''){
+  public function get_kelas_aktif($idskolah,$id){
+   
     $query=$this->db->query("SELECT a.`id`,a.id_sekolah,
   b.`nip`,
   b.`nama_pegawai`,
@@ -29,20 +29,8 @@ FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON (a.`id_pegawai`=b.`id`)
       LEFT JOIN obj_kelas c ON (a.`id_kelas`=c.`id`) 
       LEFT JOIN obj_mapel d ON (a.`id_mapel`=d.`id`)
       LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`id`)
-WHERE a.`id_sekolah`=".$idskolah." and e.status='aktif';");
-  }else{
-    $query=$this->db->query("SELECT a.`id`,a.id_sekolah,
-  b.`nip`,
-  b.`nama_pegawai`,
-  c.id as id_kelas,c.`nama_kelas`,c.tingkat,
-  d.`nama_mapel`,
-  e.`ta`,e.`keterangan`,e.`tahun` 
-FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON (a.`id_pegawai`=b.`id`) 
-      LEFT JOIN obj_kelas c ON (a.`id_kelas`=c.`id`) 
-      LEFT JOIN obj_mapel d ON (a.`id_mapel`=d.`id`)
-      LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`id`)
-WHERE a.`id_sekolah`=".$idskolah." and e.id=".$id_ta.";");
-  }
+WHERE a.`id_sekolah`=".$idskolah." and a.id_pegawai=".$id." and e.status='aktif';");
+  
   $query=$query->result_array();
   return $query;
   }

@@ -23,7 +23,7 @@ class Kelas extends CI_Controller {
 		$data['title']="Sistem Akademik";
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
-		
+		$data['datawali']=$this->Model_kelas->get_wali_kelas($this->session->userdata('id'));
 		$data['datakelas']=$this->Model_kelas->get_kelas_aktif($this->session->userdata('id'));
 		$content=$this->load->view('kelas/kelas',$data,true);
 		$this->dashboard($content);
@@ -147,7 +147,7 @@ class Kelas extends CI_Controller {
 			$idmengajar=$this->input->post('id_mengajar');
 			$noinduk=$this->input->post('no_induk');
 			$idsekolah=$this->session->userdata('id');
-			$enc=$this->session->userdata('encrypt');
+			$enc=$this->input->post('encrypt');
 			$datainsert=array();
 			$datatemp=array();
 			foreach ($noinduk as $key) {
@@ -164,7 +164,7 @@ class Kelas extends CI_Controller {
 				$this->session->set_flashdata('kelas','Data gagal masuk,');
 			    $this->session->set_flashdata('warna','red');
 			}
-			redirect("datasiswa/".$enc);
+			redirect("kelas/datasiswa/".$enc);
 		}else{
 			redirect("login");
 		}

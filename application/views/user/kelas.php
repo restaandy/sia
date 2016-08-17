@@ -34,7 +34,7 @@ $ta=$key['ta']." (".$key['keterangan'].")";
               			<i class="ion-ios-star"></i>
             	  </div>
             	  
-		            <a href="<?php echo base_url(); ?>kelas/datasiswa/<?php echo $newid; ?>" class="small-box-footer">
+		            <a href="<?php echo base_url(); ?>user/datasiswa/<?php echo $newid; ?>" class="small-box-footer">
 		            	 <?php 
  						foreach ($datawali as $keys) {
  							if($key['id_kelas']==$keys['id_kelas']){
@@ -81,7 +81,7 @@ $ta=$key['ta']." (".$key['keterangan'].")";
 		          <div class="icon" style="padding:5px;">
               			<i class="ion-ios-star"></i>
             	  </div>
-		            <a href="<?php echo base_url(); ?>kelas/datasiswa/<?php echo $newid; ?>" class="small-box-footer">
+		            <a href="<?php echo base_url(); ?>user/datasiswa/<?php echo $newid; ?>" class="small-box-footer">
 		            	 <?php 
  						foreach ($datawali as $keys) {
  							if($key['id_kelas']==$keys['id_kelas']){
@@ -126,7 +126,7 @@ $ta=$key['ta']." (".$key['keterangan'].")";
 		          <div class="icon" style="padding:5px;">
               			<i class="ion-ios-star"></i>
             	  </div>
-		            <a href="<?php echo base_url(); ?>kelas/datasiswa/<?php echo $newid; ?>" class="small-box-footer">Masuk <i class="fa fa-arrow-circle-right"></i></a>
+		            <a href="<?php echo base_url(); ?>user/datasiswa/<?php echo $newid; ?>" class="small-box-footer">Masuk <i class="fa fa-arrow-circle-right"></i></a>
 				</div>
 			</div> 
 			 <?php

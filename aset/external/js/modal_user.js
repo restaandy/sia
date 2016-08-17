@@ -1,45 +1,55 @@
-function tampildatamapel(e,base_url){
+function tampildatakelas(e,base_url){
  waitingDialog.show('Loading');	
  var id=$(e.target).attr('data-id');
- $.post(base_url+'modal/modal_mapel',{id:id},function(data){
-  $("#mapel .modal-body").html(data);
+ $.post(base_url+'modal/modal_kelas',{id:id},function(data){
+  $("#datakelas .modal-body").html(data);
   waitingDialog.hide();
-  $("#mapel").modal("show");
+  $("#datakelas").modal("show");
  });
 }
+
+$(document).ready(function(){
+	 $('#tabelkelas').DataTable();
+	    $('.datepicker').datepicker({
+	     format: 'yyyy-mm-dd',
+	     startDate: '-3d'
+    });
+});
 var x=1;
 function tambahfield(){
     x++;
-	$('#sk').append('<label>Standar Kompetensi '+x+'</label>'+	
-			'<div class="form-group" style="background-color:#8adcc8;padding:10px;">'+
-				'<label>Teori</label>'+
-				'<textarea class="form-control" name="sk_teori[]"></textarea>'+
-				'<label>Praktek</label>'+
-				'<textarea class="form-control" name="sk_praktek[]"></textarea>'+
+	$('#bindautocom').append('<label>Nama Siswa '+x+'</label>'+	
+			'<div class="form-group">'+
+			'	<input type="text" name="no_induk[]" onkeydown="autocom(event)" class="form-control" >'+
 			'</div>'
 		);
 }
-function fillprogram(e,base_url){
- waitingDialog.show('Loading');
- $("#id_paket").html("<option>--Pilih Paket --</option>");	
- var id=$(e.target).val();
- $.post(base_url+'modal/get_program_by_id',{id:id},function(data){
-  $("#id_program").html(data);
-  waitingDialog.hide();
- });
+function autocom(e){
+	var availableTags = [];
+        $(e.target).autocomplete({
+            source: function(term, suggest){
+                $.post('http://localhost/sia/kelas/autocompletesiswa',{autocomplete:'yes',value:$(e.target).val()},function(data){
+                    suggest(JSON.parse(data));
+                });
+            },
+            focus: function(event, ui ) {
+                $(e.target).val(ui.item.label);
+                return false;
+            }
+            /*
+            ,
+            select: function (event, ui) {
+
+                alert("selected!");
+            },
+
+            change: function (event, ui) {
+
+                alert("changed!");
+            }
+            */
+        });
 }
-function fillpaket(e,base_url){
- waitingDialog.show('Loading');	
- var id=$(e.target).val();
- $.post(base_url+'modal/get_paket_by_id',{id:id},function(data){
-  $("#id_paket").html(data);
-  waitingDialog.hide();
- });
-}
-$(document).ready(function(){
-	 $('#tabelpaket').DataTable();
-	 $('.tabelpagin').DataTable();
-});
 
 // Modal loading
 var waitingDialog = waitingDialog || (function ($) {

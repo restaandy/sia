@@ -66,7 +66,59 @@ $(document).ready(function(){
 	     startDate: '-3d'
     });
 });
+function jabatanchange(e){
+ if($(e.target).val()=='wali'){
+ 	$('#id_kelas').removeClass('hide');
+ }else{
+ 	$('#id_kelas').addClass('hide');
+ }
+}
 
+$(function() {
+        var availableTags = [];
+        
+        $("#pegawai").autocomplete({
+            source: function(term, suggest){
+                $.post('http://localhost/sia/pegawai/autocomplete',{autocomplete:'yes',value:$('#pegawai').val()},function(data){
+                    suggest(JSON.parse(data));
+                });
+            },
+            focus: function(event, ui ) {
+                $('#pegawai').val(ui.item.label);
+                return false;
+            }
+            /*
+            ,
+            select: function (event, ui) {
+
+                alert("selected!");
+            },
+
+            change: function (event, ui) {
+
+                alert("changed!");
+            }
+            */
+        });
+
+        $("#pegawai").data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+            var $li = $('<li>');
+            var foto=item.foto;
+            if(foto==null){foto="";}
+
+            $img = $('<img width="40" height="50" style="padding-right:5px;">');
+            $img.attr({
+                src: 'http://localhost/sia/aset/img/pegawai/'+foto,
+                alt: ''+foto,
+                onError:'$(this).attr({src:"http://localhost/sia/aset/img/no-image.png"})'
+            });
+
+            $li.attr('data-value', item.label);
+            $li.append('<a href="#">');
+            $li.find('a').append($img).append(item.label);
+            return $li.appendTo(ul);
+        };
+  });
 // Modal loading
 var waitingDialog = waitingDialog || (function ($) {
     'use strict';

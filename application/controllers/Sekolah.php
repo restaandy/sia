@@ -6,7 +6,7 @@ class Sekolah extends CI_Controller {
 	function __construct(){
             parent::__construct();
             
-            if($this->session->userdata('hold')==null||$this->session->userdata('hold')!="A"){
+            if($this->session->userdata('hold')!="A"){
              	redirect('login');
             }else{
               $this->load->model('Model_sekolah');	

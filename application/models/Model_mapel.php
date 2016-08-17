@@ -12,6 +12,12 @@ Class Model_mapel extends CI_Model
    $query=$query->result_array();
    return $query;
   }
+  public function get_sk_mapel($idskolah){
+   $query=$this->db->query("SELECT b.id,a.nama_mapel,b.standar_kompetensi,b.kategori,a.status_mapel FROM obj_mapel a LEFT JOIN kbm_sk b ON a.id=b.id_mapel where b.id_sekolah=".$idskolah.";");
+   $query=$query->result_array();
+   return $query;
+  }
+  
   public function get_ta($nama=''){
    if($nama==''){
     $query=$this->db->query("Select * from kbm_ta");
@@ -55,6 +61,15 @@ Class Model_mapel extends CI_Model
 	    }else{
 	      return false;
 	    }
+    
+  }
+  public function input_sk($data){  
+      $this->db->insert_batch('kbm_sk',$data);
+      if($this->db->affected_rows()>0){
+        return true;
+      }else{
+        return false;
+      }
     
   }
   

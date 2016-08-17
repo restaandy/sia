@@ -5,10 +5,12 @@ class Dashboard extends CI_Controller {
 
 	function __construct(){
             parent::__construct();
-            if($this->session->userdata('hold')!="AS"){
-            	redirect('login');
+            $sesarray=array('AS','P','S');
+            if(in_array($this->session->userdata('hold'), $sesarray)){
+               $this->load->model('Model_home');	
             }else{
-              $this->load->model('Model_home');	
+            	redirect('login');
+              	
             }
             
     }
@@ -20,7 +22,6 @@ class Dashboard extends CI_Controller {
 		$bread['title1']="Dashboard";
 		$bread['title2']="Monitoring";
 		$bread['list']=array("Dashboard");
-
 		$data['title']="Sistem Akademik";
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);

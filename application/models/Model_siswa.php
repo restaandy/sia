@@ -26,7 +26,7 @@ Class Model_siswa extends CI_Model
       }
   }
   public function simpan_siswa($data){
-  	if($this->cek_nisn_siswa($data['no_induk_sekolah'])>0){
+  	if($this->cek_nisn_siswa($data['no_induk'])>0){
   		return false;
   	}else{
 	    $this->db->insert('obj_siswa',$data);

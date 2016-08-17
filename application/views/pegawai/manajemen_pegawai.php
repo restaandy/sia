@@ -6,17 +6,29 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>aset/external/js/modal_pegawai.js"></script>
 
 <div class="panel panel-default">
-	<div class="panel-body">
+	<div class="panel-body" id="pegawai">
 		<legend>Tambah Pegawai</legend>
 		<div class="col-md-8">
 		<div class="row">
-		<p style="font-size:15px;margin-left:20px;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('pegawai'); ?></p>
+		<?php
+		if($this->session->flashdata('pegawai')!=null){
+			?>
+			<div class="alert alert-<?php echo $this->session->flashdata('warna')=='red'?'danger':'success';?> alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-<?php echo $this->session->flashdata('warna')=='red'?'ban':'check';?>"></i> Alert!</h4>
+                <?php echo $this->session->flashdata('pegawai'); ?>
+        	</div>
+			<?php
+		}
+		?>	
+		
 		<?php echo validation_errors(); ?>
 
 		<?php echo form_open('pegawai/save_Pegawai'); ?>		
 			<div class="col-md-4">
 			<div class="form-group">
 				<label>NIP</label>
+				
 				<input class="form-control ni" type="text" name="nip" id="nip" maxlength="50" required />
 			</div>
 			<div class="form-group">
@@ -58,7 +70,17 @@
 		<div class="col-md-4"></div>
 		<br><br>
 		<legend>Data Pegawai</legend>
-		<p style="font-size:20px;;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('pegawaiupdate'); ?></p>
+		<?php
+		if($this->session->flashdata('pegawaiupdate')!=null){
+			?>
+			<div class="alert alert-<?php echo $this->session->flashdata('warna')=='red'?'danger':'success';?> alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-<?php echo $this->session->flashdata('warna')=='red'?'ban':'check';?>"></i> Alert!</h4>
+                <?php echo $this->session->flashdata('pegawaiupdate'); ?>
+        	</div>
+			<?php
+		}
+		?>
 		<table id="tabelpegawai" class="table table-striped">
 		<thead>
 			<tr>

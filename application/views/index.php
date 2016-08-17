@@ -257,7 +257,13 @@
                 <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php echo $this->session->userdata('nama_sekolah'); ?>
+                  <?php if($this->session->userdata('hold')=="AS")
+                        { echo $this->session->userdata('nama_sekolah');} 
+                        if($this->session->userdata('hold')=="P")
+                        { echo $this->session->userdata('nama_pegawai');}
+                        if($this->session->userdata('hold')=="S")
+                        { echo $this->session->userdata('nama');}
+                  ?>
                   <small><?php echo $this->session->userdata('username'); ?></small>
                 </p>
               </li>

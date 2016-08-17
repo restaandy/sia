@@ -97,7 +97,7 @@ box-shadow: 5px 8px 8px -1px rgba(0,0,0,0.75);border: 1px solid #333;">
 
                         <select class="form-control input-sm" name="sebagai">
                             <option value="AS">Admin Sekolah</option>
-                            <option value="G">Pengajar</option>
+                            <option value="P">Pegawai</option>
                             <option value="S">Siswa</option>
                         </select>
                     </td>

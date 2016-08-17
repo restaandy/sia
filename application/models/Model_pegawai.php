@@ -12,6 +12,11 @@ Class Model_pegawai extends CI_Model
    $query=$query->result_array();
    return $query;
   }
+  public function get_jabatan_pegawai($idskolah){
+    $query=$this->db->query("SELECT a.id,b.nip,b.nama_pegawai,a.jabatan,c.nama_kelas,c.tingkat FROM obj_jabatan a LEFT JOIN obj_pegawai b ON a.id_pegawai=b.id LEFT JOIN obj_kelas c ON a.id_kelas=c.id WHERE a.id_sekolah=".$idskolah.";");
+    $query=$query->result_array();
+   return $query;
+  }
   public function get_pengajar($idskolah='',$ta='',$nama=''){
    if($ta==''){
     $query=$this->db->query("SELECT a.`id`,a.id_sekolah,
@@ -101,8 +106,16 @@ WHERE a.`id_sekolah`=".$idskolah." and e.id=".$ta.";");
 	    }
     }
   }
-    public function simpan_pengajar($data){
+  public function simpan_pengajar($data){
       $this->db->insert('kbm_mengajar',$data);
+      if($this->db->affected_rows()>0){
+        return true;
+      }else{
+        return false;
+      }
+  }
+  public function input_jabatan($data){
+      $this->db->insert('obj_jabatan',$data);
       if($this->db->affected_rows()>0){
         return true;
       }else{

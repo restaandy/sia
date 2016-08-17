@@ -43,6 +43,55 @@ class Mapel extends CI_Controller {
 		$content=$this->load->view('mapel/manajemen_mapel',$data,true);
 		$this->dashboard($content);
 	}
+	function sk(){
+		$bread['title1']="Standar Kompetensi";
+		$bread['title2']="Standar Kompetensi";
+		$bread['list']=array("Mapel","Standar Kompetensi");
+		$data['tingkat']=array('X','XI','XII');
+		$data['databidang']=$this->Model_jurusan->get_bidang_ahli($this->session->userdata('id'));
+
+		$data['title']="Manajemen Mapel | Sistem Akademik";		
+		$data['sidebar']=$this->load->view('sidebar','',true);
+		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+		$data['datask']=$this->Model_mapel->get_sk_mapel($this->session->userdata('id'));
+		$data['datamapel']=$this->Model_mapel->get_mapel($this->session->userdata('id'));
+		$content=$this->load->view('mapel/sk',$data,true);
+		$this->dashboard($content);
+	}
+	function input_sk(){
+		if($this->input->post('simpan')=="yes"){
+			$idsekolah=$this->session->userdata('id');
+			$idmapel=$this->input->post('id_mapel');
+			$sk_teori=$this->input->post('sk_teori');
+			$sk_praktek=$this->input->post('sk_praktek');
+			$datainput=array();$datatemp=array();
+			foreach ($sk_teori as $key) {
+				$datainput['id_sekolah']=$idsekolah;
+				$datainput['id_mapel']=$idmapel;
+				$datainput['kategori']='Teori';
+				$datainput['standar_kompetensi']=$key;
+				array_push($datatemp,$datainput);
+			}
+			foreach ($sk_praktek as $key) {
+				$datainput['id_sekolah']=$idsekolah;
+				$datainput['id_mapel']=$idmapel;
+				$datainput['kategori']='Praktek';
+				$datainput['standar_kompetensi']=$key;
+				array_push($datatemp,$datainput);
+			}
+			$hasil=$this->Model_mapel->input_sk($datatemp);
+			if($hasil){
+				$this->session->set_flashdata('sk','Data sudah masuk');
+			    $this->session->set_flashdata('warna','blue');
+			}else{
+				$this->session->set_flashdata('sk','Data gagal masuk,');
+			    $this->session->set_flashdata('warna','red');
+			}
+			redirect("mapel/sk");
+		}else{
+			redirect("mapel/sk");
+		}
+	}
 	public function autocomplete(){
 		if(isset($_POST['autocomplete'])){
 			$idsekolah=$this->session->userdata('id');

@@ -17,7 +17,7 @@
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 <h4><i class="icon fa fa-<?php echo $this->session->flashdata('warna')=='red'?'ban':'check';?>"></i> Alert!</h4>
                 <?php echo $this->session->flashdata('kelas'); ?>
-        </div>
+        	</div>
 			<?php
 		}
 		?>

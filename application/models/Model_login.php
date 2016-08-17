@@ -10,6 +10,14 @@ Class Model_login extends CI_Model
    $query=$query->result_array();
    return $query;
  }
+ public function auth_login_p($username,$password){
+   $pas =md5($password);
+   $pass = sha1('jksdhf832746aiH{}{()&(*&(*'.$pas.'HdfevgyDDw{}{}{;;*766&*&*');
+   $sql = "SELECT * FROM obj_pegawai WHERE (username = ? OR nip = ?) AND password = ?";
+   $query=$this->db->query($sql, array($username,$username,$pass));
+   $query=$query->result_array();
+   return $query;
+ }
  public function get_sekolah($nama=''){
    if($nama==''){
    	$query=$this->db->query("select * from obj_sekolah");

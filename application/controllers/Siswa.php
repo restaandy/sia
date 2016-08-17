@@ -72,8 +72,9 @@ class Siswa extends CI_Controller {
 			$no_induk=$this->input->post('no_induk');
 			$no_induk_sekolah=$this->input->post('no_induk_sekolah');
 			$idsekolah=$this->session->userdata('id');
-			$akdm_stat=$this->session->userdata('akdm_stat');
-			$status_masuk=$this->session->userdata('status_masuk');
+			$jenkel=$this->input->post('jenkel');
+			$akdm_stat=$this->input->post('akdm_stat');
+			$status_masuk=$this->input->post('status_masuk');
 			$pas =md5("sia".$no_induk_sekolah);
             $pass = sha1('jksdhf832746aiH{}{()&(*&(*'.$pas.'HdfevgyDDw{}{}{;;*766&*&*');
 			if($this->input->post('thn_masuk')=="ini"){
@@ -88,6 +89,7 @@ class Siswa extends CI_Controller {
 				'no_induk_sekolah'=>$no_induk_sekolah,
 				'username'=>$no_induk."".$no_induk_sekolah,
 				'password'=>$pass,
+				'jenkel'=>$jenkel,
 				'id_sekolah'=>$idsekolah,
 				'thn_masuk'=>$thnmasuk,
 				'akdm_stat'=>$akdm_stat,

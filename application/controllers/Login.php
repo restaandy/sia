@@ -23,7 +23,8 @@ class Login extends CI_Controller {
 		  redirect('login');	
 		}else{
 		#cek user & password
-		 $this->session->unset_userdata(array('angka1','angka2','hasil_capta'));	
+		 $this->session->unset_userdata(array('angka1','angka2','hasil_capta','id','nama_sekolah','username','id_sekolah','nama_pegawai','status'));	
+		 
 		 if($this->input->post('sebagai')=="AS"){
 		 	
 		 	$data_login=$this->Model_login->auth_login_sa($this->input->post('username'),$this->input->post('password'));
@@ -50,8 +51,27 @@ class Login extends CI_Controller {
 		 		redirect('login');
 		 	}
 		 }
-		 else if($this->input->post('sebagai')=="G"){
+		 else if($this->input->post('sebagai')=="P"){
+		 	$data_login=$this->Model_login->auth_login_p($this->input->post('username'),$this->input->post('password'));
+		 	$ndata=sizeof($data_login);
+		 	//echo $ndata;
+		 	//die;
+		 	if($ndata>0){
 
+		 		$array_ses=array('id','id_sekolah','username','nama_pegawai','status');
+		 		
+		 		foreach ($data_login as $key) {
+		 			$data_temp=array_keys($key);
+		 			$data_temp2=$data_temp;
+		            foreach ($data_temp2 as $keys) {
+		            	if(in_array($keys,$array_ses)){
+		            		$this->session->set_userdata($keys,$key[$keys]);
+		            	}
+		            }
+		 		}
+
+		 		$this->session->set_userdata('hold','P');
+		 		redirect('home');
 		 }
 		 else if($this->input->post('sebagai')=="S"){
 
@@ -63,22 +83,7 @@ class Login extends CI_Controller {
 		}
 	 }
 	}
-
-	public function load_form($data=array('nama'=>'','email'=>''),$kecuali=array(),$tambahan='',$alamatpost='sfs'){
-		$kolom=array_keys($data);
-		echo "<form method='POST' action='".$alamatpost."'>";
-		foreach ($kolom as $key) {
-			if(in_array($key,$kecuali)){}
-			else{
-				echo "
-				<div class='form-group'>
-				 <input type='type' name='".$key."' value='".$data[$key]."'>
-				</div>
-				";
-			}	
-		}
-		echo "</form>";
-	}
+}
 //=========================================================================
 //action----------
 }	

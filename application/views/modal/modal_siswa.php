@@ -162,7 +162,7 @@
 	<legend>Data Akademik Siswa</legend>
 		<div class="form-group">
 		<label>Status Akademik</label>
-		<select class="form-control" name="agama">
+		<select class="form-control" name="akdm_stat">
 			<?php
 			foreach ($akdm_stat as $key) {
 			  ?>
@@ -174,7 +174,7 @@
 	</div>
 	<div class="form-group">
 		<label>Status Masuk Sekolah</label>
-		<select class="form-control" name="agama">
+		<select class="form-control" name="status_masuk">
 			<?php
 			foreach ($status_masuk as $key) {
 			  ?>
