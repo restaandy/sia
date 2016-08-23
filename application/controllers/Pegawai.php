@@ -10,6 +10,7 @@ class Pegawai extends CI_Controller {
             }else{
               $this->load->model('Model_pegawai');	
               $this->load->model('Model_kelas');
+              $this->load->model('Model_mapel');
             }
     }
 	public function dashboard($content){
@@ -84,7 +85,10 @@ class Pegawai extends CI_Controller {
 			$data['id_pegawai']=$pegawai[0];
 			if($data['jabatan']=='wali'){
 				$data['id_kelas']=$this->input->post('id_kelas');
+			}else{
+				$data['id_kelas']="";
 			}
+
 			$hasil=$this->Model_pegawai->input_jabatan($data);
 			if($hasil){
 				$this->session->set_flashdata('jabatan','Data sudah masuk');
@@ -98,20 +102,30 @@ class Pegawai extends CI_Controller {
 			redirect("pegawai/jabatan");
 		}
 	}
-	public function pengajar(){
-		$bread['title1']="Pegawai";
-		$bread['title2']="Pengajar";
-		$bread['list']=array("Pegawai","Pengajar");
+	public function edit_jabatan(){
+		if($this->input->post('simpan')=="yes"){
+			$data['jabatan']=$this->input->post('jabatan');
+			$data['id']=$this->input->post('id');
 
-		$data['title']="Pengajar | Sistem Akademik";		
-		$data['sidebar']=$this->load->view('sidebar','',true);
-		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
-
-		$idsekolah=$this->session->userdata('id');
-		$data['datapengajar']=$this->Model_pegawai->get_pengajar($idsekolah);
-		$content=$this->load->view('pegawai/pengajar',$data,true);
-		$this->dashboard($content);
+			if($data['jabatan']=='wali'){
+				$data['id_kelas']=$this->input->post('id_kelas');
+			}else{
+				$data['id_kelas']="";
+			}
+			$hasil=$this->Model_pegawai->edit_jabatan($data);
+			if($hasil){
+				$this->session->set_flashdata('jabatanupdate','Data sudah masuk');
+			    $this->session->set_flashdata('warna','blue');
+			}else{
+				$this->session->set_flashdata('jabatanupdate','Data gagal masuk, ');
+			    $this->session->set_flashdata('warna','red');
+			}
+			redirect("pegawai/jabatan");
+		}else{
+			redirect("pegawai/jabatan");
+		}
 	}
+	
 	public function edit_pegawai(){
 		if($this->input->post('simpan')=="yes"){
 				$data=$this->input->post();
@@ -135,6 +149,48 @@ class Pegawai extends CI_Controller {
 			redirect("pegawai/pegawai");
 		}
 		
+	}
+	public function pengajar(){
+		$bread['title1']="Pegawai";
+		$bread['title2']="Pengajar";
+		$bread['list']=array("Pegawai","Pengajar");
+
+		$data['title']="Pengajar | Sistem Akademik";		
+		$data['sidebar']=$this->load->view('sidebar','',true);
+		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+
+		$idsekolah=$this->session->userdata('id');
+		$data['datapengajar']=$this->Model_pegawai->get_pengajar($idsekolah);
+		$data['kelas']=$this->Model_kelas->get_kelas($idsekolah);
+		$data['mapel']=$this->Model_mapel->get_mapel($idsekolah);
+		$data['ta']=$this->Model_mapel->get_ta();
+		$content=$this->load->view('pegawai/pengajar',$data,true);
+		$this->dashboard($content);
+	}
+	public function edit_pengajar(){
+		if($this->input->post('simpan')=="yes"){
+			$id=$this->input->post('id');
+			$kelas=$this->input->post('kelas');
+			$mapel=$this->input->post('mapel');
+			$ta=$this->input->post('ta');
+			$data=array(
+				'id'=>$id,
+				'id_kelas'=>$kelas,
+				'id_mapel'=>$mapel,
+				'id_ta'=>$ta
+				);
+			$hasil=$this->Model_pegawai->edit_pengajar($data);
+			if($hasil){
+				$this->session->set_flashdata('pengajarupdate','Data sudah masuk');
+			    $this->session->set_flashdata('warna','blue');
+			}else{
+				$this->session->set_flashdata('pengajarupdate','Data gagal masuk, ');
+			    $this->session->set_flashdata('warna','red');
+			}
+			redirect("pegawai/pengajar");
+		}else{
+			redirect("pegawai/pengajar");
+		}	
 	}
 	public function save_pengajar(){
 		if($this->input->post('simpan')=="yes"){

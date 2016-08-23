@@ -6,24 +6,63 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 	<legend>Tambah Pengajar</legend>
+	 <?php
+		if($this->session->flashdata('pengajar')!=null){
+			?>
+			<div class="alert alert-<?php echo $this->session->flashdata('warna')=='red'?'danger':'success';?> alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-<?php echo $this->session->flashdata('warna')=='red'?'ban':'check';?>"></i> Alert!</h4>
+                <?php echo $this->session->flashdata('pengajar'); ?>
+        </div>
+			<?php
+		}
+		?>
 	 <form method="POST" action="<?php echo base_url(); ?>pegawai/save_pengajar">
 	 <div class="col-md-4">
 	 <div class="row">
+	 	
 	 	<div class="form-group">
 	 		<label>Nama Pengajar</label>
 	 		<input type="text" name="pegawai" id="pegawai" class="form-control" required>
 	 	</div>
 	 	<div class="form-group">
 	 		<label>Kelas</label>
-	 		<input type="text" name="kelas" id="kelas" class="form-control" required>
+	 		<select class="form-control" name="kelas" required>
+	 			<option value="">-- Pilih Kelas --</option>
+	 			<?php
+	 			foreach ($kelas as $key) {
+	 			 ?>
+	 			 <option value="<?php echo $key['id'].'-'.$key['nama_kelas']; ?>"><?php echo $key['nama_kelas'] ?></option>
+	 			 <?php
+	 			}
+	 			?>
+	 		</select>
 	 	</div>
 	 	<div class="form-group">
 	 		<label>Mata Pelajaran</label>
-	 		<input type="text" name="mapel" id="mapel" class="form-control" required>
+	 		<select class="form-control" name="mapel" required>
+	 			<option value="">-- Pilih Mapel --</option>
+	 			<?php
+	 			foreach ($mapel as $key) {
+	 			 ?>
+	 			 <option value="<?php echo $key['id'].'-'.$key['nama_mapel']; ?>"><?php echo $key['nama_mapel'] ?></option>
+	 			 <?php
+	 			}
+	 			?>
+	 		</select>
 	 	</div>
 	 	<div class="form-group">
 	 		<label>Tahun Ajaran</label>
-	 		<input type="text" name="ta" id="ta" class="form-control" required>
+	 		<select class="form-control" name="ta" required>
+	 			<option value="">-- Pilih Tahun Ajaran --</option>
+	 			<?php
+	 			foreach ($ta as $key) {
+	 			 ?>
+	 			 <option value="<?php echo $key['id'].'-'.$key['ta']; ?>"><?php echo $key['ta']." - ".$key['keterangan'];echo $key['status']=='aktif'?' (Aktif)':''; ?></option>
+	 			 <?php
+	 			}
+	 			?>
+	 		</select>
 	 	</div>
 	 	<div class="form-group">
 	 		<button type="submit" class="btn btn-primary" name="simpan" value="yes">Simpan</button>
@@ -33,8 +72,20 @@
 	 </div>	
 	 </form>
 	 <br><br><br><br>
+	 	
 		<legend>Data Pengajar</legend>
-		<p style="font-size:20px;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('pengajarupdate'); ?></p>
+		<?php
+		if($this->session->flashdata('pengajarupdate')!=null){
+			?>
+			<div class="alert alert-<?php echo $this->session->flashdata('warna')=='red'?'danger':'success';?> alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-<?php echo $this->session->flashdata('warna')=='red'?'ban':'check';?>"></i> Alert!</h4>
+                <?php echo $this->session->flashdata('pengajarupdate'); ?>
+        </div>
+			<?php
+		}
+		?>
+		
 		<table id="tabelpengajar" class="table table-striped">
 		<thead>
 			<tr>
@@ -60,9 +111,9 @@
 				<td><?php echo $key['nama_kelas']; ?></td>
 				<td><?php echo $key['ta']." - ".$key['keterangan']; ?></td>
 				<td>
-					<button class="btn btn-primary btn-xs" data-idsekolah="<?php echo $key['id_sekolah'] ?>"
+					<button class="btn btn-primary btn-xs"
 				 data-id="<?php echo $key['id'] ?>" 
-				 onclick="tampildatapegawai(event,'<?php echo base_url(); ?>')">Edit</button>
+				 onclick="tampildatapengajar(event,'<?php echo base_url(); ?>')">Edit</button>
 					<button class="btn btn-danger btn-xs">Reset</button>
 			</tr> 
 			 <?php
@@ -75,3 +126,18 @@
 	</div>
 	
 </div>	
+<div class="modal fade" id="datapengajar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Data Pengajar</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">        
+      </div>
+    </div>
+  </div>
+</div>

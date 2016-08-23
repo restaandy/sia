@@ -7,6 +7,24 @@ function tampildatapegawai(e,base_url){
   $("#datapegawai").modal("show");
  });
 }
+function tampildatajabatan(e,base_url){
+ waitingDialog.show('Loading');	
+ var id=$(e.target).attr('data-id');
+ $.post(base_url+'modal/modal_jabatan',{id:id},function(data){
+  $("#datajabatan .modal-body").html(data);
+  waitingDialog.hide();
+  $("#datajabatan").modal("show");
+ });
+}
+function tampildatapengajar(e,base_url){
+ waitingDialog.show('Loading');	
+ var id=$(e.target).attr('data-id');
+ $.post(base_url+'modal/modal_pengajar',{id:id},function(data){
+  $("#datapengajar .modal-body").html(data);
+  waitingDialog.hide();
+  $("#datapengajar").modal("show");
+ });
+}
 
 function constrait_pegawai(e){
  if($(e.target).val()=="gtt"){
@@ -71,6 +89,13 @@ function jabatanchange(e){
  	$('#id_kelas').removeClass('hide');
  }else{
  	$('#id_kelas').addClass('hide');
+ }
+}
+function jabatanchangee(e){
+ if($(e.target).val()=='wali'){
+ 	$('#id_kelass').removeClass('hide');
+ }else{
+ 	$('#id_kelass').addClass('hide');
  }
 }
 

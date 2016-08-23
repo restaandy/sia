@@ -29,7 +29,7 @@ FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON (a.`id_pegawai`=b.`id`)
       LEFT JOIN obj_kelas c ON (a.`id_kelas`=c.`id`) 
       LEFT JOIN obj_mapel d ON (a.`id_mapel`=d.`id`)
       LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`id`)
-WHERE a.`id_sekolah`=".$idskolah." and e.status='aktif';");
+WHERE a.`id_sekolah`=".$idskolah.";");
    }else{
     $query=$this->db->query("SELECT a.`id`,a.id_sekolah,
   b.`nip`,
@@ -94,6 +94,15 @@ WHERE a.`id_sekolah`=".$idskolah." and e.id=".$ta.";");
        }
     
   }
+  public function edit_pengajar($data){
+    $this->db->where('id', $data['id']);
+    $this->db->update('kbm_mengajar', $data);
+    if($this->db->affected_rows()>0){
+         return true;
+       }else{
+         return false;
+       }
+  }
   public function simpan_pegawai($data,$username,$status){
   	if($this->cek_user_pegawai($username,$status)>0){
   		return false;
@@ -117,6 +126,15 @@ WHERE a.`id_sekolah`=".$idskolah." and e.id=".$ta.";");
   public function input_jabatan($data){
       $this->db->insert('obj_jabatan',$data);
       if($this->db->affected_rows()>0){
+        return true;
+      }else{
+        return false;
+      }
+  }
+  public function edit_jabatan($data){
+    $this->db->where('id', $data['id']);
+    $this->db->update('obj_jabatan', $data);
+    if($this->db->affected_rows()>0){
         return true;
       }else{
         return false;

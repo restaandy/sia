@@ -99,6 +99,7 @@
 				 data-id="<?php echo $key['id'] ?>" 
 				 onclick="tampildatakelas(event,'<?php echo base_url(); ?>')">Edit</button>
 					<button class="btn btn-danger btn-xs">Hapus</button>
+				</td>	
 			</tr> 
 			 <?php
 			$x++;	

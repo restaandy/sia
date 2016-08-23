@@ -5,7 +5,15 @@ class Modal extends CI_Controller {
 
 	function __construct(){
             parent::__construct();
-            $this->load->model('Model_modal');
+            $sesarray=array('AS','P','S');
+            if(in_array($this->session->userdata('hold'), $sesarray)){
+               $this->load->model('Model_modal');
+            	$this->load->model('Model_kelas');
+    			$this->load->model('Model_mapel');	
+            }else{
+            	echo "not-found";
+            }
+            
     }
 	public function dashboard($content){
 		$data['content']=$content;
@@ -38,6 +46,34 @@ class Modal extends CI_Controller {
 		}else{
 			echo "not-found";
 		}
+	}
+	public function modal_jabatan(){
+		if(isset($_POST['id'])){
+			$id=$_POST['id'];
+			$idsekolah=$this->session->userdata('id');
+			$data['kelas']=$this->Model_kelas->get_kelas($idsekolah);
+			$temp=$this->Model_modal->get_jabatan_pegawai($id);
+			foreach ($temp as $key) {
+			 	$temp=$key;
+			}
+			$data['datajabatan']=$temp;
+			$this->load->view('modal/modal_jabatan',$data);
+		}else{echo "not-found";}
+	}
+	public function modal_pengajar(){
+		if(isset($_POST['id'])){
+			$id=$_POST['id'];
+			$idsekolah=$this->session->userdata('id');
+			$data['pengajar']=$this->Model_modal->get_pengajar($id);
+			$data['kelas']=$this->Model_kelas->get_kelas($idsekolah);
+			$data['mapel']=$this->Model_mapel->get_mapel($idsekolah);
+			$data['ta']=$this->Model_mapel->get_ta();
+			$data['pegawai']=$this->Model_modal->get_pegawai($data['pengajar']['id_pegawai']);
+			foreach ($data['pegawai'] as $key) {
+				$data['pegawai']=$key['nama_pegawai'];
+			}
+			$this->load->view('modal/modal_pengajar',$data);
+		}else{echo "not-found";}
 	}
 	public function modal_pegawai(){
 		if(isset($_POST['id'])){

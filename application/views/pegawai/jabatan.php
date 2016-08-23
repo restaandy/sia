@@ -87,7 +87,12 @@
 		  	<td><?php echo $key['nip']; ?></td>
 		  	<td><?php echo $key['nama_pegawai']; ?></td>
 		  	<td><?php echo $key['jabatan']; ?> <?php echo $key['nama_kelas']!=null?"(".$key['nama_kelas'].")":''; ?></td>
-		  	<td></td>
+		  	<td>
+					<button class="btn btn-primary btn-xs"
+				 data-id="<?php echo $key['id'] ?>" 
+				 onclick="tampildatajabatan(event,'<?php echo base_url(); ?>')">Edit</button>
+					<button class="btn btn-danger btn-xs">Hapus</button>
+				</td>	
 		  </tr>
 		  <?php
 		  $x++;
@@ -97,4 +102,19 @@
 		</tbody>	
 		</table>
 	</div>
-</div>	
+</div>
+<div class="modal fade" id="datajabatan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Data Jabatan</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">        
+      </div>
+    </div>
+  </div>
+</div>

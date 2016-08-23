@@ -12,6 +12,20 @@ Class Model_modal extends CI_Model
     $query=$query->result_array();
     return $query;
   }
+  public function get_pengajar($id){
+    $query=$this->db->get_where('kbm_mengajar',array('id'=>$id));
+    $query=$query->result_array();
+    $data=array();
+    foreach ($query as $key) {
+      $data=$key;
+    }
+    return $data;
+  }
+  public function get_jabatan_pegawai($id){
+    $query=$this->db->query("SELECT a.id,a.id_kelas,b.nip,b.nama_pegawai,a.jabatan,c.nama_kelas,c.tingkat FROM obj_jabatan a LEFT JOIN obj_pegawai b ON a.id_pegawai=b.id LEFT JOIN obj_kelas c ON a.id_kelas=c.id WHERE a.id=".$id.";");
+    $query=$query->result_array();
+   return $query;
+  }
   public function get_mapel($id){
     $query=$this->db->get_where('obj_mapel',array('id'=>$id));
     $query=$query->result_array();
