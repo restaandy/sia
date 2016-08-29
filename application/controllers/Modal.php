@@ -47,6 +47,9 @@ class Modal extends CI_Controller {
 			echo "not-found";
 		}
 	}
+	public function modal_input(){
+		echo "sdfs";
+	}
 	public function modal_jabatan(){
 		if(isset($_POST['id'])){
 			$id=$_POST['id'];

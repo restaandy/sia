@@ -7,7 +7,15 @@ function tampildatakelas(e,base_url){
   $("#datakelas").modal("show");
  });
 }
-
+function tampildatasiswa(e,base_url){
+ waitingDialog.show('Loading');	
+ var id=$(e.target).attr('data-noinduk');
+ $.post(base_url+'modal/modal_input',{id:id},function(data){
+  $("#datainput .modal-body").html(data);
+  waitingDialog.hide();
+  $("#datainput").modal("show");
+ });
+}
 $(document).ready(function(){
 	 $('#tabelkelas').DataTable();
 	    $('.datepicker').datepicker({

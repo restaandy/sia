@@ -52,11 +52,13 @@
 			<thead>
 			<tr>
 				<th>No</th>
-				<th>No Induk</th>
+				<th>NISN</th>
+				<th>NIS</th>
 				<th>Nama Siswa</th>
 				<th>Tempat / Tgl Lahir</th>
 				<th>Jenis Kelamin</th>
 				<th>Agama</th>
+				<th>Input / Edit Nilai</th>
 			</tr>
 		    </thead>
 		    <tbody>
@@ -67,11 +69,16 @@
 			<tr>
 				<td><?php echo $x; ?></td>
 				<td><?php echo $key['no_induk']; ?></td>
+				<td><?php echo $key['no_induk_sekolah']; ?></td>
 				<td><?php echo $key['nama']; ?></td>
 				<td><?php echo $key['tmp_lahir'].", ".$key['tgl_lahir']; ?></td>
 				<td><?php echo $key['jenkel']; ?></td>
 				<td><?php echo $key['agama']; ?></td>
-				
+				<td>
+					<button class="btn btn-primary btn-xs" data-noinduk="<?php echo $key['no_induk'] ?>"
+						onclick="tampildatasiswa(event,'<?php echo base_url(); ?>')"
+						>Nilai</button>
+				</td>
 			</tr> 
 			 <?php
 			$x++;	
@@ -82,3 +89,19 @@
 		</table>
 	</div>
 </div>	    
+<div class="modal fade" id="datainput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Nilai Siswa</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>
