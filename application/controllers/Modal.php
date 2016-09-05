@@ -47,8 +47,16 @@ class Modal extends CI_Controller {
 			echo "not-found";
 		}
 	}
-	public function modal_input(){
-		echo "sdfs";
+	public function modal_input_nilai(){
+		if(isset($_POST['noinduk'])&&isset($_POST['id_mapel'])){
+			$idsekolah=$this->session->userdata('id');
+			$data['sk']=$this->Model_mapel->get_sk($idsekolah,$_POST['id_mapel']);
+			$data['noinduk']=$_POST['noinduk'];
+			$this->load->view('modal/modal_input_nilai',$data);
+		}else{
+			echo "not-found";	
+		}
+
 	}
 	public function modal_jabatan(){
 		if(isset($_POST['id'])){

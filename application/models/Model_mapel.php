@@ -17,7 +17,23 @@ Class Model_mapel extends CI_Model
    $query=$query->result_array();
    return $query;
   }
-  
+  public function get_sk($idskolah,$idmapel){
+    $query=$this->db->query("SELECT * from kbm_sk where id_mapel=".$idmapel." and id_sekolah=".$idskolah."");
+   $query=$query->result_array();
+   return $query;
+  }
+  public function get_ta_active(){
+    $query=$this->db->query("Select * from kbm_ta where status='aktif'");
+    $query=$query->result_array();
+    $data=array();
+    foreach ($query as $key) {
+      $data['id_ta']=$key['id'];
+      $data['ta']=$key['ta'];
+      $data['tahun']=$key['tahun'];
+      $data['ket']=$key['keterangan'];
+    }
+   return $data;
+  }
   public function get_ta($nama=''){
    if($nama==''){
     $query=$this->db->query("Select * from kbm_ta");

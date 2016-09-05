@@ -101,7 +101,7 @@ WHERE a.`id_sekolah`=".$idskolah." and a.id_pegawai=".$id." and e.status='aktif'
     
   }
   public function get_ket_kelas($id){
-    $query=$this->db->query("SELECT a.id,b.nama_pegawai,c.nama_kelas,c.tingkat,d.*,e.* FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON a.id_pegawai=b.id 
+    $query=$this->db->query("SELECT a.id,b.nama_pegawai,c.nama_kelas,c.tingkat,e.id as id_mapel,d.*,e.* FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON a.id_pegawai=b.id 
   LEFT JOIN obj_kelas c ON a.id_kelas=c.id
   LEFT JOIN obj_mapel d ON a.id_mapel=d.id
   LEFT JOIN kbm_ta e ON a.id_ta=e.id WHERE a.id=".$id.";");

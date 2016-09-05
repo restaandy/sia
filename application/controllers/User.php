@@ -10,6 +10,7 @@ class User extends CI_Controller {
             }else{	
               $this->load->model('Model_user');
               $this->load->model('Model_siswa');
+              $this->load->model('Model_mapel');
             }
     }
 	public function dashboard($content){
@@ -38,6 +39,7 @@ class User extends CI_Controller {
 			$bread['list']=array("Kelas","Data Siswa");
 			$data['title']="Data Siswa | Sistem Akademik";	
 			$data['id_mengajar']=$idmengajar;
+			//$data['mapel']=
 			$data['sidebar']=$this->load->view('sidebar','',true);
 			$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
 			$data['datasiswa']=$this->Model_user->get_siswa_kelas($this->session->userdata('id_sekolah'),$idmengajar);

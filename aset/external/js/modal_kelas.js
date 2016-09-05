@@ -10,7 +10,8 @@ function tampildatakelas(e,base_url){
 function tampildatasiswa(e,base_url){
  waitingDialog.show('Loading');	
  var id=$(e.target).attr('data-noinduk');
- $.post(base_url+'modal/modal_input',{id:id},function(data){
+ var id_mapel=$(e.target).attr('id-mapel');
+ $.post(base_url+'modal/modal_input_nilai',{noinduk:id,id_mapel:id_mapel},function(data){
   $("#datainput .modal-body").html(data);
   waitingDialog.hide();
   $("#datainput").modal("show");
