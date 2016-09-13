@@ -17,7 +17,7 @@ Class Model_pegawai extends CI_Model
     $query=$query->result_array();
    return $query;
   }
-  public function get_pengajar($idskolah='',$ta='',$nama=''){
+  public function get_pengajar($idskolah='',$ta=''){
    if($ta==''){
     $query=$this->db->query("SELECT a.`id`,a.id_sekolah,
   b.`nip`,
@@ -28,7 +28,7 @@ Class Model_pegawai extends CI_Model
 FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON (a.`id_pegawai`=b.`id`) 
       LEFT JOIN obj_kelas c ON (a.`id_kelas`=c.`id`) 
       LEFT JOIN obj_mapel d ON (a.`id_mapel`=d.`id`)
-      LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`id`)
+      LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`tajaran`)
 WHERE a.`id_sekolah`=".$idskolah.";");
    }else{
     $query=$this->db->query("SELECT a.`id`,a.id_sekolah,
@@ -40,8 +40,8 @@ WHERE a.`id_sekolah`=".$idskolah.";");
 FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON (a.`id_pegawai`=b.`id`) 
       LEFT JOIN obj_kelas c ON (a.`id_kelas`=c.`id`) 
       LEFT JOIN obj_mapel d ON (a.`id_mapel`=d.`id`)
-      LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`id`)
-WHERE a.`id_sekolah`=".$idskolah." and e.id=".$ta.";");
+      LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`tajaran`)
+WHERE a.`id_sekolah`=".$idskolah." and e.tajaran=".$ta.";");
    }
    $query=$query->result_array();
    return $query;

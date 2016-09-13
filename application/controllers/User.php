@@ -24,9 +24,9 @@ class User extends CI_Controller {
 		$data['title']="Sistem Akademik";
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
-		
+		$taktif=$this->session->userdata('ta_aktif');
 		$data['datawali']=$this->Model_user->get_wali_kelas($this->session->userdata('id_sekolah'));
-		$data['datakelas']=$this->Model_user->get_kelas_aktif($this->session->userdata('id_sekolah'),$this->session->userdata('id'));
+		$data['datakelas']=$this->Model_user->get_kelas_aktif($this->session->userdata('id_sekolah'),$this->session->userdata('id'),$taktif);
 		$content=$this->load->view('user/kelas',$data,true);
 		$this->dashboard($content);
 	}

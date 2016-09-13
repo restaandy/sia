@@ -158,9 +158,9 @@ class Pegawai extends CI_Controller {
 		$data['title']="Pengajar | Sistem Akademik";		
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
-
+		
 		$idsekolah=$this->session->userdata('id');
-		$data['datapengajar']=$this->Model_pegawai->get_pengajar($idsekolah);
+		$data['datapengajar']=$this->Model_pegawai->get_pengajar($idsekolah,$this->session->userdata('ta_aktif'));
 		$data['kelas']=$this->Model_kelas->get_kelas($idsekolah);
 		$data['mapel']=$this->Model_mapel->get_mapel($idsekolah);
 		$data['ta']=$this->Model_mapel->get_ta();
@@ -197,7 +197,7 @@ class Pegawai extends CI_Controller {
 			$id_pegawai=$this->input->post('pegawai');
 			$id_kelas=$this->input->post('kelas');
 			$id_mapel=$this->input->post('mapel');
-			$id_ta=$this->input->post('ta');
+			$id_ta=$this->session->userdata('ta_aktif');
 			$idsekolah=$this->session->userdata('id');
 			$id_pegawai=explode("-",$id_pegawai);
 			$id_pegawai=$id_pegawai[0];
@@ -207,9 +207,6 @@ class Pegawai extends CI_Controller {
 
 			$id_mapel=explode("-",$id_mapel);
 			$id_mapel=$id_mapel[0];
-
-			$id_ta=explode("-",$id_ta);
-			$id_ta=$id_ta[0];
 
 			$data=array(
 				'id_sekolah'=>$idsekolah,

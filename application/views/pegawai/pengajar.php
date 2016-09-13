@@ -52,19 +52,6 @@
 	 		</select>
 	 	</div>
 	 	<div class="form-group">
-	 		<label>Tahun Ajaran</label>
-	 		<select class="form-control" name="ta" required>
-	 			<option value="">-- Pilih Tahun Ajaran --</option>
-	 			<?php
-	 			foreach ($ta as $key) {
-	 			 ?>
-	 			 <option value="<?php echo $key['id'].'-'.$key['ta']; ?>"><?php echo $key['ta']." - ".$key['keterangan'];echo $key['status']=='aktif'?' (Aktif)':''; ?></option>
-	 			 <?php
-	 			}
-	 			?>
-	 		</select>
-	 	</div>
-	 	<div class="form-group">
 	 		<button type="submit" class="btn btn-primary" name="simpan" value="yes">Simpan</button>
 	 		<button type="reset" class="btn btn-warning" >Reset</button>
 	 	</div>

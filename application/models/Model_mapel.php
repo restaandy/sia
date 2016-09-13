@@ -28,6 +28,7 @@ Class Model_mapel extends CI_Model
     $data=array();
     foreach ($query as $key) {
       $data['id_ta']=$key['id'];
+      $data['tajaran']=$key['tajaran'];
       $data['ta']=$key['ta'];
       $data['tahun']=$key['tahun'];
       $data['ket']=$key['keterangan'];

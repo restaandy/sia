@@ -6,6 +6,7 @@ class Login extends CI_Controller {
 	function __construct(){
             parent::__construct();
             $this->load->model('Model_login');
+            $this->load->model('Model_mapel');
     }
 	public function index(){
 		$this->load->view('login');
@@ -44,6 +45,8 @@ class Login extends CI_Controller {
 		            }
 		 		}
 		 		$this->session->set_userdata('hold','AS');
+		 		$taaktif=$this->Model_mapel->get_ta_active();
+		 		$this->session->set_userdata('ta_aktif',$taaktif['tajaran']);
 		 		redirect('dashboard');
 		 		//print_r($this->session->userdata());
 		 	}else{
@@ -71,6 +74,8 @@ class Login extends CI_Controller {
 		 		}
 
 		 		$this->session->set_userdata('hold','P');
+		 		$taaktif=$this->Model_mapel->get_ta_active();
+		 		$this->session->set_userdata('ta_aktif',$taaktif['tajaran']);
 		 		redirect('home');
 		 }
 		 else if($this->input->post('sebagai')=="S"){

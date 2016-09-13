@@ -39,7 +39,7 @@
 	 			<?php
 	 			foreach ($ta as $key) {
 	 			 ?>
-	 			 <option value="<?php echo $key['id'].'-'.$key['ta']; ?>" <?php echo $pengajar['id_ta']==$key['id']?'selected':''; ?>><?php echo $key['ta']." - ".$key['keterangan'];echo $key['status']=='aktif'?' (Aktif)':''; ?></option>
+	 			 <option value="<?php echo $key['tajaran']; ?>" <?php echo $pengajar['id_ta']==$key['tajaran']?'selected':''; ?>><?php echo $key['ta']." - ".$key['keterangan'];echo $key['status']=='aktif'?' (Aktif)':''; ?></option>
 	 			 <?php
 	 			}
 	 			?>
