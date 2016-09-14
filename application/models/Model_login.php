@@ -18,6 +18,14 @@ Class Model_login extends CI_Model
    $query=$query->result_array();
    return $query;
  }
+ public function cek_wali_kelas($idpegawai,$idsekolah){
+  $this->db->where('id',$idpegawai);
+  $this->db->where('id_sekolah',$idsekolah);
+  $this->db->where('jabatan','wali');
+  $query=$this->db->get('obj_jabatan');
+  $query=$query->result_array();
+  return $query;
+ }
  public function get_sekolah($nama=''){
    if($nama==''){
    	$query=$this->db->query("select * from obj_sekolah");

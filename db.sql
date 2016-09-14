@@ -1,5 +1,5 @@
 /*
-SQLyog Professional v10.42 
+SQLyog Enterprise - MySQL GUI v8.18 
 MySQL - 5.6.17 : Database - sia
 *********************************************************************
 */
@@ -99,7 +99,7 @@ CREATE TABLE `kbm_mengajar` (
 
 /*Data for the table `kbm_mengajar` */
 
-insert  into `kbm_mengajar`(`id`,`id_sekolah`,`id_pegawai`,`id_kelas`,`id_mapel`,`id_ta`) values (1,1,1,1,1,1);
+insert  into `kbm_mengajar`(`id`,`id_sekolah`,`id_pegawai`,`id_kelas`,`id_mapel`,`id_ta`) values (1,1,1,1,1,20161);
 
 /*Table structure for table `kbm_nilai` */
 
@@ -110,8 +110,8 @@ CREATE TABLE `kbm_nilai` (
   `id_sekolah` int(11) DEFAULT NULL,
   `no_induk` varchar(30) DEFAULT NULL,
   `id_sk` int(11) DEFAULT NULL,
-  `nilai` tinyint(4) DEFAULT NULL,
-  `ta` varchar(20) DEFAULT NULL,
+  `nilai` varchar(255) DEFAULT NULL,
+  `ta` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -126,7 +126,7 @@ CREATE TABLE `kbm_sk` (
   `id_sekolah` int(11) DEFAULT NULL,
   `id_mapel` int(11) DEFAULT NULL,
   `standar_kompetensi` text,
-  `kategori` enum('Teori','Praktek') DEFAULT NULL,
+  `kategori` enum('Teori','Praktek','Uts') DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
@@ -141,6 +141,7 @@ DROP TABLE IF EXISTS `kbm_ta`;
 CREATE TABLE `kbm_ta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ta` varchar(20) DEFAULT NULL,
+  `tajaran` int(11) DEFAULT NULL,
   `tahun` year(4) DEFAULT NULL,
   `keterangan` enum('ganjil','genap') DEFAULT NULL,
   `status` enum('aktif','tdkaktif') DEFAULT NULL,
@@ -149,7 +150,7 @@ CREATE TABLE `kbm_ta` (
 
 /*Data for the table `kbm_ta` */
 
-insert  into `kbm_ta`(`id`,`ta`,`tahun`,`keterangan`,`status`) values (1,'2016/2017',2016,'ganjil','aktif'),(2,'2016/2017',2017,'genap','tdkaktif'),(3,'2017/2018',2017,'ganjil','tdkaktif'),(4,'2017/2018',2018,'genap','tdkaktif');
+insert  into `kbm_ta`(`id`,`ta`,`tajaran`,`tahun`,`keterangan`,`status`) values (1,'2016/2017',20161,2016,'ganjil','aktif'),(2,'2016/2017',20162,2016,'genap','tdkaktif'),(3,'2017/2018',20171,2017,'ganjil','tdkaktif'),(4,'2017/2018',20172,2018,'genap','tdkaktif');
 
 /*Table structure for table `obj_guru` */
 

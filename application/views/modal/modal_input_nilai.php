@@ -1,3 +1,4 @@
+
 <form method="POST" action="<?php echo base_url(); ?>user/save_nilai">
 <div class="col-md-4">
 <input type="hidden" name="noinduk" value="<?php echo $noinduk; ?>">
@@ -34,7 +35,7 @@
 <legend>UTS / UAS</legend>
 	<?php
 	foreach ($sk as $key) {
-		if($key['kategori']=='Uts_teori'||$key['kategori']=='Uts_praktek'){
+		if($key['kategori']=='Uts'){
 		?>
 			<div class="form-group">
 				<label><?php echo $key['standar_kompetensi']; ?></label>

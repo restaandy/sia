@@ -62,17 +62,25 @@ class Login extends CI_Controller {
 		 	if($ndata>0){
 
 		 		$array_ses=array('id','id_sekolah','username','nama_pegawai','status');
-		 		
+		 		$data=array();
 		 		foreach ($data_login as $key) {
 		 			$data_temp=array_keys($key);
 		 			$data_temp2=$data_temp;
 		            foreach ($data_temp2 as $keys) {
 		            	if(in_array($keys,$array_ses)){
 		            		$this->session->set_userdata($keys,$key[$keys]);
+		            	    $data[$keys]=$key[$keys];
 		            	}
 		            }
 		 		}
-
+		 		$wali=$this->Model_login->cek_wali_kelas($data['id'],$data['id_sekolah']);
+		 		if(sizeof($wali)>0){
+		 			foreach ($wali as $key) {
+		 			 $this->session->set_userdata('jabatan','wali');
+		 			 $this->session->set_userdata('id_kelas',$key['id_kelas']);
+		 			}
+		 			
+		 		}
 		 		$this->session->set_userdata('hold','P');
 		 		$taaktif=$this->Model_mapel->get_ta_active();
 		 		$this->session->set_userdata('ta_aktif',$taaktif['tajaran']);

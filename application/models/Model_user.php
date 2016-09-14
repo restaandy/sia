@@ -36,7 +36,7 @@ WHERE a.`id_sekolah`=".$idskolah." and a.id_pegawai=".$id." and e.tajaran=".$taa
   }
 
   public function get_siswa_kelas($idskolah,$idkelas){
-    $query=$this->db->query("SELECT a.`id`,b.* FROM kbm_belajar a
+    $query=$this->db->query("SELECT a.`id`,b.*,c.id_mapel FROM kbm_belajar a
        LEFT JOIN obj_siswa b ON a.`no_induk`=b.`no_induk`
        JOIN kbm_mengajar c ON a.`id_mengajar`=c.`id`
        WHERE a.`id_sekolah`=".$idskolah." AND c.`id`=".$idkelas.";");
