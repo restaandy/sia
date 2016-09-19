@@ -79,6 +79,11 @@ class Mapel extends CI_Controller {
 				$datainput['standar_kompetensi']=$key;
 				array_push($datatemp,$datainput);
 			}
+				$datainput['id_sekolah']=$idsekolah;
+				$datainput['id_mapel']=$idmapel;
+				$datainput['kategori']='Uts';
+				$datainput['standar_kompetensi']="Ulangan Tengah Semester";
+			array_push($datatemp,$datainput);
 			$hasil=$this->Model_mapel->input_sk($datatemp);
 			if($hasil){
 				$this->session->set_flashdata('sk','Data sudah masuk');

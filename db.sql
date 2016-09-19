@@ -134,6 +134,20 @@ CREATE TABLE `kbm_sk` (
 
 insert  into `kbm_sk`(`id`,`id_sekolah`,`id_mapel`,`standar_kompetensi`,`kategori`) values (1,1,1,'Menguasai HTML','Teori'),(2,1,1,'Menguasai PHP','Teori'),(3,1,1,'Bisa membuat tabel','Praktek'),(4,1,1,'Membuat koneksi database','Praktek');
 
+/*Table structure for table `kbm_subnilai` */
+
+DROP TABLE IF EXISTS `kbm_subnilai`;
+
+CREATE TABLE `kbm_subnilai` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sk` int(11) DEFAULT NULL,
+  `ket` varchar(30) DEFAULT NULL,
+  `sub_nilai` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `kbm_subnilai` */
+
 /*Table structure for table `kbm_ta` */
 
 DROP TABLE IF EXISTS `kbm_ta`;

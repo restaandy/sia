@@ -30,7 +30,6 @@ class User extends CI_Controller {
 		$content=$this->load->view('user/kelas',$data,true);
 		$this->dashboard($content);
 	}
-	
 	public function datasiswa($id){
 		$idmengajar=$this->enkripsi->decode($id);
 		if(is_numeric($idmengajar)){

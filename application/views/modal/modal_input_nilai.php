@@ -8,8 +8,8 @@
 		if($key['kategori']=='Teori'){
 			?>
 			<div class="form-group">
-				<label><?php echo $key['standar_kompetensi']; ?></label>
-				<input type="number" class="form-control" name="<?php echo $key['id'] ?>">
+				<label><?php echo $key['standar_kompetensi']; ?> &nbsp <button type="button" nm-sk="<?php echo $key['standar_kompetensi']; ?>" id-sk="<?php echo $key['id'] ?>" onclick="lihat_nilai(event)" class="btn btn-warning btn-xs">Lihat</button></label>
+				<input type="number" class="form-control" name="<?php echo $key['id'] ?>" readonly>
 			</div>
 			<?php
 		}
@@ -23,8 +23,8 @@
 		if($key['kategori']=='Praktek'){
 		?>
 			<div class="form-group">
-				<label><?php echo $key['standar_kompetensi']; ?></label>
-				<input type="number" class="form-control" name="<?php echo $key['id'] ?>">
+				<label><?php echo $key['standar_kompetensi']; ?> &nbsp <button type="button" nm-sk="<?php echo $key['standar_kompetensi']; ?>" id-sk="<?php echo $key['id'] ?>" onclick="lihat_nilai(event)" class="btn btn-warning btn-xs">Lihat</button></label>
+				<input type="number" class="form-control" name="<?php echo $key['id'] ?>" readonly>
 			</div>
 			<?php
 		}
@@ -48,7 +48,7 @@
 	<div class="form-group">
 				<label>UAS</label>
 				<input type="number" class="form-control" name="uas">
-			</div>
+	</div>
 </div>
 <div class="col-md-12">
 <div class="form-group">
@@ -56,3 +56,11 @@
 </div>
 </div>
 </form>
+
+<script>
+function lihat_nilai(e){
+ var sk=$(e.target).attr('nm-sk');	
+ $('#datadetail .modal-title').html('Detail Nilai SK '+sk);	
+ $('#datadetail').modal('show');
+}
+</script>
