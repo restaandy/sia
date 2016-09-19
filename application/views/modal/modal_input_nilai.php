@@ -60,7 +60,18 @@
 <script>
 function lihat_nilai(e){
  var sk=$(e.target).attr('nm-sk');	
+ var idsk=$(e.target).attr('id-sk');
  $('#datadetail .modal-title').html('Detail Nilai SK '+sk);	
- $('#datadetail').modal('show');
+ 
+ waitingDialog.show('Loading..');
+ 
+ $.post('<?php echo base_url(); ?>modal/modal_detail_nilai',{'idsk':idsk},function(data){
+  $('#datadetail .modal-body').html(data);
+  waitingDialog.hide();  
+  $('#datadetail').modal('show');
+ }).fail(function(data){
+ 	alert(data.statusText);
+ 	waitingDialog.hide();
+ });
 }
 </script>

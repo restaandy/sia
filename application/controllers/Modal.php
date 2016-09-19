@@ -61,6 +61,16 @@ class Modal extends CI_Controller {
 		}
 
 	}
+	public function modal_detail_nilai(){
+		if(isset($_POST['idsk'])){
+			$idsekolah=$this->session->userdata('id');
+			$data['detail']=$this->Model_mapel->get_nilai_detail($_POST['idsk']);
+			$this->load->view('modal/modal_detail_nilai',$data);
+		}else{
+			echo "not-found";	
+		}
+
+	}
 	public function modal_jabatan(){
 		if(isset($_POST['id'])){
 			$id=$_POST['id'];

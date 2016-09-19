@@ -17,6 +17,12 @@ Class Model_mapel extends CI_Model
    $query=$query->result_array();
    return $query;
   }
+  public function get_nilai_detail($idsk){
+   $this->db->where('id_sk',$idsk);
+   $query=$this->db->get('kbm_subnilai');
+   $query=$query->result();
+   return $query;
+  }
   public function get_sk($idskolah,$idmapel){
     $query=$this->db->query("SELECT * from kbm_sk where id_mapel=".$idmapel." and id_sekolah=".$idskolah."");
    $query=$query->result_array();
