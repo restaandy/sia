@@ -178,7 +178,6 @@ class Mapel extends CI_Controller {
 			redirect("mapel/mapel");
 		}
 	}
-
 //=========================================================================
 //action----------
 }	

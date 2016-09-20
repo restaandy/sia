@@ -12,8 +12,7 @@ class Modal extends CI_Controller {
     			$this->load->model('Model_mapel');	
             }else{
             	echo "not-found";
-            }
-            
+            }            
     }
 	public function dashboard($content){
 		$data['content']=$content;
@@ -64,12 +63,88 @@ class Modal extends CI_Controller {
 	public function modal_detail_nilai(){
 		if(isset($_POST['idsk'])){
 			$idsekolah=$this->session->userdata('id');
-			$data['detail']=$this->Model_mapel->get_nilai_detail($_POST['idsk']);
+			$data['detail']=$this->Model_mapel->get_nilai_detail($_POST['idsk'],$_POST['noinduk']);
+			$data['idsk']=$_POST['idsk'];
+			$data['noinduk']=$_POST['noinduk'];
 			$this->load->view('modal/modal_detail_nilai',$data);
 		}else{
 			echo "not-found";	
 		}
 
+	}
+	public function save_detail_nilai(){
+		if(isset($_POST['id_sk'])&&isset($_POST['no_induk'])){
+		$data=$_POST;
+		$keymap=array_keys($data);
+		$arrayinsert=array();
+		$arrayupdate=array();
+		$idsk="";$noinduk="";
+		foreach ($keymap as $key) {
+		  if($key=='id_sk'){
+		  	$idsk=$data[$key];
+		  }else{
+		  	if($key=='no_induk'){
+		  	$noinduk=$data[$key];	
+		  	}else{
+		  	  $ex=explode('_',$key);
+			  if($ex[0]=='det'){
+			  	array_push($arrayupdate,array(
+			  		'id'=>$ex[1],
+			  		'ket'=>$data['ket_'.$ex[1]],
+			  		'sub_nilai'=>$data['det_'.$ex[1]]
+			  	));
+			  }
+			  if($ex[0]=='newdet'){
+			  	array_push($arrayinsert,array(
+			  		'id_sk'=>$idsk,
+			  		'no_induk'=>$noinduk,
+			  		'ket'=>$data['newket_'.$ex[1]],
+			  		'sub_nilai'=>$data['newdet_'.$ex[1]]
+			  	));
+			  }	
+			}  
+		  }
+		}
+		//$hasil=$this->Model_modal->save_detail($arrayinsert,$arrayupdate);
+	    $taktif=$this->session->userdata('ta_aktif');
+	    $hasil=$this->Model_modal->get_nilai($_POST['no_induk'],$_POST['id_sk'],$taktif);
+	    
+	    if(sizeof($hasil)>0){
+	    	$subnilai=$this->Model_modal->get_subnilai($_POST['no_induk'],$_POST['id_sk']);
+	    	$temp=0;$x=0;
+	    	foreach ($subnilai as $key) {
+	    		$x++;
+	    	 	$temp=$temp+$key->sub_nilai;
+	    	}
+	    	$rata2=round(($temp/$x),2);
+	    	$idnilai="";
+	    	foreach ($hasil as $key) {
+	    		$idnilai=$key->id;
+	    	}
+	    	$nilai=array(
+	    		'id'=>$idnilai,
+	    		'nilai'=>$rata2
+	    		);
+	    	$this->Model_modal->update_nilai($nilai);
+	    }else{
+	    	$subnilai=$this->Model_modal->get_subnilai($_POST['no_induk'],$_POST['id_sk']);
+	    	$temp=0;$x=0;
+	    	foreach ($subnilai as $key) {
+	    		$x++;
+	    	 	$temp=$temp+$key->sub_nilai;
+	    	}
+	    	$rata2=round(($temp/$x),2);
+	    	$nilai=array(
+	    		'id_sekolah'=>$this->session->userdata('id_sekolah'),
+	    		'no_induk'=>$_POST['no_induk'],
+	    		'id_sk'=>$_POST['id_sk'],
+	    		'nilai'=>$rata2,
+	    		'ta'=>$taktif
+	    		);
+	    	$this->Model_modal->insert_nilai($nilai);
+	    }
+	    echo $rata2;
+	   }	
 	}
 	public function modal_jabatan(){
 		if(isset($_POST['id'])){

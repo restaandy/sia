@@ -17,8 +17,9 @@ Class Model_mapel extends CI_Model
    $query=$query->result_array();
    return $query;
   }
-  public function get_nilai_detail($idsk){
+  public function get_nilai_detail($idsk,$noinduk){
    $this->db->where('id_sk',$idsk);
+   $this->db->where('no_induk',$noinduk);
    $query=$this->db->get('kbm_subnilai');
    $query=$query->result();
    return $query;

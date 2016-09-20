@@ -1,5 +1,5 @@
 /*
-SQLyog Enterprise - MySQL GUI v8.18 
+SQLyog Professional v10.42 
 MySQL - 5.6.17 : Database - sia
 *********************************************************************
 */
@@ -113,9 +113,11 @@ CREATE TABLE `kbm_nilai` (
   `nilai` varchar(255) DEFAULT NULL,
   `ta` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_nilai` */
+
+insert  into `kbm_nilai`(`id`,`id_sekolah`,`no_induk`,`id_sk`,`nilai`,`ta`) values (1,1,'0001',1,'81',20161);
 
 /*Table structure for table `kbm_sk` */
 
@@ -126,13 +128,14 @@ CREATE TABLE `kbm_sk` (
   `id_sekolah` int(11) DEFAULT NULL,
   `id_mapel` int(11) DEFAULT NULL,
   `standar_kompetensi` text,
+  `bobot` tinyint(4) DEFAULT NULL,
   `kategori` enum('Teori','Praktek','Uts') DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_sk` */
 
-insert  into `kbm_sk`(`id`,`id_sekolah`,`id_mapel`,`standar_kompetensi`,`kategori`) values (1,1,1,'Menguasai HTML','Teori'),(2,1,1,'Menguasai PHP','Teori'),(3,1,1,'Bisa membuat tabel','Praktek'),(4,1,1,'Membuat koneksi database','Praktek');
+insert  into `kbm_sk`(`id`,`id_sekolah`,`id_mapel`,`standar_kompetensi`,`bobot`,`kategori`) values (1,1,1,'Menguasai HTML',1,'Teori'),(2,1,1,'Menguasai PHP',1,'Teori'),(3,1,1,'Bisa membuat tabel',1,'Praktek'),(4,1,1,'Membuat koneksi database',1,'Praktek');
 
 /*Table structure for table `kbm_subnilai` */
 
@@ -141,12 +144,15 @@ DROP TABLE IF EXISTS `kbm_subnilai`;
 CREATE TABLE `kbm_subnilai` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_sk` int(11) DEFAULT NULL,
+  `no_induk` varchar(50) DEFAULT NULL,
   `ket` varchar(30) DEFAULT NULL,
   `sub_nilai` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_subnilai` */
+
+insert  into `kbm_subnilai`(`id`,`id_sk`,`no_induk`,`ket`,`sub_nilai`) values (1,1,'0001','P1','80'),(2,1,'0001','P2','75'),(3,1,'0001','P3','79'),(4,1,'0001','P4','90');
 
 /*Table structure for table `kbm_ta` */
 

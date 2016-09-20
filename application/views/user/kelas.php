@@ -22,7 +22,9 @@ $ta=$key['ta']." (".$key['keterangan'].")";
 			 		<?php
 			 		$legend=false;
 			 	}
+			  if($jab['jabatan']=='guru'){
 			 ?>
+
 			<div class="col-lg-3 col-xs-6">	
 		        <div class="small-box bg-green">
 		          <div class="inner">
@@ -35,13 +37,15 @@ $ta=$key['ta']." (".$key['keterangan'].")";
             	  </div>
             	  
 		            <a href="<?php echo base_url(); ?>user/datasiswa/<?php echo $newid; ?>" class="small-box-footer">
+		            	 
 		            	 <?php 
+ 						/*
  						foreach ($datawali as $keys) {
  							if($key['id_kelas']==$keys['id_kelas']){
  								echo "Wali Kelas : ". substr($keys['nama_pegawai'],0,8)."_";
  							}
  						}
-
+						*/
 		               ?>
 		               <br>
 		               Masuk <i class="fa fa-arrow-circle-right"></i>
@@ -51,6 +55,7 @@ $ta=$key['ta']." (".$key['keterangan'].")";
 			</div> 
 			 <?php
 			$x++;
+			}
 			}	
 			}
 		?>
@@ -70,6 +75,7 @@ $ta=$key['ta']." (".$key['keterangan'].")";
 			 		<?php
 			 		$legend=false;
 			 	}
+			 	if($jab['jabatan']=='guru'){
 			 ?>
 			<div class="col-lg-3 col-xs-6">	
 		        <div class="small-box bg-yellow">
@@ -83,12 +89,13 @@ $ta=$key['ta']." (".$key['keterangan'].")";
             	  </div>
 		            <a href="<?php echo base_url(); ?>user/datasiswa/<?php echo $newid; ?>" class="small-box-footer">
 		            	 <?php 
+ 						/*
  						foreach ($datawali as $keys) {
  							if($key['id_kelas']==$keys['id_kelas']){
  								echo "Wali Kelas : ". substr($keys['nama_pegawai'],0,8)."_";
  							}
  						}
-
+						*/
 		               ?>
 		               <br>
 		               Masuk <i class="fa fa-arrow-circle-right"></i>
@@ -97,6 +104,7 @@ $ta=$key['ta']." (".$key['keterangan'].")";
 			</div> 
 			 <?php
 			$x++;
+			}
 			}	
 			}
 		?>
@@ -114,6 +122,7 @@ $ta=$key['ta']." (".$key['keterangan'].")";
 			 		<?php
 			 		$legend=false;
 			 	}
+			 	if($jab['jabatan']=='guru'){
 			 ?>
 			<div class="col-lg-3 col-xs-6">	
 		        <div class="small-box bg-red">
@@ -131,6 +140,7 @@ $ta=$key['ta']." (".$key['keterangan'].")";
 			</div> 
 			 <?php
 			$x++;
+		    }
 			}	
 			}
 		?>

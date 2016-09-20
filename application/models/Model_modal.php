@@ -81,4 +81,38 @@ Class Model_modal extends CI_Model
     $query=$query->result_array();
     return $query;	
   }
+  public function get_nilai($noinduk,$idsk,$ta){
+    $this->db->where('no_induk',$noinduk);
+    $this->db->where('id_sk',$idsk);
+    $this->db->where('ta',$ta);
+    $data=$this->db->get('kbm_nilai');
+    $data=$data->result();
+    return $data;
+  }
+  public function get_subnilai($noinduk,$idsk){
+    $this->db->where('no_induk',$noinduk);
+    $this->db->where('id_sk',$idsk);
+    $data=$this->db->get('kbm_subnilai');
+    $data=$data->result();
+    return $data;
+  }
+  public function update_nilai($data){
+    $this->db->where('id',$data['id']);
+    $this->db->update('kbm_nilai',$data);
+  }
+  public function insert_nilai($data){
+    $this->db->insert('kbm_nilai',$data);
+  }
+  public function save_detail($insert,$update){
+    $hasil=0;
+     if(sizeof($insert)>0){
+       $this->db->insert_batch('kbm_subnilai',$insert);
+       $hasil=$hasil+$this->db->affected_rows(); 
+      }
+     if(sizeof($update)>0){
+      $this->db->update_batch('kbm_subnilai',$update,'ket');
+      $hasil=$hasil+$this->db->affected_rows();
+     } 
+    return true;
+  }
 }

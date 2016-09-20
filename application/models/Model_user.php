@@ -12,8 +12,10 @@ Class Model_user extends CI_Model
    $query=$query->result_array();
    return $query;
   }
-  public function get_wali_kelas($idskolah){
-   $query=$this->db->query("SELECT a.id,b.nip,b.nama_pegawai,a.jabatan,c.id AS id_kelas,c.nama_kelas,c.tingkat FROM obj_jabatan a LEFT JOIN obj_pegawai b ON a.id_pegawai=b.id LEFT JOIN obj_kelas c ON a.id_kelas=c.id WHERE a.id_sekolah=".$idskolah." AND a.jabatan='wali';"); 
+  public function get_jabatan($id){
+   $this->db->where('id',$id);
+   $this->db->where('jabatan','guru');
+   $query=$this->db->get('obj_jabatan');
    $query=$query->result_array();
    return $query;
   }
@@ -22,6 +24,7 @@ Class Model_user extends CI_Model
     $query=$this->db->query("SELECT a.`id`,a.id_sekolah,
   b.`nip`,
   b.`nama_pegawai`,
+  b.`id` as id_pegawai,
   c.id as id_kelas,c.`nama_kelas`,c.tingkat,
   d.`nama_mapel`,
   e.`ta`,e.`keterangan`,e.`tahun` 

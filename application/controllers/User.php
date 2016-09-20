@@ -25,8 +25,19 @@ class User extends CI_Controller {
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
 		$taktif=$this->session->userdata('ta_aktif');
-		$data['datawali']=$this->Model_user->get_wali_kelas($this->session->userdata('id_sekolah'));
-		$data['datakelas']=$this->Model_user->get_kelas_aktif($this->session->userdata('id_sekolah'),$this->session->userdata('id'),$taktif);
+		$data['datajabatan']=$this->Model_user->get_jabatan($this->session->userdata('id'));
+		if(sizeof($data['datajabatan'])>0){
+			$jab=array();
+			foreach ($data['datajabatan'] as $key) {
+				$jab=$key;
+			}	
+			$data['jab']=$jab;
+			$data['datakelas']=$this->Model_user->get_kelas_aktif($this->session->userdata('id_sekolah'),$this->session->userdata('id'),$taktif);
+		}else{
+		$data['datakelas']=array();
+		}
+		
+		
 		$content=$this->load->view('user/kelas',$data,true);
 		$this->dashboard($content);
 	}

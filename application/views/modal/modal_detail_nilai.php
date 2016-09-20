@@ -10,14 +10,16 @@
 <button class="btn btn-primary" onclick="adddetail()">Tambah Penilaian</button>
 </div>
 <br><br>
+<input type="hidden" class="detailadd" name="id_sk" value="<?php echo $idsk;?>">
+<input type="hidden" class="detailadd" name="no_induk" value="<?php echo $noinduk; ?>">
 <div id="area">
 	<?php
 	foreach ($detail as $key) {
 	 ?>
 	  <div class="form-group">
 	  	<label><?php echo $key->ket; ?></label>
-	  	<input type="hidden" class="detailadd" value="<?php echo $key->ket; ?>" id="ket_<?php echo $key->id; ?>">
-	  	<input type="number" class="form-control detailadd" id="det_<?php echo $key->id; ?>">
+	  	<input type="hidden" class="detailadd" value="<?php echo $key->ket; ?>" name="ket_<?php echo $key->id; ?>">
+	  	<input type="number" class="form-control detailadd" value="<?php echo $key->sub_nilai; ?>" name="det_<?php echo $key->id; ?>">
 	  </div>
 	  <script type="text/javascript">
 	  $('#counter').val('<?php echo $key->id; ?>');
@@ -31,11 +33,28 @@
 </button>
 <script>
 	function save_detail(){
+		var formData = new FormData();
 		var json={};
 		$('.detailadd').each(function(){
-			alert($('#'+$(this).attr('id')).val());
-			//json.push(JSON.stringify("{"+$(this).attr('id')+":"+$('#'+$(this).attr('id')).val()+"}"));
+			if($(this).attr('newer')!='undefined'){
+			   formData.append($(this).attr('name'),$(this).val());	
+			}else{
+				formData.append($(this).attr('name'),$(this).val());
+			}
 		});
+		//console.log(formData.getAll);
+		  $.ajax({
+		  	url: '<?php echo base_url(); ?>modal/save_detail_nilai',
+            type: "POST",
+            dataType: "json",
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData: false,
+            complete: function(res) {
+             alert(res.responseText);	
+            }
+		  });
 		//console.log(json);
 	}
 	function adddetail(){
@@ -45,8 +64,8 @@
 			 batascounter++;
 			 $('#area').append('<div class="form-group">'+
 			 	'<label>'+$('#lab').val()+'</label>'+
-			 	'<input type="hidden" class="detailadd" value="'+$('#lab').val()+'" id="ket_'+batascounter+'">'+
-		  	   '<input type="number" class="form-control detailadd" id="det_'+batascounter+'">'+
+			 	'<input type="hidden" name="newket_'+batascounter+'" class="detailadd" newer="yes" value="'+$('#lab').val()+'" id="newket_'+batascounter+'">'+
+		  	   '<input type="number" class="form-control detailadd" newer="yes" name="newdet_'+batascounter+'" id="newdet_'+batascounter+'">'+
 		      '</div>'
 			  );
 			 $('#counter').val(batascounter);
