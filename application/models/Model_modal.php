@@ -110,7 +110,7 @@ Class Model_modal extends CI_Model
        $hasil=$hasil+$this->db->affected_rows(); 
       }
      if(sizeof($update)>0){
-      $this->db->update_batch('kbm_subnilai',$update,'ket');
+      $this->db->update_batch('kbm_subnilai',$update,'id');
       $hasil=$hasil+$this->db->affected_rows();
      } 
     return true;

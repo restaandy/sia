@@ -24,8 +24,10 @@ Class Model_mapel extends CI_Model
    $query=$query->result();
    return $query;
   }
-  public function get_sk($idskolah,$idmapel){
-    $query=$this->db->query("SELECT * from kbm_sk where id_mapel=".$idmapel." and id_sekolah=".$idskolah."");
+  public function get_sk($noinduk,$ta,$idskolah,$idmapel){
+    $query=$this->db->query("SELECT * FROM kbm_sk a LEFT JOIN (SELECT nilai,id_sk FROM kbm_nilai WHERE id_sekolah=".htmlentities($idskolah)." AND no_induk='".htmlentities($noinduk)."' AND ta=".htmlentities($ta).") b
+ON a.id=b.id_sk
+WHERE a.id_sekolah=".htmlentities($idskolah)." AND a.id_mapel=".htmlentities($idmapel).";");
    $query=$query->result_array();
    return $query;
   }

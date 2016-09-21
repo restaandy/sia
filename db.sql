@@ -1,5 +1,5 @@
 /*
-SQLyog Professional v10.42 
+SQLyog Enterprise - MySQL GUI v8.18 
 MySQL - 5.6.17 : Database - sia
 *********************************************************************
 */
@@ -113,11 +113,11 @@ CREATE TABLE `kbm_nilai` (
   `nilai` varchar(255) DEFAULT NULL,
   `ta` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_nilai` */
 
-insert  into `kbm_nilai`(`id`,`id_sekolah`,`no_induk`,`id_sk`,`nilai`,`ta`) values (1,1,'0001',1,'81',20161);
+insert  into `kbm_nilai`(`id`,`id_sekolah`,`no_induk`,`id_sk`,`nilai`,`ta`) values (1,1,'0001',1,'71.5',20161),(2,1,'0001',2,'60',20161),(3,1,'0001',3,'76.75',20161),(4,1,'0001',4,'45',20161);
 
 /*Table structure for table `kbm_sk` */
 
@@ -148,11 +148,11 @@ CREATE TABLE `kbm_subnilai` (
   `ket` varchar(30) DEFAULT NULL,
   `sub_nilai` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_subnilai` */
 
-insert  into `kbm_subnilai`(`id`,`id_sk`,`no_induk`,`ket`,`sub_nilai`) values (1,1,'0001','P1','80'),(2,1,'0001','P2','75'),(3,1,'0001','P3','79'),(4,1,'0001','P4','90');
+insert  into `kbm_subnilai`(`id`,`id_sk`,`no_induk`,`ket`,`sub_nilai`) values (1,1,'0001','P1','76'),(2,1,'0001','P2','75'),(3,1,'0001','P3','79'),(4,1,'0001','P4','56'),(6,2,'0001','P1','50'),(7,2,'0001','P2','70'),(8,3,'0001','P1','69'),(9,3,'0001','P2','90'),(10,3,'0001','P3','68'),(11,4,'0001','P1','50'),(12,4,'0001','P2','30'),(13,3,'0001','P4','80'),(14,4,'0001','P3','30'),(15,4,'0001','P4','70');
 
 /*Table structure for table `kbm_ta` */
 

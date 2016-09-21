@@ -49,28 +49,26 @@ class Modal extends CI_Controller {
 	public function modal_input_nilai(){
 		if(isset($_POST['noinduk'])&&isset($_POST['id_mapel'])){
 			//print_r($_POST);
-			
 			$idsekolah=$this->session->userdata('id');
-			$data['sk']=$this->Model_mapel->get_sk($idsekolah,$_POST['id_mapel']);
+			$taktif=$this->session->userdata('ta_aktif');
+			$data['sk']=$this->Model_mapel->get_sk($_POST['noinduk'],$taktif,$idsekolah,$_POST['id_mapel']);
 			$data['noinduk']=$_POST['noinduk'];
-			$this->load->view('modal/modal_input_nilai',$data);
-			
+			$this->load->view('modal/modal_input_nilai',$data);	
 		}else{
 			echo "not-found";	
 		}
-
 	}
 	public function modal_detail_nilai(){
 		if(isset($_POST['idsk'])){
 			$idsekolah=$this->session->userdata('id');
 			$data['detail']=$this->Model_mapel->get_nilai_detail($_POST['idsk'],$_POST['noinduk']);
 			$data['idsk']=$_POST['idsk'];
+			$data['fill']=$_POST['fill'];
 			$data['noinduk']=$_POST['noinduk'];
 			$this->load->view('modal/modal_detail_nilai',$data);
 		}else{
 			echo "not-found";	
 		}
-
 	}
 	public function save_detail_nilai(){
 		if(isset($_POST['id_sk'])&&isset($_POST['no_induk'])){
@@ -105,7 +103,10 @@ class Modal extends CI_Controller {
 			}  
 		  }
 		}
-		//$hasil=$this->Model_modal->save_detail($arrayinsert,$arrayupdate);
+		//print_r($arrayinsert);
+		//print_r($arrayupdate);
+
+		$hasil=$this->Model_modal->save_detail($arrayinsert,$arrayupdate);
 	    $taktif=$this->session->userdata('ta_aktif');
 	    $hasil=$this->Model_modal->get_nilai($_POST['no_induk'],$_POST['id_sk'],$taktif);
 	    
@@ -144,6 +145,7 @@ class Modal extends CI_Controller {
 	    	$this->Model_modal->insert_nilai($nilai);
 	    }
 	    echo $rata2;
+	    
 	   }	
 	}
 	public function modal_jabatan(){

@@ -1,6 +1,9 @@
 <?php
 //print_r($detail);
 ?>
+<script>
+var add=0;
+</script>
 <input type="hidden" id="counter" value="0">
 <div class="form-group">
 <label>Keterangan Nilai (contoh : P1, P2)</label>
@@ -9,7 +12,6 @@
 <div class="form-group">
 <button class="btn btn-primary" onclick="adddetail()">Tambah Penilaian</button>
 </div>
-<br><br>
 <input type="hidden" class="detailadd" name="id_sk" value="<?php echo $idsk;?>">
 <input type="hidden" class="detailadd" name="no_induk" value="<?php echo $noinduk; ?>">
 <div id="area">
@@ -23,6 +25,7 @@
 	  </div>
 	  <script type="text/javascript">
 	  $('#counter').val('<?php echo $key->id; ?>');
+	  add++;
 	  </script>	  
 	 <?php
 	}
@@ -43,6 +46,7 @@
 			}
 		});
 		//console.log(formData.getAll);
+		  //waitingDialog.show('Menyimpan..');
 		  $.ajax({
 		  	url: '<?php echo base_url(); ?>modal/save_detail_nilai',
             type: "POST",
@@ -52,13 +56,16 @@
             cache: false,
             processData: false,
             complete: function(res) {
-             alert(res.responseText);	
+             //alert(res.responseText);	
+            $('#<?php echo $fill;?>').val(res.responseText);	
+            waitingDialog.hide();
+            $('#datadetail').modal('hide');
             }
 		  });
 		//console.log(json);
 	}
 	function adddetail(){
-		var batascounter=parseInt($('#counter').val());
+		var batascounter=add;//parseInt($('#counter').val());
 		if(batascounter<4){
 		  if($('#lab').val()!=''){
 			 batascounter++;
@@ -68,10 +75,13 @@
 		  	   '<input type="number" class="form-control detailadd" newer="yes" name="newdet_'+batascounter+'" id="newdet_'+batascounter+'">'+
 		      '</div>'
 			  );
-			 $('#counter').val(batascounter);
-		  }else{alert('Keterangan nlai tidak boleh kosong')}	 
+			 $('#lab').val("");
+			 //$('#counter').val(batascounter);
+			 add++;
+		  }else{alert('Keterangan nlai tidak boleh kosong');}	 
 		}else{
 			alert('batas penilaian hanya 4 kali');
+			$('#lab').val("");
 		}
 	}
 	$(function() {
