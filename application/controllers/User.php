@@ -64,4 +64,9 @@ class User extends CI_Controller {
 
 //=========================================================================
 //action----------
+	function save_nilai(){
+		if($this->input->post('simpan')=="yes"){
+			$id_mapel=$this->input->post('id_mapel');
+		}
+	}
 }	

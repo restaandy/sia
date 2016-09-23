@@ -1,7 +1,4 @@
-
-<form method="POST" action="<?php echo base_url(); ?>user/save_nilai">
 <div class="col-md-4">
-<input type="hidden" name="noinduk" value="<?php echo $noinduk; ?>">
 <legend>Teori</legend>
 	<?php
 	foreach ($sk as $key) {
@@ -31,7 +28,10 @@
 	}
 	?>
 </div>
+<form method="POST" action="<?php echo base_url(); ?>user/save_nilai">
 <div class="col-md-4">
+<input type="hidden" name="noinduk" value="<?php echo $noinduk; ?>">
+<input type="hidden" name="id_mapel" value="<?php echo $id_mapel; ?>">
 <legend>UTS / UAS</legend>
 	<?php
 	foreach ($sk as $key) {
@@ -39,7 +39,7 @@
 		?>
 			<div class="form-group">
 				<label><?php echo $key['standar_kompetensi']; ?></label>
-				<input type="number" class="form-control" value="<?php echo $key['nilai']; ?>" name="<?php echo $key['id'] ?>">
+				<input type="number" class="form-control" value="<?php echo $key['nilai']; ?>" name="uts_<?php echo $key['id'] ?>">
 			</div>
 			<?php
 		}
@@ -52,7 +52,7 @@
 </div>
 <div class="col-md-12">
 <div class="form-group">
-	<button type="submit" class="btn btn-primary">Simpan</button>
+	<button type="submit" name="simpan" value="yes" class="btn btn-primary">Simpan</button>
 </div>
 </div>
 </form>

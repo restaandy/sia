@@ -67,6 +67,7 @@ class Mapel extends CI_Controller {
 			$datainput=array();$datatemp=array();
 			foreach ($sk_teori as $key) {
 				$datainput['id_sekolah']=$idsekolah;
+				$datainput['bobot']=1,
 				$datainput['id_mapel']=$idmapel;
 				$datainput['kategori']='Teori';
 				$datainput['standar_kompetensi']=$key;
@@ -74,12 +75,14 @@ class Mapel extends CI_Controller {
 			}
 			foreach ($sk_praktek as $key) {
 				$datainput['id_sekolah']=$idsekolah;
+				$datainput['bobot']=1,
 				$datainput['id_mapel']=$idmapel;
 				$datainput['kategori']='Praktek';
 				$datainput['standar_kompetensi']=$key;
 				array_push($datatemp,$datainput);
 			}
 				$datainput['id_sekolah']=$idsekolah;
+				$datainput['bobot']=2,
 				$datainput['id_mapel']=$idmapel;
 				$datainput['kategori']='Uts';
 				$datainput['standar_kompetensi']="Ulangan Tengah Semester";

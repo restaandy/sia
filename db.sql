@@ -113,11 +113,11 @@ CREATE TABLE `kbm_nilai` (
   `nilai` varchar(255) DEFAULT NULL,
   `ta` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_nilai` */
 
-insert  into `kbm_nilai`(`id`,`id_sekolah`,`no_induk`,`id_sk`,`nilai`,`ta`) values (1,1,'0001',1,'71.5',20161),(2,1,'0001',2,'60',20161),(3,1,'0001',3,'76.75',20161),(4,1,'0001',4,'45',20161);
+insert  into `kbm_nilai`(`id`,`id_sekolah`,`no_induk`,`id_sk`,`nilai`,`ta`) values (1,1,'0001',1,'74.25',20161),(2,1,'0001',2,'68.5',20161),(3,1,'0001',3,'75',20161),(4,1,'0001',4,'44',20161),(5,1,'0002',1,'80',20161);
 
 /*Table structure for table `kbm_sk` */
 
@@ -131,11 +131,11 @@ CREATE TABLE `kbm_sk` (
   `bobot` tinyint(4) DEFAULT NULL,
   `kategori` enum('Teori','Praktek','Uts') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_sk` */
 
-insert  into `kbm_sk`(`id`,`id_sekolah`,`id_mapel`,`standar_kompetensi`,`bobot`,`kategori`) values (1,1,1,'Menguasai HTML',1,'Teori'),(2,1,1,'Menguasai PHP',1,'Teori'),(3,1,1,'Bisa membuat tabel',1,'Praktek'),(4,1,1,'Membuat koneksi database',1,'Praktek');
+insert  into `kbm_sk`(`id`,`id_sekolah`,`id_mapel`,`standar_kompetensi`,`bobot`,`kategori`) values (1,1,1,'Menguasai HTML',1,'Teori'),(2,1,1,'Menguasai PHP',1,'Teori'),(3,1,1,'Bisa membuat tabel',1,'Praktek'),(4,1,1,'Membuat koneksi database',1,'Praktek'),(5,1,1,'Uts',2,'Uts');
 
 /*Table structure for table `kbm_subnilai` */
 
@@ -148,11 +148,11 @@ CREATE TABLE `kbm_subnilai` (
   `ket` varchar(30) DEFAULT NULL,
   `sub_nilai` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_subnilai` */
 
-insert  into `kbm_subnilai`(`id`,`id_sk`,`no_induk`,`ket`,`sub_nilai`) values (1,1,'0001','P1','76'),(2,1,'0001','P2','75'),(3,1,'0001','P3','79'),(4,1,'0001','P4','56'),(6,2,'0001','P1','50'),(7,2,'0001','P2','70'),(8,3,'0001','P1','69'),(9,3,'0001','P2','90'),(10,3,'0001','P3','68'),(11,4,'0001','P1','50'),(12,4,'0001','P2','30'),(13,3,'0001','P4','80'),(14,4,'0001','P3','30'),(15,4,'0001','P4','70');
+insert  into `kbm_subnilai`(`id`,`id_sk`,`no_induk`,`ket`,`sub_nilai`) values (1,1,'0001','P1','76'),(2,1,'0001','P2','75'),(3,1,'0001','P3','90'),(4,1,'0001','P4','56'),(6,2,'0001','P1','67'),(7,2,'0001','P2','70'),(8,3,'0001','P1','90'),(9,3,'0001','P2','90'),(10,3,'0001','P3','40'),(11,4,'0001','P1','46'),(12,4,'0001','P2','30'),(13,3,'0001','P4','80'),(14,4,'0001','P3','30'),(15,4,'0001','P4','70'),(16,1,'0002','P1','70'),(17,1,'0002','P2','90');
 
 /*Table structure for table `kbm_ta` */
 
