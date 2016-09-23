@@ -32,6 +32,7 @@
 <div class="col-md-4">
 <input type="hidden" name="noinduk" value="<?php echo $noinduk; ?>">
 <input type="hidden" name="id_mapel" value="<?php echo $id_mapel; ?>">
+<input type="hidden" name="id_mengajar" value="<?php echo $id_mengajar; ?>">
 <legend>UTS / UAS</legend>
 	<?php
 	foreach ($sk as $key) {
@@ -39,16 +40,26 @@
 		?>
 			<div class="form-group">
 				<label><?php echo $key['standar_kompetensi']; ?></label>
-				<input type="number" class="form-control" value="<?php echo $key['nilai']; ?>" name="uts_<?php echo $key['id'] ?>">
+				<input type="hidden" name="id_sk_uts" value="<?php echo $key['id'] ?>">
+				<input type="number" class="form-control" value="<?php echo $key['nilai']; ?>" name="uts">
 			</div>
 			<?php
 		}
 	}
 	?>
-	<div class="form-group">
-				<label>UAS</label>
-				<input type="number" class="form-control" name="uas">
-	</div>
+	<?php
+	foreach ($sk as $key) {
+		if($key['kategori']=='Uas'){
+		?>
+			<div class="form-group">
+				<label><?php echo $key['standar_kompetensi']; ?></label>
+				<input type="hidden" name="id_sk_uas" value="<?php echo $key['id'] ?>">
+				<input type="number" class="form-control" value="<?php echo $key['nilai']; ?>" name="uas">
+			</div>
+			<?php
+		}
+	}
+	?>
 </div>
 <div class="col-md-12">
 <div class="form-group">

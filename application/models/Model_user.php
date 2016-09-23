@@ -19,6 +19,31 @@ Class Model_user extends CI_Model
    $query=$query->result_array();
    return $query;
   }
+  public function get_nilai_bynoinduk($no_induk,$idmapel,$idskolah,$ta){
+    $this->db->select('a.`id` AS id_sk,b.id as row_nilai,b.`nilai`');
+    $this->db->from('kbm_sk a');
+    $this->db->join('kbm_nilai b', 'a.id = b.id_sk','left');
+    $this->db->where('a.id_sekolah', $idskolah);
+    $this->db->where('a.id_mapel', $idmapel);
+    $this->db->where('b.no_induk', $no_induk);
+    $this->db->where('b.ta', $ta);
+    $query = $this->db->get();
+    $data=$query->result();
+    return $data;
+  }
+  public function simpan_nilai_uts_uas($idnilai,$nilai){
+    $this->db->where('id',$idnilai);
+    $this->db->update('kbm_nilai',array('nilai'=>$nilai));  
+  }
+  public function simpan_nilai($noinduk,$id_sk_uts_uas,$id_sekolah,$nilai_uts_uas,$taktif){
+    $this->db->insert('kbm_nilai',array(
+      'id_sekolah'=>$id_sekolah,
+      'no_induk'=>$noinduk,
+      'id_sk'=>$id_sk_uts_uas,
+      'nilai'=>$nilai_uts_uas,
+      'ta'=>$taktif
+      ));
+  }
   public function get_kelas_aktif($idskolah,$id,$taaktif){
    
     $query=$this->db->query("SELECT a.`id`,a.id_sekolah,

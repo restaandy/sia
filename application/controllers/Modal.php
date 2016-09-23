@@ -53,6 +53,7 @@ class Modal extends CI_Controller {
 			$data['sk']=$this->Model_mapel->get_sk($_POST['noinduk'],$taktif,$idsekolah,$_POST['id_mapel']);
 			$data['noinduk']=$_POST['noinduk'];
 			$data['id_mapel']=$_POST['id_mapel'];
+			$data['id_mengajar']=$_POST['id_mengajar'];
 			$this->load->view('modal/modal_input_nilai',$data);	
 		}else{
 			echo "not-found";	

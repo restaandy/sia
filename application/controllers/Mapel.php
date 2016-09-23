@@ -81,11 +81,18 @@ class Mapel extends CI_Controller {
 				$datainput['standar_kompetensi']=$key;
 				array_push($datatemp,$datainput);
 			}
+				
 				$datainput['id_sekolah']=$idsekolah;
 				$datainput['bobot']=2,
 				$datainput['id_mapel']=$idmapel;
 				$datainput['kategori']='Uts';
 				$datainput['standar_kompetensi']="Ulangan Tengah Semester";
+			array_push($datatemp,$datainput);
+				$datainput['id_sekolah']=$idsekolah;
+				$datainput['bobot']=2,
+				$datainput['id_mapel']=$idmapel;
+				$datainput['kategori']='Uas';
+				$datainput['standar_kompetensi']="Ulangan Akhir Semester";
 			array_push($datatemp,$datainput);
 			$hasil=$this->Model_mapel->input_sk($datatemp);
 			if($hasil){
