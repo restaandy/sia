@@ -13,60 +13,31 @@
 		<p style="font-size:15px;margin-left:20px;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('siswa'); ?></p>
 		<?php echo validation_errors(); ?>
 
-		<?php echo form_open('siswa/save_siswa'); ?>		
+		<?php echo form_open('siswa/save_belajar'); ?>		
 			<div class="col-md-4">
 			<div class="form-group">
-				<label>No Induk Nasional</label>
-				<input class="form-control ni" type="text" name="no_induk" maxlength="30" required />
-			</div>
-			<div class="form-group">
-				<label>No Induk Sekolah</label>
-				<input class="form-control ni" type="text" name="no_induk_sekolah" maxlength="20" required />
+				<label>Kelas Belajar</label>
+				<select class="form-control" name="id_mengajar" required>
+					<option value="">Pilih Kelas Belajar</option>
+					<?php
+					foreach ($datapengajar as $key) {
+					  ?>
+					  <option value="<?php echo $key['id']; ?>"><?php echo $key['nama_pegawai']." - ".$key['nama_kelas']." - ".$key['nama_mapel']; ?></option>
+					  <?php
+					}
+					?>
+				</select>
 			</div>
 			<div class="form-group">
 				<label>Nama Siswa</label>
-				<input class="form-control" type="text" name="nama" maxlength="100" required />
+				<input class="form-control" type="text" name="no_induk" id="siswa_id" required />
 			</div>
 			<div class="form-group">
-		<label>Jenis Kelamin</label>
-		<select class="form-control" name="jenkel">
-			<option value="L">Laki-laki</option>
-			<option value="P">Perempuan</option>
-		</select>
-	</div>
-			<label>Tahun Masuk</label>
-			<div class="form-group">
-				<input type="radio" name="thn_masuk" value="ini" onclick="pilih_tahun_masuk('ini')" checked> Tahun Ini
-				&nbsp
-				<input type="radio" name="thn_masuk" value="lalu" onclick="pilih_tahun_masuk('lalu')"> Tahun Lalu
+				<button class="btn btn-primary" type="submit" name="simpan" value="yes">Simpan</button>
 			</div>
-			<div class="form-group hide" id="thn_masuk_lalu">
-				<label>Tahun Masuk (tahun lalu)</label>
-				<input type="number" name="thn_masuk_lalu" class="form-control">
-			</div>
-			<div class="form-group">
-			    <label>Status Siswa</label>
-				<select class="form-control" name="akdm_stat">
-					<option value="aktif">Aktif</option>
-					<option value="lulus">Lulus</option>
-					<option value="do">Di Keluarkan</option>
-					<option value="wafat">Wafat</option>
-				</select>
-			</div>
-			<div class="form-group">
-			    <label>Status Masuk</label>
-				<select class="form-control" name="status_masuk">
-					<option value="baru">Baru</option>
-					<option value="pindahan">Pindahan</option>
-				</select>
-			</div>
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary" name="simpan" value="yes">Simpan</button>
-				<button type="reset" class="btn btn-reset" name="reset">Reset</button>
-			</div>
-
 			</div>
 			<div class="col-md-4">
+			<!--
 			<div class="row">
 			<blockquote style="font-size:15px;">
 			<p style="color:orange;font-size:20px;">Perhatian !!</p>
@@ -75,6 +46,7 @@
 			<p>Maka username siswa<b> 123456</b> dan password <b>sia123</b></p>
 			</blockquote>
 			</div>
+		     -->
 			</div>
 			<div class="col-md-4">
 			
@@ -86,7 +58,7 @@
 		<br><br>
 		</div>
 		<div class="panel-body">
-		<legend>Data Sekolah</legend>
+		<legend>Data Kelas Belajar</legend>
 		<p style="font-size:20px;;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('siswaupdate'); ?></p>
 		<table id="tabelsekolah" class="table table-striped">
 		<thead>
@@ -104,7 +76,7 @@
 		<tbody>
 		<?php
 			$x=1;
-			foreach ($datasiswa as $key) {
+			foreach ($kelasbelajar as $key) {
 			 ?>
 			<tr>
 				<td><?php echo $x; ?></td>

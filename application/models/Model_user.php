@@ -12,8 +12,9 @@ Class Model_user extends CI_Model
    $query=$query->result_array();
    return $query;
   }
-  public function get_jabatan($id){
-   $this->db->where('id',$id);
+  public function get_jabatan($idsekolah,$id){
+   $this->db->where('id_sekolah',$idsekolah); 
+   $this->db->where('id_pegawai',$id);
    $this->db->where('jabatan','guru');
    $query=$this->db->get('obj_jabatan');
    $query=$query->result_array();

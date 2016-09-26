@@ -48,20 +48,23 @@ class Modal extends CI_Controller {
 	}
 	public function modal_input_nilai(){
 		if(isset($_POST['noinduk'])&&isset($_POST['id_mapel'])){
-			$idsekolah=$this->session->userdata('id');
+			
+			$idsekolah=$this->session->userdata('id_sekolah');
 			$taktif=$this->session->userdata('ta_aktif');
 			$data['sk']=$this->Model_mapel->get_sk($_POST['noinduk'],$taktif,$idsekolah,$_POST['id_mapel']);
 			$data['noinduk']=$_POST['noinduk'];
 			$data['id_mapel']=$_POST['id_mapel'];
 			$data['id_mengajar']=$_POST['id_mengajar'];
 			$this->load->view('modal/modal_input_nilai',$data);	
+			
+			//print_r($_POST);
 		}else{
 			echo "not-found";	
 		}
 	}
 	public function modal_detail_nilai(){
 		if(isset($_POST['idsk'])){
-			$idsekolah=$this->session->userdata('id');
+			$idsekolah=$this->session->userdata('id_sekolah');
 			$data['detail']=$this->Model_mapel->get_nilai_detail($_POST['idsk'],$_POST['noinduk']);
 			$data['idsk']=$_POST['idsk'];
 			$data['fill']=$_POST['fill'];

@@ -25,7 +25,7 @@ class User extends CI_Controller {
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
 		$taktif=$this->session->userdata('ta_aktif');
-		$data['datajabatan']=$this->Model_user->get_jabatan($this->session->userdata('id'));
+		$data['datajabatan']=$this->Model_user->get_jabatan($this->session->userdata('id_sekolah'),$this->session->userdata('id'));
 		if(sizeof($data['datajabatan'])>0){
 			$jab=array();
 			foreach ($data['datajabatan'] as $key) {
@@ -56,11 +56,9 @@ class User extends CI_Controller {
 			$data['encrypt']=$id;
 			$content=$this->load->view('user/data_siswa',$data,true);
 			$this->dashboard($content);		
-		}
-		
+		}	
 	}
 	
-
 //=========================================================================
 //action----------
 	function save_nilai(){

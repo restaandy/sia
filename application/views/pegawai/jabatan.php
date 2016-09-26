@@ -28,6 +28,7 @@
 					<option value="">-- Pilih Jabatan --</option>
 					<option value="guru">Guru</option>
 					<option value="wali">Wali</option>
+					<option value="bk">BK</option>
 					<option value="kepsek">Kepala Sekolah</option>
 				</select>
 			</div>
@@ -55,6 +56,8 @@
 		</div>
 	</div>
 	<br><br>
+</div>
+<div class="panel-body">
 		<legend>Data Jabatan</legend>
 		<?php
 		if($this->session->flashdata('jabatanupdate')!=null){

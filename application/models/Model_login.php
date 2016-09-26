@@ -19,9 +19,8 @@ Class Model_login extends CI_Model
    return $query;
  }
  public function cek_wali_kelas($idpegawai,$idsekolah){
-  $this->db->where('id',$idpegawai);
+  $this->db->where('id_pegawai',$idpegawai);
   $this->db->where('id_sekolah',$idsekolah);
-  $this->db->where('jabatan','wali');
   $query=$this->db->get('obj_jabatan');
   $query=$query->result_array();
   return $query;

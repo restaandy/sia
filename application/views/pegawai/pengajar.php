@@ -58,7 +58,8 @@
 	 </div>
 	 </div>	
 	 </form>
-	 <br><br><br><br>
+	</div>
+	<div class="panel panel-body">
 	 	
 		<legend>Data Pengajar</legend>
 		<?php

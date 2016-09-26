@@ -1,5 +1,5 @@
 /*
-SQLyog Professional v10.42 
+SQLyog Enterprise - MySQL GUI v8.18 
 MySQL - 5.6.17 : Database - sia
 *********************************************************************
 */
@@ -26,7 +26,11 @@ CREATE TABLE `jur_bidang` (
   `bidang` varchar(100) DEFAULT NULL,
   `keterangan` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+/*Data for the table `jur_bidang` */
+
+insert  into `jur_bidang`(`id`,`id_sekolah`,`bidang`,`keterangan`) values (3,1,'Teknik','-'),(4,1,'Kesehatan','-');
 
 /*Table structure for table `jur_paket` */
 
@@ -40,7 +44,11 @@ CREATE TABLE `jur_paket` (
   `paket` varchar(100) DEFAULT NULL,
   `keterangan` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+/*Data for the table `jur_paket` */
+
+insert  into `jur_paket`(`id`,`id_sekolah`,`id_bidang`,`id_program`,`paket`,`keterangan`) values (2,1,3,3,'Pemrograman','-');
 
 /*Table structure for table `jur_program` */
 
@@ -53,7 +61,11 @@ CREATE TABLE `jur_program` (
   `program` varchar(100) DEFAULT NULL,
   `keterangan` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+/*Data for the table `jur_program` */
+
+insert  into `jur_program`(`id`,`id_sekolah`,`id_bidang`,`program`,`keterangan`) values (3,1,3,'Teknik Informatika','-');
 
 /*Table structure for table `kbm_belajar` */
 
@@ -65,7 +77,25 @@ CREATE TABLE `kbm_belajar` (
   `no_induk` varchar(30) DEFAULT NULL,
   `id_mengajar` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `kbm_belajar` */
+
+insert  into `kbm_belajar`(`id`,`id_sekolah`,`no_induk`,`id_mengajar`) values (1,1,'0001',1);
+
+/*Table structure for table `kbm_ekstra_siswa` */
+
+DROP TABLE IF EXISTS `kbm_ekstra_siswa`;
+
+CREATE TABLE `kbm_ekstra_siswa` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sekolah` int(11) DEFAULT NULL,
+  `id_ekstra` int(11) DEFAULT NULL,
+  `no_induk` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `kbm_ekstra_siswa` */
 
 /*Table structure for table `kbm_mengajar` */
 
@@ -81,6 +111,10 @@ CREATE TABLE `kbm_mengajar` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
+/*Data for the table `kbm_mengajar` */
+
+insert  into `kbm_mengajar`(`id`,`id_sekolah`,`id_pegawai`,`id_kelas`,`id_mapel`,`id_ta`) values (1,1,3,1,1,20161);
+
 /*Table structure for table `kbm_nilai` */
 
 DROP TABLE IF EXISTS `kbm_nilai`;
@@ -93,7 +127,11 @@ CREATE TABLE `kbm_nilai` (
   `nilai` varchar(255) DEFAULT NULL,
   `ta` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+/*Data for the table `kbm_nilai` */
+
+insert  into `kbm_nilai`(`id`,`id_sekolah`,`no_induk`,`id_sk`,`nilai`,`ta`) values (1,1,'0001',1,'81',20161),(2,1,'0001',2,'82',20161),(3,1,'0001',7,'70',20161),(4,1,'0001',3,'80',20161),(5,1,'0001',4,'90',20161),(6,1,'0001',8,'67.5',20161),(7,1,'0001',5,'90',20161),(8,1,'0001',6,'87',20161);
 
 /*Table structure for table `kbm_sk` */
 
@@ -107,7 +145,11 @@ CREATE TABLE `kbm_sk` (
   `bobot` tinyint(4) DEFAULT NULL,
   `kategori` enum('Teori','Praktek','Uts','Uas') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+/*Data for the table `kbm_sk` */
+
+insert  into `kbm_sk`(`id`,`id_sekolah`,`id_mapel`,`standar_kompetensi`,`bobot`,`kategori`) values (1,1,1,'Memahami sintak',1,'Teori'),(2,1,1,'Memahami fungsi',1,'Teori'),(3,1,1,'Membuat Hello world',1,'Praktek'),(4,1,1,'Membuat Fungsi',1,'Praktek'),(5,1,1,'Ulangan Tengah Semester',2,'Uts'),(6,1,1,'Ulangan Akhir Semester',2,'Uas'),(7,1,1,'Memahami Prosedur',1,'Teori'),(8,1,1,'Membuat Prosedur',1,'Praktek');
 
 /*Table structure for table `kbm_subnilai` */
 
@@ -120,7 +162,11 @@ CREATE TABLE `kbm_subnilai` (
   `ket` varchar(30) DEFAULT NULL,
   `sub_nilai` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+/*Data for the table `kbm_subnilai` */
+
+insert  into `kbm_subnilai`(`id`,`id_sk`,`no_induk`,`ket`,`sub_nilai`) values (1,1,'0001','P1','80'),(2,1,'0001','P2','76'),(3,2,'0001','P1','76'),(4,2,'0001','P2','80'),(5,2,'0001','P3','90'),(6,7,'0001','P1','50'),(7,7,'0001','P2','90'),(8,3,'0001','P1','70'),(9,3,'0001','P2','90'),(10,4,'0001','P1','90'),(11,8,'0001','P1','50'),(12,8,'0001','P2','85'),(13,1,'0001','P3','87');
 
 /*Table structure for table `kbm_ta` */
 
@@ -134,7 +180,27 @@ CREATE TABLE `kbm_ta` (
   `keterangan` enum('ganjil','genap') DEFAULT NULL,
   `status` enum('aktif','tdkaktif') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+/*Data for the table `kbm_ta` */
+
+insert  into `kbm_ta`(`id`,`ta`,`tajaran`,`tahun`,`keterangan`,`status`) values (1,'2016/2017',20161,2016,'ganjil','aktif'),(2,'2016/2017',20162,2017,'genap','tdkaktif');
+
+/*Table structure for table `obj_ekstra` */
+
+DROP TABLE IF EXISTS `obj_ekstra`;
+
+CREATE TABLE `obj_ekstra` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sekolah` int(11) DEFAULT NULL,
+  `nama_ekstra` varchar(50) DEFAULT NULL,
+  `deskripsi` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+/*Data for the table `obj_ekstra` */
+
+insert  into `obj_ekstra`(`id`,`id_sekolah`,`nama_ekstra`,`deskripsi`) values (1,1,'Sepak Bola','Ekstrakulikuler sepak bola'),(2,1,'Karawitan','gamelan, kenong dll');
 
 /*Table structure for table `obj_guru` */
 
@@ -169,7 +235,9 @@ CREATE TABLE `obj_guru` (
   `nomor_sk` varchar(30) DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `obj_guru` */
 
 /*Table structure for table `obj_jabatan` */
 
@@ -179,10 +247,14 @@ CREATE TABLE `obj_jabatan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_sekolah` int(11) DEFAULT NULL,
   `id_pegawai` int(11) DEFAULT NULL,
-  `jabatan` enum('guru','wali','kepsek') DEFAULT NULL,
+  `jabatan` enum('guru','wali','kepsek','bk') DEFAULT NULL,
   `id_kelas` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+/*Data for the table `obj_jabatan` */
+
+insert  into `obj_jabatan`(`id`,`id_sekolah`,`id_pegawai`,`jabatan`,`id_kelas`) values (1,1,3,'guru',0),(2,1,5,'bk',0),(3,1,4,'wali',1);
 
 /*Table structure for table `obj_kelas` */
 
@@ -194,7 +266,11 @@ CREATE TABLE `obj_kelas` (
   `tingkat` enum('X','XI','XII') DEFAULT NULL,
   `nama_kelas` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `obj_kelas` */
+
+insert  into `obj_kelas`(`id`,`id_sekolah`,`tingkat`,`nama_kelas`) values (1,1,'X','RPL A');
 
 /*Table structure for table `obj_mapel` */
 
@@ -212,6 +288,10 @@ CREATE TABLE `obj_mapel` (
   `status_mapel` enum('wajib','minat') DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `obj_mapel` */
+
+insert  into `obj_mapel`(`id`,`id_sekolah`,`id_bidang`,`id_program`,`id_paket`,`nama_mapel`,`komp_inti`,`komp_dasar`,`status_mapel`) values (1,1,3,3,2,'Pemrograman Dasar','Bisa membuat program sederhana','Menguasai sintak pemrograman','wajib');
 
 /*Table structure for table `obj_pegawai` */
 
@@ -246,7 +326,11 @@ CREATE TABLE `obj_pegawai` (
   `nomor_sk` varchar(30) DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+/*Data for the table `obj_pegawai` */
+
+insert  into `obj_pegawai`(`id`,`id_sekolah`,`nip`,`nama_pegawai`,`username`,`password`,`tmp_lahir`,`tgl_lahir`,`jenkel`,`agama`,`prov`,`kabkot`,`kec`,`kel`,`alamat_tmb`,`no_telp`,`email`,`asal_pt`,`gelar_dpn`,`gelar_blk`,`thn_lulus`,`jurusan`,`jabatan`,`foto`,`status`,`nomor_sk`,`last_login`) values (3,1,'0001','Waluyo','0001','da5860dacd52a671366209f3fc08f140035ed81b',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'waluyo@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'pns',NULL,NULL),(4,1,'0002','Aji Budi','0002','a71e47701af2e35db08b2b03db0ce504d5b5384d',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'ajibudi@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'pns',NULL,NULL),(5,1,'0003','wahyu','0003','945fb35f2985533a2c3bb91f6c7cf0effd58ff7b',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'wahyu@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'pns',NULL,NULL);
 
 /*Table structure for table `obj_sekolah` */
 
@@ -272,6 +356,10 @@ CREATE TABLE `obj_sekolah` (
   `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `obj_sekolah` */
+
+insert  into `obj_sekolah`(`id`,`nama_sekolah`,`username`,`password`,`prov`,`kabkota`,`kec`,`kel`,`almt_tambahan`,`telp`,`website`,`email`,`visi`,`misi`,`bergabung`,`status_sistem`,`last_login`) values (1,'SMK N 1 Slawi','smea','3a496598e5964f98d618e854606ae86f36ba5133',NULL,NULL,NULL,NULL,'','','','','','',NULL,NULL,NULL);
 
 /*Table structure for table `obj_siswa` */
 
@@ -311,6 +399,10 @@ CREATE TABLE `obj_siswa` (
   PRIMARY KEY (`no_induk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+/*Data for the table `obj_siswa` */
+
+insert  into `obj_siswa`(`no_induk`,`no_induk_sekolah`,`id_sekolah`,`nama`,`username`,`password`,`tgl_lahir`,`tmp_lahir`,`foto`,`agama`,`prov`,`kabkot`,`kec`,`kel`,`almt_tambahan`,`no_hp`,`email`,`jenkel`,`nama_ayah`,`nama_ibu`,`no_telp_ortu`,`alamat_ortu`,`pekerjaan_ibu`,`pekerjaan_ayah`,`asal_sekolah`,`status_masuk`,`akdm_stat`,`thn_masuk`,`last_login`,`ip_login`) values ('0001','0001',1,'Andy Resta','00010001','da5860dacd52a671366209f3fc08f140035ed81b',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'L',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'baru','aktif',2016,NULL,NULL);
+
 /*Table structure for table `tmpt_kabkot` */
 
 DROP TABLE IF EXISTS `tmpt_kabkot`;
@@ -320,7 +412,9 @@ CREATE TABLE `tmpt_kabkot` (
   `id_provinsi` tinyint(4) DEFAULT NULL,
   `kabkot` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=498 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tmpt_kabkot` */
 
 /*Table structure for table `tmpt_kec` */
 
@@ -331,7 +425,9 @@ CREATE TABLE `tmpt_kec` (
   `id_kabkot` int(7) DEFAULT NULL,
   `kecamatan` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tmpt_kec` */
 
 /*Table structure for table `tmpt_keldesa` */
 
@@ -342,7 +438,9 @@ CREATE TABLE `tmpt_keldesa` (
   `id_kec` int(7) DEFAULT NULL,
   `keldesa` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tmpt_keldesa` */
 
 /*Table structure for table `tmpt_prov` */
 
@@ -352,7 +450,9 @@ CREATE TABLE `tmpt_prov` (
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `provinsi` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tmpt_prov` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

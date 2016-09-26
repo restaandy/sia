@@ -90,6 +90,8 @@
 		</div>
 		
 		<br><br>
+	</div>
+	<div class="panel-body">
 		<legend>Data Mapel</legend>
 		<?php
 		if($this->session->flashdata('mapelupdate')!=null){

@@ -6,7 +6,7 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>aset/external/js/modal_pegawai.js"></script>
 
 <div class="panel panel-default">
-	<div class="panel-body" id="pegawai">
+	<div class="panel-body">
 		<legend>Tambah Pegawai</legend>
 		<div class="col-md-8">
 		<div class="row">
@@ -69,6 +69,8 @@
 		</div>
 		<div class="col-md-4"></div>
 		<br><br>
+		</div>
+		<div class="panel-body">
 		<legend>Data Pegawai</legend>
 		<?php
 		if($this->session->flashdata('pegawaiupdate')!=null){
@@ -137,3 +139,4 @@
     </div>
   </div>
 </div>
+<div id="pegawai" class="hide"></div>

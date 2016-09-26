@@ -9,6 +9,7 @@ class Siswa extends CI_Controller {
             	redirect('login');
             }else{
               $this->load->model('Model_siswa');	
+              $this->load->model('Model_pegawai');
             }
             
     }
@@ -40,6 +41,51 @@ class Siswa extends CI_Controller {
 
 		$content=$this->load->view('siswa/manajemen_siswa',$data,true);
 		$this->dashboard($content);
+	}
+	function autocomplete_siswa(){
+		if($this->input->post('autocomplete')=="yes"){
+			$idsekolah=$this->session->userdata('id');
+			$data=$this->Model_siswa->get_siswa($idsekolah,$this->input->post('value'));
+			echo json_encode($data);
+		}
+	}
+	function belajar(){
+		$bread['title1']="Siswa";
+		$bread['title2']="Kelas Belajar Siswa";
+		$bread['list']=array("Siswa","Kelas Belajar Siswa");
+
+		$data['title']="Kelas Belajar Siswa | Sistem Akademik";		
+		$data['sidebar']=$this->load->view('sidebar','',true);
+		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+		$taaktif=$this->session->userdata('ta_aktif');
+		$idsekolah=$this->session->userdata('id');
+		$data['datapengajar']=$this->Model_pegawai->get_pengajar($idsekolah,$taaktif);
+		$data['kelasbelajar']=array();//$this->Model_siswa->get_kelas_belajar($this->session->userdata('id'));
+
+		$content=$this->load->view('siswa/belajar',$data,true);
+		$this->dashboard($content);
+	}
+	function save_belajar(){
+		if($this->input->post('simpan')=="yes"){
+			$idsekolah=$this->session->userdata('id');
+			$noind=explode(" - ", $this->input->post('no_induk'));
+			$data=array(
+				'no_induk'=>$noind[0],
+				'id_sekolah'=>$idsekolah,
+				'id_mengajar'=>$this->input->post('id_mengajar')
+				);
+			$hasil=$this->Model_siswa->simpan_belajar($data);
+			if($hasil){
+				$this->session->set_flashdata('siswa','Data telah terganti');
+			    $this->session->set_flashdata('warna','blue');
+			}else{
+				$this->session->set_flashdata('siswa','Data gagal diganti');
+			    $this->session->set_flashdata('warna','red');
+			}
+			redirect("siswa/belajar");
+		}else{
+			redirect("siswa/belajar");
+		}
 	}
 	public function edit_siswa(){
 		if($this->input->post('simpan')=="yes"){

@@ -78,7 +78,7 @@ $(document).ready(function(){
 	  var n=str.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '');	
 	  $(e.target).val(n);
 	});
-	 $('#tabelpegawai').DataTable();
+		$('#tabelpegawai').DataTable();
 	    $('.datepicker').datepicker({
 	     format: 'yyyy-mm-dd',
 	     startDate: '-3d'

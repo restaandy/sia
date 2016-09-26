@@ -42,6 +42,9 @@
 		</div>
 		<div class="col-md-4"></div>
 		<br><br>
+		
+		</div>
+		<div class="panel-body">
 		<legend>Data Bidang</legend>
 		<p style="font-size:20px;;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('bidangupdate'); ?></p>
 		<table id="tabelbidang" class="table table-striped">

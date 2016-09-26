@@ -54,6 +54,8 @@
 		</div>
 		<div class="col-md-4"></div>
 		<br><br>
+	</div>
+	<div class="panel-body">
 		<legend>Data Program</legend>
 		<p style="font-size:20px;;color:<?php echo $this->session->flashdata('warna');?>;"><?php echo $this->session->flashdata('programupdate'); ?></p>
 		<table id="tabelprogram" class="table table-striped">

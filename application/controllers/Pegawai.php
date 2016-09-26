@@ -88,14 +88,19 @@ class Pegawai extends CI_Controller {
 			}else{
 				$data['id_kelas']="";
 			}
-
-			$hasil=$this->Model_pegawai->input_jabatan($data);
-			if($hasil){
-				$this->session->set_flashdata('jabatan','Data sudah masuk');
-			    $this->session->set_flashdata('warna','blue');
+			$cek=$this->Model_pegawai->cek_jabatan($data);
+			if(sizeof($cek)>0){
+				$this->session->set_flashdata('jabatan','User ini sudah menjabat');
+				$this->session->set_flashdata('warna','red');
 			}else{
-				$this->session->set_flashdata('jabatan','Data gagal masuk, ');
-			    $this->session->set_flashdata('warna','red');
+				$hasil=$this->Model_pegawai->input_jabatan($data);
+				if($hasil){
+					$this->session->set_flashdata('jabatan','Data sudah masuk');
+				    $this->session->set_flashdata('warna','blue');
+				}else{
+					$this->session->set_flashdata('jabatan','Data gagal masuk, ');
+				    $this->session->set_flashdata('warna','red');
+				}
 			}
 			redirect("pegawai/jabatan");
 		}else{

@@ -64,6 +64,8 @@
 		</div>
 		<div class="col-md-4"></div>
 		<br><br>
+	</div>
+	<div class="panel-body">
 		<legend>Data Kelas</legend>
 		<?php
 		if($this->session->flashdata('kelasupdate')!=null){

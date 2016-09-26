@@ -41,6 +41,7 @@
           <ul class="treeview-menu">
             <li><a href="<?php echo base_url();?>siswa"><i class="fa fa-circle-o"></i> Siswa</a></li>
             <li><a href="<?php echo base_url(); ?>siswa/siswa"><i class="fa fa-circle-o"></i> Manajemen Siswa</a></li>
+            <li><a href="<?php echo base_url(); ?>siswa/belajar"><i class="fa fa-circle-o"></i> Kelas Belajar Siswa</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -97,19 +98,8 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-            <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Tables</span>
-            <i class="fa fa-angle-left pull-right"></i>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
+            <li><a href="<?php echo base_url(); ?>ekstra"><i class="fa fa-circle-o"></i> Ekstrakulikuler</a></li>
+            <li><a href="<?php echo base_url(); ?>ekstra/data_ekstra"><i class="fa fa-circle-o"></i> Data Ekstrakulikuler</a></li>
           </ul>
         </li>
         
@@ -130,11 +120,16 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Kelas Ajar</a></li>
-            <?php if($this->session->userdata('jabatan')=="wali"){
+            <?php  if($this->session->userdata('jabatan')=="wali"){
               ?>
                <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Perwalian</a></li>
               <?php
             } ?>  
+            <?php if($this->session->userdata('jabatan')=="bk"){
+              ?>
+               <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Bimbingan Konseling</a></li>
+              <?php
+            } ?> 
           
           </ul>
         </li>

@@ -131,6 +131,13 @@ WHERE a.`id_sekolah`=".$idskolah." and e.tajaran=".$ta.";");
         return false;
       }
   }
+  function cek_jabatan($data){
+    $this->db->where('id_sekolah',$data['id_sekolah']);
+    $this->db->where('id_pegawai',$data['id_pegawai']);
+    $data=$this->db->get('obj_jabatan');
+    $data=$data->result();
+    return $data;
+  }
   public function edit_jabatan($data){
     $this->db->where('id', $data['id']);
     $this->db->update('obj_jabatan', $data);

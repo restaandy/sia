@@ -17,6 +17,14 @@ Class Model_mapel extends CI_Model
    $query=$query->result_array();
    return $query;
   }
+  public function cek_sk_uts_uas($id_sekolah,$id_mapel){
+    $this->db->where('id_sekolah',$id_sekolah);
+    $this->db->where('id_mapel',$id_mapel);
+    $this->db->where("kategori = 'Uts' OR kategori = 'Uas'");
+    $data=$this->db->get('kbm_sk');
+    $data=$data->result();
+    return $data;
+  }
   public function get_nilai_detail($idsk,$noinduk){
    $this->db->where('id_sk',$idsk);
    $this->db->where('no_induk',$noinduk);
@@ -25,9 +33,9 @@ Class Model_mapel extends CI_Model
    return $query;
   }
   public function get_sk($noinduk,$ta,$idskolah,$idmapel){
-    $query=$this->db->query("SELECT * FROM kbm_sk a LEFT JOIN (SELECT nilai,id_sk FROM kbm_nilai WHERE id_sekolah=".htmlentities($idskolah)." AND no_induk='".htmlentities($noinduk)."' AND ta=".htmlentities($ta).") b
+    $query=$this->db->query("SELECT * FROM kbm_sk a LEFT JOIN (SELECT nilai,id_sk FROM kbm_nilai WHERE id_sekolah=".$idskolah." AND no_induk='".$noinduk."' AND ta=".$ta.") b
 ON a.id=b.id_sk
-WHERE a.id_sekolah=".htmlentities($idskolah)." AND a.id_mapel=".htmlentities($idmapel).";");
+WHERE a.id_sekolah=".$idskolah." AND a.id_mapel=".$idmapel.";");
    $query=$query->result_array();
    return $query;
   }
