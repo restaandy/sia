@@ -18,7 +18,7 @@ Class Model_login extends CI_Model
    $query=$query->result_array();
    return $query;
  }
- public function cek_wali_kelas($idpegawai,$idsekolah){
+ public function get_jabatan($idpegawai,$idsekolah){
   $this->db->where('id_pegawai',$idpegawai);
   $this->db->where('id_sekolah',$idsekolah);
   $query=$this->db->get('obj_jabatan');

@@ -4,13 +4,13 @@ Class Model_user extends CI_Model
 {
 
   public function get_kelas($idskolah='',$nama=''){
-   if($nama==''){
-   	$query=$this->db->query("select * from obj_kelas where id_sekolah=".$idskolah."");
-   }else{
-   	$query=$this->db->query("select * from obj_kelas where id_sekolah=".$idskolah." and nama_kelas like '".$nama."%'");
-   }
-   $query=$query->result_array();
-   return $query;
+     if($nama==''){
+     	$query=$this->db->query("select * from obj_kelas where id_sekolah=".$idskolah."");
+     }else{
+     	$query=$this->db->query("select * from obj_kelas where id_sekolah=".$idskolah." and nama_kelas like '".$nama."%'");
+     }
+     $query=$query->result_array();
+     return $query;
   }
   public function get_jabatan($idsekolah,$id){
    $this->db->where('id_sekolah',$idsekolah); 
@@ -32,6 +32,17 @@ Class Model_user extends CI_Model
     $data=$query->result();
     return $data;
   }
+  public function get_siswa_perwalian($idskolah,$id_kelas,$ta){
+    $this->db->select('*');
+    $this->db->from('obj_perwalian a');
+    $this->db->where('id_sekolah', $idskolah);
+    $this->db->where('a.id_kelas', $id_kelas);
+    $this->db->where('b.ta', $ta);
+    $query = $this->db->get();
+    $data=$query->result();
+    return $data;
+  }
+  public function get_
   public function simpan_nilai_uts_uas($idnilai,$nilai){
     $this->db->where('id',$idnilai);
     $this->db->update('kbm_nilai',array('nilai'=>$nilai));  

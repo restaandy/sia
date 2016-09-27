@@ -58,6 +58,24 @@ class User extends CI_Controller {
 			$this->dashboard($content);		
 		}	
 	}
+	public function perwalian(){
+		if($this->session->userdata('jabatan')=="wali"){
+				$bread['title1']="Kelas";
+				$bread['title2']="Data Siswa";
+				$bread['list']=array("Kelas","Perwalian");
+				$data['title']="Data Siswa | Sistem Akademik";	
+				$data['id_mengajar']=$idmengajar;
+				$data['sidebar']=$this->load->view('sidebar','',true);
+				$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+				$id_kelas=$this->session->userdata("id_kelas");
+				$data['datasiswa']=$this->Model_user->get_siswa_perwalian($this->session->userdata('id_sekolah'),$id_kelas);
+				
+				$content=$this->load->view('user/data_siswa',$data,true);
+				$this->dashboard($content);			
+		}else{
+			redirect("home");
+		}
+	}
 	
 //=========================================================================
 //action----------

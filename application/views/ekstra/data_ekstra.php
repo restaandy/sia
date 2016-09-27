@@ -24,7 +24,7 @@
 			<div class="col-md-4">
 			<div class="form-group">
 				<label>Nama Ekstra</label>
-				<selet class="form-control" name="nama_ekstra">
+				<select class="form-control" name="id_ekstra">
 					<option value="">-- Pilih Ekstrakulikuler</option>
 					<?php
 					foreach ($ekstra as $key) {
@@ -37,7 +37,7 @@
 			</div>
 			<div class="form-group">
 				<label>Siswa</label>
-				<input class="form-control" type="text" name="id_siswa" id="ekstra_siswa">
+				<input class="form-control" type="text" id="siswa_id" name="no_induk">
 			</div>
 			<div class="form-group">
 				<button class="btn btn-primary" name="simpan" value="yes" type="submit">Simpan</button>
@@ -46,7 +46,7 @@
 		   <div class="col-md-4">
 				<blockquote style="font-size:15px;">
 				<p style="color:orange;font-size:20px;">Perhatian !!</p>
-				<p>Isikan Form mapel dengan jelas sesuai dengan ekstra di setiap sekolah masing-masing</p>
+				<p>Isikan Form data ekstrakulikuler dengan jelas sesuai dengan ekstra di setiap sekolah masing-masing</p>
 				</blockquote>
 			</div>
 			</form>
@@ -73,7 +73,7 @@
 			<tr>
 				<th width="5%">No</th>
 				<th width="20%">Nama Ekstrakulikuer</th>
-				<th width="15%">Deskripsi</th>
+				<th width="15%">Nama Siswa</th>
 				<th width="10%">(View More / Edit)</th>
 			</tr>
 		</thead>
@@ -86,7 +86,7 @@
 			<tr>
 				<td><?php echo $x; ?></td>
 				<td><?php echo $key->nama_ekstra; ?></td>
-				<td><?php echo $key->deskripsi; ?></td>
+				<td><?php echo $key->nama; ?></td>
 				<td>
 					<button class="btn btn-primary btn-xs"
 				 data-id="<?php echo $key->id; ?>" 

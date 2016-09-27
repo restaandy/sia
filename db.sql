@@ -1,5 +1,5 @@
 /*
-SQLyog Enterprise - MySQL GUI v8.18 
+SQLyog Professional v10.42 
 MySQL - 5.6.17 : Database - sia
 *********************************************************************
 */
@@ -93,9 +93,11 @@ CREATE TABLE `kbm_ekstra_siswa` (
   `id_ekstra` int(11) DEFAULT NULL,
   `no_induk` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_ekstra_siswa` */
+
+insert  into `kbm_ekstra_siswa`(`id`,`id_sekolah`,`id_ekstra`,`no_induk`) values (1,1,1,'0001');
 
 /*Table structure for table `kbm_mengajar` */
 
@@ -331,6 +333,21 @@ CREATE TABLE `obj_pegawai` (
 /*Data for the table `obj_pegawai` */
 
 insert  into `obj_pegawai`(`id`,`id_sekolah`,`nip`,`nama_pegawai`,`username`,`password`,`tmp_lahir`,`tgl_lahir`,`jenkel`,`agama`,`prov`,`kabkot`,`kec`,`kel`,`alamat_tmb`,`no_telp`,`email`,`asal_pt`,`gelar_dpn`,`gelar_blk`,`thn_lulus`,`jurusan`,`jabatan`,`foto`,`status`,`nomor_sk`,`last_login`) values (3,1,'0001','Waluyo','0001','da5860dacd52a671366209f3fc08f140035ed81b',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'waluyo@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'pns',NULL,NULL),(4,1,'0002','Aji Budi','0002','a71e47701af2e35db08b2b03db0ce504d5b5384d',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'ajibudi@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'pns',NULL,NULL),(5,1,'0003','wahyu','0003','945fb35f2985533a2c3bb91f6c7cf0effd58ff7b',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'wahyu@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'pns',NULL,NULL);
+
+/*Table structure for table `obj_perwalian` */
+
+DROP TABLE IF EXISTS `obj_perwalian`;
+
+CREATE TABLE `obj_perwalian` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sekolah` int(11) DEFAULT NULL,
+  `id_kelas` int(11) DEFAULT NULL,
+  `no_induk` varchar(50) DEFAULT NULL,
+  `ta` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `obj_perwalian` */
 
 /*Table structure for table `obj_sekolah` */
 

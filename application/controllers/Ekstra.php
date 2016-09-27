@@ -35,7 +35,7 @@ class Ekstra extends CI_Controller {
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
 		$idskolah=$this->session->userdata('id');
-		$data['ekstra']=$this->Model_ekstra->get_ekstra($idskolah);
+		$data['ekstra']=$this->Model_ekstra->get_ekstra_siswa($idskolah);
 		$content=$this->load->view('ekstra/data_ekstra',$data,true);
 		$this->dashboard($content);
 	}
@@ -62,6 +62,28 @@ class Ekstra extends CI_Controller {
 			    $this->session->set_flashdata('warna','red');
 			}
 			redirect("ekstra");
+		}
+	}
+	public function save_ekstra_siswa(){
+		if($this->input->post('simpan')=="yes"){
+			$no_induk=explode(" - ",$this->input->post('no_induk'));
+			$id_ekstra=$this->input->post('id_ekstra');
+			$idsekolah=$this->session->userdata('id');
+			
+			$data=array(
+				'id_ekstra'=>$id_ekstra,
+				'no_induk'=>$no_induk[0],
+				'id_sekolah'=>$idsekolah
+				);
+			$hasil=$this->Model_ekstra->simpan_ekstra_siswa($data);
+			if($hasil){
+				$this->session->set_flashdata('ekstra','Data sudah masuk');
+			    $this->session->set_flashdata('warna','blue');
+			}else{
+				$this->session->set_flashdata('ekstra','Data gagal masuk,');
+			    $this->session->set_flashdata('warna','red');
+			}
+			redirect("ekstra/data_ekstra");
 		}
 	}
 }	
