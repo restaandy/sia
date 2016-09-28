@@ -20,6 +20,13 @@ Class Model_user extends CI_Model
    $query=$query->result_array();
    return $query;
   }
+  public function get_sikap($noinduk,$idmengajar){
+     $this->db->where('id_sekolah',$idsekolah); 
+     $this->db->where('no_induk',$noinduk);
+     $query=$this->db->get('obj_jabatan');
+     $query=$query->result_array();
+     return $query;
+  }
   public function get_nilai_bynoinduk($no_induk,$idmapel,$idskolah,$ta){
     $this->db->select('a.`id` AS id_sk,b.id as row_nilai,b.`nilai`');
     $this->db->from('kbm_sk a');

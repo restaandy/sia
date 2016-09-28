@@ -70,7 +70,7 @@ class User extends CI_Controller {
 				$id_kelas=$this->session->userdata("id_kelas");
 				$data['datasiswa']=$this->Model_user->get_siswa_perwalian($this->session->userdata('id_sekolah'),$id_kelas);
 				
-				$content=$this->load->view('user/data_siswa',$data,true);
+				$content=$this->load->view('user/perwalian',$data,true);
 				$this->dashboard($content);			
 		}else{
 			redirect("home");

@@ -1,5 +1,5 @@
 /*
-SQLyog Professional v10.42 
+SQLyog Enterprise - MySQL GUI v8.18 
 MySQL - 5.6.17 : Database - sia
 *********************************************************************
 */
@@ -92,12 +92,13 @@ CREATE TABLE `kbm_ekstra_siswa` (
   `id_sekolah` int(11) DEFAULT NULL,
   `id_ekstra` int(11) DEFAULT NULL,
   `no_induk` varchar(50) DEFAULT NULL,
+  `nilai` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_ekstra_siswa` */
 
-insert  into `kbm_ekstra_siswa`(`id`,`id_sekolah`,`id_ekstra`,`no_induk`) values (1,1,1,'0001');
+insert  into `kbm_ekstra_siswa`(`id`,`id_sekolah`,`id_ekstra`,`no_induk`,`nilai`) values (1,1,1,'0001',NULL);
 
 /*Table structure for table `kbm_mengajar` */
 
@@ -134,6 +135,21 @@ CREATE TABLE `kbm_nilai` (
 /*Data for the table `kbm_nilai` */
 
 insert  into `kbm_nilai`(`id`,`id_sekolah`,`no_induk`,`id_sk`,`nilai`,`ta`) values (1,1,'0001',1,'78','2016/2017');
+
+/*Table structure for table `kbm_nilai_sikap` */
+
+DROP TABLE IF EXISTS `kbm_nilai_sikap`;
+
+CREATE TABLE `kbm_nilai_sikap` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sekolah` int(11) DEFAULT NULL,
+  `id_mengajar` int(11) DEFAULT NULL,
+  `no_induk` varchar(50) DEFAULT NULL,
+  `sikap` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `kbm_nilai_sikap` */
 
 /*Table structure for table `kbm_sk` */
 
@@ -203,6 +219,43 @@ CREATE TABLE `obj_ekstra` (
 /*Data for the table `obj_ekstra` */
 
 insert  into `obj_ekstra`(`id`,`id_sekolah`,`nama_ekstra`,`deskripsi`) values (1,1,'Sepak Bola','Ekstrakulikuler sepak bola'),(2,1,'Karawitan','gamelan, kenong dll');
+
+/*Table structure for table `obj_guru` */
+
+DROP TABLE IF EXISTS `obj_guru`;
+
+CREATE TABLE `obj_guru` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sekolah` int(11) DEFAULT NULL,
+  `nip` varchar(50) DEFAULT NULL,
+  `nama_guru` varchar(100) DEFAULT NULL,
+  `username` varchar(20) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `tmp_lahir` varchar(50) DEFAULT NULL,
+  `tgl_lahir` date DEFAULT NULL,
+  `jenkel` enum('L','P') DEFAULT NULL,
+  `agama` enum('islam','kristen','katholik','budha','hindu','konghucu') DEFAULT NULL,
+  `prov` tinyint(4) DEFAULT NULL,
+  `kabkot` tinyint(4) DEFAULT NULL,
+  `kec` int(7) DEFAULT NULL,
+  `kel` int(7) DEFAULT NULL,
+  `alamat_tmb` text,
+  `no_telp` varchar(50) DEFAULT NULL,
+  `email` varchar(70) DEFAULT NULL,
+  `asal_pt` varchar(70) DEFAULT NULL,
+  `gelar_dpn` varchar(15) DEFAULT NULL,
+  `gelar_blk` varchar(15) DEFAULT NULL,
+  `thn_lulus` int(7) DEFAULT NULL,
+  `jurusan` varchar(50) DEFAULT NULL,
+  `jabatan` varchar(50) DEFAULT NULL,
+  `foto` text,
+  `status` enum('pns','gtt') DEFAULT NULL,
+  `nomor_sk` varchar(30) DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `obj_guru` */
 
 /*Table structure for table `obj_jabatan` */
 
