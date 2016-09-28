@@ -97,7 +97,7 @@
 				<td><?php echo $key['nama_pegawai']; ?></td>
 				<td><?php echo $key['nama_mapel']; ?></td>
 				<td><?php echo $key['nama_kelas']; ?></td>
-				<td><?php echo $key['ta']." - ".$key['keterangan']; ?></td>
+				<td><?php echo $key['id_ta']; ?></td>
 				<td>
 					<button class="btn btn-primary btn-xs"
 				 data-id="<?php echo $key['id'] ?>" 

@@ -62,6 +62,26 @@ class Pegawai extends CI_Controller {
 
 		}
 	}
+	public function autocomplete_pengajar(){
+		if(isset($_POST['autocomplete'])){
+			$idsekolah=$this->session->userdata('id');
+			$nama=$this->input->post('value');
+			$data=$this->Model_pegawai->get_pegawai($idsekolah,$nama);
+			$dataauto=array();
+			foreach ($data as $key) {
+				array_push($dataauto,
+					array(
+						'label'=>$key['nama_pegawai']."  (".$key['status'].")",
+						'value'=>$key['id']."-".$key['nama_pegawai'],
+						'foto'=>$key['foto']
+						)
+					);
+			}
+			echo json_encode($dataauto); 
+		}else{
+
+		}
+	}
 	public function jabatan(){
 		$bread['title1']="Jabatan";
 		$bread['title2']="Jabatan";
@@ -89,6 +109,10 @@ class Pegawai extends CI_Controller {
 				$data['id_kelas']="";
 			}
 			$cek=$this->Model_pegawai->cek_jabatan($data);
+			$cek_is_wali=$cek;
+			foreach ($cek as $key) {
+				$cek_is_wali=$key;
+			}
 			if(sizeof($cek)>0){
 				$this->session->set_flashdata('jabatan','User ini sudah menjabat');
 				$this->session->set_flashdata('warna','red');

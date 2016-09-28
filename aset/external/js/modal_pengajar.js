@@ -13,7 +13,7 @@ $(function() {
         
         $("#pegawai").autocomplete({
             source: function(term, suggest){
-                $.post('http://localhost/sia/pegawai/autocomplete',{autocomplete:'yes',value:$('#pegawai').val()},function(data){
+                $.post('http://localhost/sia/pegawai/autocomplete_pengajar',{autocomplete:'yes',value:$('#pegawai').val()},function(data){
                     suggest(JSON.parse(data));
                 });
             },
@@ -34,7 +34,7 @@ $(function() {
             }
             */
         });
-
+if(document.getElementById("#pegawai")){
         $("#pegawai").data( "ui-autocomplete" )._renderItem = function( ul, item ) {
             var $li = $('<li>');
             var foto=item.foto;
@@ -52,7 +52,7 @@ $(function() {
             $li.find('a').append($img).append(item.label);
             return $li.appendTo(ul);
         };
-        
+}        
         //var availableTags = [];
         
     });

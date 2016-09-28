@@ -119,13 +119,21 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Kelas Ajar</a></li>
-            <?php  if($this->session->userdata('jabatan')=="wali"){
+            <?php
+              if(in_array("guru",$this->session->userdata('jabatan'))){
+               ?>
+                <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Kelas Ajar</a></li>
+               <?php
+              }
+            ?>   
+            <?php  
+            if(in_array("wali",$this->session->userdata('jabatan'))){
               ?>
                <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Perwalian</a></li>
               <?php
             } ?>  
-            <?php if($this->session->userdata('jabatan')=="bk"){
+            <?php 
+            if(in_array("bk",$this->session->userdata('jabatan'))){
               ?>
                <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Bimbingan Konseling</a></li>
               <?php

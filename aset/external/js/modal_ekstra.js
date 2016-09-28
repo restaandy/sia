@@ -28,8 +28,6 @@ $(function() {
 
       
   });
-$(document).ready(function(){
-
 
 $(function() {
         var availableTags = [];
@@ -58,6 +56,7 @@ $(function() {
             }
             */
         });
+ 	if(document.getElementById("#pegawai")){       
   		$("#siswa_id").data( "ui-autocomplete" )._renderItem = function( ul, item ) {
 		            var $li = $('<li>');
 		            var foto=item.foto;
@@ -76,8 +75,8 @@ $(function() {
 		            return $li.appendTo(ul);
         };       
 
+    }
   });
-});
 // Modal loading
 var waitingDialog = waitingDialog || (function ($) {
     'use strict';

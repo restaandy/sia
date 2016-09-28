@@ -1,7 +1,7 @@
 <?php
 $ta="";
 foreach ($datakelas as $key) {
-$ta=$key['ta']." (".$key['keterangan'].")";
+$ta=$key['ta']." (".$this->session->userdata("ta_status").")";
 }
 ?>
 <div class="panel panel-default">

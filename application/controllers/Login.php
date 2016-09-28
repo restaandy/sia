@@ -46,7 +46,8 @@ class Login extends CI_Controller {
 		 		}
 		 		$this->session->set_userdata('hold','AS');
 		 		$taaktif=$this->Model_mapel->get_ta_active();
-		 		$this->session->set_userdata('ta_aktif',$taaktif['tajaran']);
+		 		$this->session->set_userdata('ta_aktif',$taaktif['ta']);
+		 		$this->session->set_userdata('ta_status',$taaktif['ket']);
 		 		redirect('dashboard');
 		 		//print_r($this->session->userdata());
 		 	}else{
@@ -72,21 +73,20 @@ class Login extends CI_Controller {
 			            	}
 			            }
 			 		}
-			 			
-			 		if($jab[0]['jabatan']=="wali"){
-			 			foreach ($jab as $key) {
-			 			 $this->session->set_userdata('jabatan','wali');
-			 			 $this->session->set_userdata('id_kelas',$key['id_kelas']);
-			 			}
+			 		$arrjab=array();
+			 		foreach ($jab as $key) {
+			 			array_push($arrjab,$key['jabatan']);
+			 		  if($key['jabatan']=="wali"){
+			 			 $this->session->set_userdata('id_kelas',$key['id_kelas']);	
+			 		  }
+			 		    
 			 		}
-			 		if($jab[0]['jabatan']=="bk"){
-			 			foreach ($jab as $key) {
-			 			 $this->session->set_userdata('jabatan','bk');
-			 			}	
-			 		}
+			 			$this->session->set_userdata('jabatan',$arrjab);
+
 			 		$this->session->set_userdata('hold','P');
 			 		$taaktif=$this->Model_mapel->get_ta_active();
-			 		$this->session->set_userdata('ta_aktif',$taaktif['tajaran']);
+		 			$this->session->set_userdata('ta_aktif',$taaktif['ta']);
+		 			$this->session->set_userdata('ta_status',$taaktif['ket']);
 			 		redirect('home');
 			 	}else{
 			 		$this->session->set_flashdata('login', 'Cek jabatan user tersebut');

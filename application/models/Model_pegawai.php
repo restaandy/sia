@@ -28,7 +28,7 @@ Class Model_pegawai extends CI_Model
 FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON (a.`id_pegawai`=b.`id`) 
       LEFT JOIN obj_kelas c ON (a.`id_kelas`=c.`id`) 
       LEFT JOIN obj_mapel d ON (a.`id_mapel`=d.`id`)
-      LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`tajaran`)
+      LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`ta`)
 WHERE a.`id_sekolah`=".$idskolah.";");
    }else{
     $query=$this->db->query("SELECT a.`id`,a.id_sekolah,
@@ -36,16 +36,16 @@ WHERE a.`id_sekolah`=".$idskolah.";");
   b.`nama_pegawai`,
   c.`nama_kelas`,
   d.`nama_mapel`,
-  e.`ta`,e.`keterangan`,e.`tahun` 
+  a.id_ta 
 FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON (a.`id_pegawai`=b.`id`) 
       LEFT JOIN obj_kelas c ON (a.`id_kelas`=c.`id`) 
       LEFT JOIN obj_mapel d ON (a.`id_mapel`=d.`id`)
-      LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`tajaran`)
-WHERE a.`id_sekolah`=".$idskolah." and e.tajaran=".$ta.";");
+WHERE a.`id_sekolah`=".$idskolah." and a.id_ta='".$ta."';");
    }
    $query=$query->result_array();
    return $query;
   }
+
   public function cek_user_pegawai($username,$status){
     if($status=="gtt"){$kolom="email";}
     else{$kolom="nip";}  
@@ -134,6 +134,7 @@ WHERE a.`id_sekolah`=".$idskolah." and e.tajaran=".$ta.";");
   function cek_jabatan($data){
     $this->db->where('id_sekolah',$data['id_sekolah']);
     $this->db->where('id_pegawai',$data['id_pegawai']);
+    $this->db->where('jabatan',$data['jabatan']);
     $data=$this->db->get('obj_jabatan');
     $data=$data->result();
     return $data;

@@ -74,6 +74,7 @@ $(function() {
             }
             */
         });
+	if(document.getElementById("siswa_id")){
          $("#siswa_id").data( "ui-autocomplete" )._renderItem = function( ul, item ) {
             var $li = $('<li>');
             var foto=item.foto;
@@ -91,8 +92,9 @@ $(function() {
             $li.find('a').append($img).append(item.label);
             return $li.appendTo(ul);
         };
-
+	}
   });
+
 // Modal loading
 var waitingDialog = waitingDialog || (function ($) {
     'use strict';

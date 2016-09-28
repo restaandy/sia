@@ -42,7 +42,6 @@ Class Model_user extends CI_Model
     $data=$query->result();
     return $data;
   }
-  public function get_
   public function simpan_nilai_uts_uas($idnilai,$nilai){
     $this->db->where('id',$idnilai);
     $this->db->update('kbm_nilai',array('nilai'=>$nilai));  
@@ -63,13 +62,11 @@ Class Model_user extends CI_Model
   b.`nama_pegawai`,
   b.`id` as id_pegawai,
   c.id as id_kelas,c.`nama_kelas`,c.tingkat,
-  d.`nama_mapel`,
-  e.`ta`,e.`keterangan`,e.`tahun` 
+  d.`nama_mapel`,a.id_ta as ta
 FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON (a.`id_pegawai`=b.`id`) 
       LEFT JOIN obj_kelas c ON (a.`id_kelas`=c.`id`) 
       LEFT JOIN obj_mapel d ON (a.`id_mapel`=d.`id`)
-      LEFT JOIN kbm_ta e ON (a.`id_ta`=e.`tajaran`)
-WHERE a.`id_sekolah`=".$idskolah." and a.id_pegawai=".$id." and e.tajaran=".$taaktif.";");
+WHERE a.`id_sekolah`=".$idskolah." and a.id_pegawai=".$id." and a.id_ta='".$taaktif."';");
   
   $query=$query->result_array();
   return $query;
