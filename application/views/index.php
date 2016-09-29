@@ -264,11 +264,22 @@
                         if($this->session->userdata('hold')=="S")
                         { echo $this->session->userdata('nama');}
                   ?>
-                  <small><?php echo $this->session->userdata('username'); ?></small>
+                  <br>
+                  <?php echo $this->session->userdata('username'); ?>
+                  <?php
+                  if($this->session->userdata('jabatan')!=NULL){
+                    foreach ($this->session->userdata('jabatan') as $key) {
+                      ?>
+                        <small><?php echo $key; ?></small>
+                      <?php
+                    }
+                  }
+                  ?>
                 </p>
               </li>
               <!-- Menu Body -->
               <li class="user-body">
+                <!--
                 <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
@@ -280,6 +291,7 @@
                     <a href="#">Friends</a>
                   </div>
                 </div>
+                -->
                 <!-- /.row -->
               </li>
               <!-- Menu Footer-->

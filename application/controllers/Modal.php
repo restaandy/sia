@@ -9,7 +9,8 @@ class Modal extends CI_Controller {
             if(in_array($this->session->userdata('hold'), $sesarray)){
                $this->load->model('Model_modal');
             	$this->load->model('Model_kelas');
-    			$this->load->model('Model_mapel');	
+    			$this->load->model('Model_mapel');
+    			$this->load->model('Model_user');	
             }else{
             	echo "not-found";
             }            
@@ -48,16 +49,16 @@ class Modal extends CI_Controller {
 	}
 	public function modal_input_nilai_sikap(){
 		if(isset($_POST['noinduk'])&&isset($_POST['id_mapel'])){
-			
 			$idsekolah=$this->session->userdata('id_sekolah');
 			$taktif=$this->session->userdata('ta_aktif');
 			$data['noinduk']=$_POST['noinduk'];
 			$data['id_mapel']=$_POST['id_mapel'];
 			$data['id_mengajar']=$_POST['id_mengajar'];
-			$data['sk']=$this->Model_user->get_sikap($_POST['noinduk'],$data['id_mengajar']);
+			$sikap=$this->Model_user->get_sikap($idsekolah,$_POST['noinduk'],$data['id_mengajar']);
+			foreach ($sikap as $key) {
+		 	 $data['sikap']=$key;								
+			}
 			$this->load->view('modal/modal_input_nilai_sikap',$data);	
-			
-			//print_r($_POST);
 		}else{
 			echo "not-found";	
 		}

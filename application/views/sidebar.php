@@ -109,39 +109,55 @@
         <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
       <?php
           }
+
           if($this->session->userdata('hold')=="P"){
             ?>
             <li><a href="<?php echo base_url();?>home"><i class="fa fa-circle-o"></i> Home</a></li>
-            <li class="treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i>
-             <span>Kelas & Input Nilai</span>
-            <i class="fa fa-angle-left pull-right"></i>
-          </a>
-          <ul class="treeview-menu">
             <?php
               if(in_array("guru",$this->session->userdata('jabatan'))){
                ?>
-                <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Kelas Ajar</a></li>
-               <?php
-              }
-            ?>   
-            <?php  
-            if(in_array("wali",$this->session->userdata('jabatan'))){
-              ?>
-               <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Perwalian</a></li>
-              <?php
-            } ?>  
-            <?php 
-            if(in_array("bk",$this->session->userdata('jabatan'))){
-              ?>
-               <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Bimbingan Konseling</a></li>
-              <?php
-            } ?> 
-          
-          </ul>
-        </li>
+                  <li class="treeview">
+                        <a href="#">
+                          <i class="fa fa-dashboard"></i>
+                           <span>Input Nilai</span>
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">     
+                              <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Penilaian</a></li>
+                        </ul>
+                  </li>
             <?php
+              }
+              if(in_array("wali",$this->session->userdata('jabatan'))){
+                ?>
+                  <li class="treeview">
+                        <a href="#">
+                          <i class="fa fa-dashboard"></i>
+                           <span>Perwalian</span>
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">     
+                              <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Deskripsi Sikap</a></li>
+                              <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Rapor</a></li>
+                        </ul>
+                  </li>
+                <?php
+              }
+
+              if(in_array("bk",$this->session->userdata('jabatan'))){
+                ?>
+                  <li class="treeview">
+                        <a href="#">
+                          <i class="fa fa-dashboard"></i>
+                           <span>Bimbingan Konseling</span>
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">     
+                              <li><a href="<?php echo base_url(); ?>user"><i class="fa fa-circle-o"></i> Deskripsi Sikap</a></li>
+                        </ul>
+                  </li>
+                <?php
+              }
           }
          ?>
       </ul>

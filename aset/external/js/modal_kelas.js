@@ -24,9 +24,9 @@ function tampildatasiswasikap(e,base_url){
  var id_mapel=$(e.target).attr('id-mapel');
  var id_mengajar=$(e.target).attr('id-meng');
  $.post(base_url+'modal/modal_input_nilai_sikap',{noinduk:id,id_mengajar:id_mengajar,id_mapel:id_mapel},function(data){
-  $("#datainput .modal-body").html(data);
+  $("#datasikap .modal-body").html(data);
   waitingDialog.hide();
-  $("#datainput").modal("show");
+  $("#datasikap").modal("show");
  });
 }
 $(document).ready(function(){

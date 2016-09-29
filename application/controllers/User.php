@@ -112,4 +112,30 @@ class User extends CI_Controller {
 			redirect('user/datasiswa/'.$enc);	
 		}
 	}
+	function save_nilai_sikap(){
+		if($this->input->post('simpan')=="yes"){
+		  $id_mengajar=$this->input->post('id_mengajar');
+		  if($this->input->post('id_nilai_sikap')!=NULL){
+		  	$data['id']=$this->input->post('id_nilai_sikap');
+		  	$sikap=$this->input->post('sikap');
+		  	$nsikap=array();
+		  	foreach ($sikap as $key) {
+		  		if($key!=""){
+		  			array_push($nsikap,$key);
+		  		}
+		  	}
+		  	$data['sikap']=implode(",",$nsikap);
+		  	$hasil=$this->Model_user->update_nilai_sikap($data);
+		  }else{
+		  	$data['no_induk']=$this->input->post('no_induk');
+		  	$data['id_mengajar']=$this->input->post('id_mengajar');
+		  	$data['id_sekolah']=$this->session->userdata('id_sekolah');
+		  	$sikap=$this->input->post('sikap');
+		  	$data['sikap']=implode(",",$sikap);
+		  	$hasil=$this->Model_user->simpan_nilai_sikap($data);
+		  }
+		  $enc=$this->enkripsi->encode($id_mengajar);
+		  redirect('user/datasiswa/'.$enc);
+		}
+	}
 }	
