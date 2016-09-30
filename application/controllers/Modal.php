@@ -52,6 +52,7 @@ class Modal extends CI_Controller {
 			$idsekolah=$this->session->userdata('id_sekolah');
 			$taktif=$this->session->userdata('ta_aktif');
 			$data['noinduk']=$_POST['noinduk'];
+			$data['bk']=$_POST['bk'];
 			$data['id_mapel']=$_POST['id_mapel'];
 			$data['id_mengajar']=$_POST['id_mengajar'];
 			$sikap=$this->Model_user->get_sikap($idsekolah,$_POST['noinduk'],$data['id_mengajar']);

@@ -54,7 +54,7 @@ class Mapel extends CI_Controller {
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
 		$data['datask']=$this->Model_mapel->get_sk_mapel($this->session->userdata('id'));
-		$data['datamapel']=$this->Model_mapel->get_mapel($this->session->userdata('id'));
+		$data['datamapel']=$this->Model_mapel->get_mapel_nonbk($this->session->userdata('id'));
 		$content=$this->load->view('mapel/sk',$data,true);
 		$this->dashboard($content);
 	}
@@ -81,6 +81,7 @@ class Mapel extends CI_Controller {
 				$datainput['standar_kompetensi']=$key;
 				array_push($datatemp,$datainput);
 			}
+
 			$data=$this->Model_mapel->cek_sk_uts_uas($idsekolah,$idmapel);
 			if(sizeof($data)==0){	
 				$datainput['id_sekolah']=$idsekolah;

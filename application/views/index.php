@@ -266,15 +266,16 @@
                   ?>
                   <br>
                   <?php echo $this->session->userdata('username'); ?>
+
                   <?php
                   if($this->session->userdata('jabatan')!=NULL){
+                    $jbt=array();
                     foreach ($this->session->userdata('jabatan') as $key) {
-                      ?>
-                        <small><?php echo $key; ?></small>
-                      <?php
+                      array_push($jbt,$key);
                     }
                   }
                   ?>
+                  <small><?php echo implode(", ",$jbt); ?></small>
                 </p>
               </li>
               <!-- Menu Body -->

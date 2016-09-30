@@ -60,6 +60,7 @@
 					<option value=''>-- Status --</option>
 					<option value='wajib'>Mapel Wajib</option>
 					<option value='minat'>Mapel Pilihan</option>
+					<option value='bk'>Bimbingan Konseling</option>
 				</select>
 			</div>
 			<div class="form-group">

@@ -12,10 +12,11 @@ Class Model_user extends CI_Model
      $query=$query->result_array();
      return $query;
   }
-  public function get_jabatan($idsekolah,$id){
+
+  public function get_jabatan($idsekolah,$id,$jab){
    $this->db->where('id_sekolah',$idsekolah); 
    $this->db->where('id_pegawai',$id);
-   $this->db->where('jabatan','guru');
+   $this->db->where('jabatan',$jab);
    $query=$this->db->get('obj_jabatan');
    $query=$query->result_array();
    return $query;
@@ -60,9 +61,10 @@ Class Model_user extends CI_Model
   public function get_siswa_perwalian($idskolah,$id_kelas,$ta){
     $this->db->select('*');
     $this->db->from('obj_perwalian a');
-    $this->db->where('id_sekolah', $idskolah);
+    $this->db->join("obj_siswa b","a.no_induk=b.no_induk");
+    $this->db->where('a.id_sekolah', $idskolah);
     $this->db->where('a.id_kelas', $id_kelas);
-    $this->db->where('b.ta', $ta);
+    $this->db->where('a.ta', $ta);
     $query = $this->db->get();
     $data=$query->result();
     return $data;
@@ -91,11 +93,11 @@ Class Model_user extends CI_Model
 FROM kbm_mengajar a LEFT JOIN obj_pegawai b ON (a.`id_pegawai`=b.`id`) 
       LEFT JOIN obj_kelas c ON (a.`id_kelas`=c.`id`) 
       LEFT JOIN obj_mapel d ON (a.`id_mapel`=d.`id`)
-WHERE a.`id_sekolah`=".$idskolah." and a.id_pegawai=".$id." and a.id_ta='".$taaktif."';");
-  
+WHERE a.`id_sekolah`=".$idskolah." and a.id_pegawai=".$id." and a.id_ta='".$taaktif."';");  
   $query=$query->result_array();
   return $query;
   }
+
 
   public function get_siswa_kelas($idskolah,$idkelas){
     $query=$this->db->query("SELECT a.`id`,b.*,c.id_mapel FROM kbm_belajar a

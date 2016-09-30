@@ -76,11 +76,7 @@
 				<td><?php echo $key['jenkel']; ?></td>
 				<td><?php echo $key['agama']; ?></td>
 				<td>
-					<button class="btn btn-primary btn-xs" id-mapel="<?php echo $key['id_mapel']; ?>" id-meng="<?php echo $id_mengajar; ?>" data-noinduk="<?php echo $key['no_induk'] ?>"
-						onclick="tampildatasiswa(event,'<?php echo base_url(); ?>')"
-						>Nilai
-					</button>
-					<button class="btn btn-warning btn-xs" id-mapel="<?php echo $key['id_mapel']; ?>" bk="no" id-meng="<?php echo $id_mengajar; ?>" data-noinduk="<?php echo $key['no_induk'] ?>"
+					<button class="btn btn-warning btn-xs" id-mapel="<?php echo $key['id_mapel']; ?>" bk="yes" id-meng="<?php echo $id_mengajar; ?>" data-noinduk="<?php echo $key['no_induk'] ?>"
 						onclick="tampildatasiswasikap(event,'<?php echo base_url(); ?>')"
 						>Sikap
 					</button>

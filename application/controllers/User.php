@@ -25,7 +25,7 @@ class User extends CI_Controller {
 		$data['sidebar']=$this->load->view('sidebar','',true);
 		$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
 		$taktif=$this->session->userdata('ta_aktif');
-		$data['datajabatan']=$this->Model_user->get_jabatan($this->session->userdata('id_sekolah'),$this->session->userdata('id'));
+		$data['datajabatan']=$this->Model_user->get_jabatan($this->session->userdata('id_sekolah'),$this->session->userdata('id'),"guru");
 		if(sizeof($data['datajabatan'])>0){
 			$jab=array();
 			foreach ($data['datajabatan'] as $key) {
@@ -59,22 +59,85 @@ class User extends CI_Controller {
 		}	
 	}
 	public function perwalian(){
-		if($this->session->userdata('jabatan')=="wali"){
-				$bread['title1']="Kelas";
+		if(in_array("wali",$this->session->userdata('jabatan'))){
+				$bread['title1']="Perwalian";
 				$bread['title2']="Data Siswa";
-				$bread['list']=array("Kelas","Perwalian");
+				$bread['list']=array("Perwalian");
 				$data['title']="Data Siswa | Sistem Akademik";	
-				$data['id_mengajar']=$idmengajar;
 				$data['sidebar']=$this->load->view('sidebar','',true);
 				$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
-				$id_kelas=$this->session->userdata("id_kelas");
-				$data['datasiswa']=$this->Model_user->get_siswa_perwalian($this->session->userdata('id_sekolah'),$id_kelas);
-				
+				$data['idsekolah']=$this->session->userdata('id_sekolah');
+				$data['idkelas']=$this->session->userdata('id_kelas');
+				$data['ta']=$this->session->userdata('ta_aktif');
+				$data['siswa_wali']=$this->Model_user->get_siswa_perwalian($data['idsekolah'],$data['idkelas'],$data['ta']);
 				$content=$this->load->view('user/perwalian',$data,true);
 				$this->dashboard($content);			
 		}else{
 			redirect("home");
 		}
+	}
+	public function rapor(){
+		if(in_array("wali",$this->session->userdata('jabatan'))){
+				$bread['title1']="Kelas";
+				$bread['title2']="Data Siswa";
+				$bread['list']=array("Kelas","Rapor");
+				$data['title']="Data Siswa | Sistem Akademik";	
+				$data['sidebar']=$this->load->view('sidebar','',true);
+				$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+				
+				$content=$this->load->view('user/rapor',$data,true);
+				$this->dashboard($content);			
+		}else{
+			redirect("home");
+		}
+	}
+	public function bk(){
+		if(in_array("bk",$this->session->userdata('jabatan'))){
+			$bread['title1']="Kelas";
+			$bread['title2']="Monitoring";
+			$bread['list']=array("Bimbingan Konseling");
+			$data['title']="Sistem Akademik";
+			$data['sidebar']=$this->load->view('sidebar','',true);
+			$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+			$taktif=$this->session->userdata('ta_aktif');
+			$data['datajabatan']=$this->Model_user->get_jabatan($this->session->userdata('id_sekolah'),$this->session->userdata('id'),"bk");
+			if(sizeof($data['datajabatan'])>0){
+				$jab=array();
+				foreach ($data['datajabatan'] as $key) {
+					$jab=$key;
+				}	
+				$data['jab']=$jab;
+				$data['datakelas']=$this->Model_user->get_kelas_aktif($this->session->userdata('id_sekolah'),$this->session->userdata('id'),$taktif);
+			}else{
+			$data['datakelas']=array();
+			}
+			
+			$content=$this->load->view('user/bk',$data,true);
+			$this->dashboard($content);
+		}else{
+			redirect("home");
+		}
+	}
+	public function siswa_bk($id){
+		if(in_array("wali",$this->session->userdata('jabatan'))){
+			$idmengajar=$this->enkripsi->decode($id);
+			if(is_numeric($idmengajar)){
+				$bread['title1']="Kelas";
+				$bread['title2']="Data Siswa";
+				$bread['list']=array("Kelas","Data Siswa");
+				$data['title']="Data Siswa | Sistem Akademik";	
+				$data['id_mengajar']=$idmengajar;
+				$data['sidebar']=$this->load->view('sidebar','',true);
+				$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+				$data['datasiswa']=$this->Model_user->get_siswa_kelas($this->session->userdata('id_sekolah'),$idmengajar);
+				$data['keterangan']=$this->Model_user->get_ket_kelas($idmengajar);
+				$data['encrypt']=$id;
+				$content=$this->load->view('user/data_siswa_bk',$data,true);
+				$this->dashboard($content);		
+			}
+		}else{
+			redirect("home");
+		}	
 	}
 	
 //=========================================================================
@@ -114,6 +177,7 @@ class User extends CI_Controller {
 	}
 	function save_nilai_sikap(){
 		if($this->input->post('simpan')=="yes"){
+		  $bk=$this->input->post('is_bk');
 		  $id_mengajar=$this->input->post('id_mengajar');
 		  if($this->input->post('id_nilai_sikap')!=NULL){
 		  	$data['id']=$this->input->post('id_nilai_sikap');
@@ -135,7 +199,11 @@ class User extends CI_Controller {
 		  	$hasil=$this->Model_user->simpan_nilai_sikap($data);
 		  }
 		  $enc=$this->enkripsi->encode($id_mengajar);
-		  redirect('user/datasiswa/'.$enc);
+		  if($bk=="yes"){
+		  	redirect('user/siswa_bk/'.$enc);
+		  }else{
+		  	redirect('user/datasiswa/'.$enc);
+		  }
 		}
 	}
 }	

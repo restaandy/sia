@@ -23,7 +23,8 @@ function tampildatasiswasikap(e,base_url){
  var id=$(e.target).attr('data-noinduk');
  var id_mapel=$(e.target).attr('id-mapel');
  var id_mengajar=$(e.target).attr('id-meng');
- $.post(base_url+'modal/modal_input_nilai_sikap',{noinduk:id,id_mengajar:id_mengajar,id_mapel:id_mapel},function(data){
+ var bk=$(e.target).attr('bk');
+ $.post(base_url+'modal/modal_input_nilai_sikap',{bk:bk,noinduk:id,id_mengajar:id_mengajar,id_mapel:id_mapel},function(data){
   $("#datasikap .modal-body").html(data);
   waitingDialog.hide();
   $("#datasikap").modal("show");

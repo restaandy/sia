@@ -26,11 +26,11 @@ CREATE TABLE `jur_bidang` (
   `bidang` varchar(100) DEFAULT NULL,
   `keterangan` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `jur_bidang` */
 
-insert  into `jur_bidang`(`id`,`id_sekolah`,`bidang`,`keterangan`) values (3,1,'Teknik','-'),(4,1,'Kesehatan','-');
+insert  into `jur_bidang`(`id`,`id_sekolah`,`bidang`,`keterangan`) values (3,1,'Teknik','-'),(4,1,'Kesehatan','-'),(5,1,'Pengarahan','-');
 
 /*Table structure for table `jur_paket` */
 
@@ -44,11 +44,11 @@ CREATE TABLE `jur_paket` (
   `paket` varchar(100) DEFAULT NULL,
   `keterangan` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `jur_paket` */
 
-insert  into `jur_paket`(`id`,`id_sekolah`,`id_bidang`,`id_program`,`paket`,`keterangan`) values (2,1,3,3,'Pemrograman','-');
+insert  into `jur_paket`(`id`,`id_sekolah`,`id_bidang`,`id_program`,`paket`,`keterangan`) values (2,1,3,3,'Pemrograman','-'),(3,1,5,4,'Bimbingan Konseling','-');
 
 /*Table structure for table `jur_program` */
 
@@ -61,11 +61,11 @@ CREATE TABLE `jur_program` (
   `program` varchar(100) DEFAULT NULL,
   `keterangan` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `jur_program` */
 
-insert  into `jur_program`(`id`,`id_sekolah`,`id_bidang`,`program`,`keterangan`) values (3,1,3,'Teknik Informatika','-');
+insert  into `jur_program`(`id`,`id_sekolah`,`id_bidang`,`program`,`keterangan`) values (3,1,3,'Teknik Informatika','-'),(4,1,5,'Bimbingan','-');
 
 /*Table structure for table `kbm_belajar` */
 
@@ -77,11 +77,11 @@ CREATE TABLE `kbm_belajar` (
   `no_induk` varchar(30) DEFAULT NULL,
   `id_mengajar` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_belajar` */
 
-insert  into `kbm_belajar`(`id`,`id_sekolah`,`no_induk`,`id_mengajar`) values (1,1,'0001',1);
+insert  into `kbm_belajar`(`id`,`id_sekolah`,`no_induk`,`id_mengajar`) values (1,1,'0001',1),(2,1,'0001',3);
 
 /*Table structure for table `kbm_ekstra_siswa` */
 
@@ -111,11 +111,11 @@ CREATE TABLE `kbm_mengajar` (
   `id_mapel` int(11) DEFAULT NULL,
   `id_ta` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_mengajar` */
 
-insert  into `kbm_mengajar`(`id`,`id_sekolah`,`id_pegawai`,`id_kelas`,`id_mapel`,`id_ta`) values (1,1,3,1,1,'2016/2017');
+insert  into `kbm_mengajar`(`id`,`id_sekolah`,`id_pegawai`,`id_kelas`,`id_mapel`,`id_ta`) values (1,1,3,1,1,'2016/2017'),(3,1,5,1,2,'2016/2017'),(4,1,4,1,3,'2016/2017');
 
 /*Table structure for table `kbm_nilai` */
 
@@ -176,11 +176,11 @@ CREATE TABLE `kbm_nilai_sikap` (
   `no_induk` varchar(50) DEFAULT NULL,
   `sikap` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_nilai_sikap` */
 
-insert  into `kbm_nilai_sikap`(`id`,`id_sekolah`,`id_mengajar`,`no_induk`,`sikap`) values (1,1,1,'0001','Menghargai Teman,Sopan Terhadap Guru,Tekun Belajar');
+insert  into `kbm_nilai_sikap`(`id`,`id_sekolah`,`id_mengajar`,`no_induk`,`sikap`) values (1,1,1,'0001','Menghargai Teman,Sopan Terhadap Guru,Tekun Belajar'),(2,1,3,'0001','Keren sopan dan gokil,selalu aktif dalam kelas');
 
 /*Table structure for table `kbm_rapot` */
 
@@ -315,11 +315,11 @@ CREATE TABLE `obj_jabatan` (
   `jabatan` enum('guru','wali','kepsek','bk') DEFAULT NULL,
   `id_kelas` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `obj_jabatan` */
 
-insert  into `obj_jabatan`(`id`,`id_sekolah`,`id_pegawai`,`jabatan`,`id_kelas`) values (1,1,3,'guru',0),(2,1,5,'bk',0),(3,1,4,'wali',1);
+insert  into `obj_jabatan`(`id`,`id_sekolah`,`id_pegawai`,`jabatan`,`id_kelas`) values (1,1,3,'guru',0),(2,1,5,'bk',0),(3,1,4,'wali',1),(4,1,4,'guru',0);
 
 /*Table structure for table `obj_kelas` */
 
@@ -350,13 +350,13 @@ CREATE TABLE `obj_mapel` (
   `nama_mapel` varchar(100) DEFAULT NULL,
   `komp_inti` text,
   `komp_dasar` text,
-  `status_mapel` enum('wajib','minat') DEFAULT NULL,
+  `status_mapel` enum('wajib','minat','bk') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `obj_mapel` */
 
-insert  into `obj_mapel`(`id`,`id_sekolah`,`id_bidang`,`id_program`,`id_paket`,`nama_mapel`,`komp_inti`,`komp_dasar`,`status_mapel`) values (1,1,3,3,2,'Pemrograman Dasar','Bisa membuat program sederhana','Menguasai sintak pemrograman','wajib');
+insert  into `obj_mapel`(`id`,`id_sekolah`,`id_bidang`,`id_program`,`id_paket`,`nama_mapel`,`komp_inti`,`komp_dasar`,`status_mapel`) values (1,1,3,3,2,'Pemrograman Dasar','Bisa membuat program sederhana','Menguasai sintak pemrograman','wajib'),(2,1,5,4,3,'BK','-','-','bk'),(3,1,3,3,2,'Web Dinamis','-','-','wajib');
 
 /*Table structure for table `obj_pegawai` */
 

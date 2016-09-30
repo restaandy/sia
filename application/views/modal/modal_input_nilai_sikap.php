@@ -4,7 +4,8 @@
 <div class="row">
 <form method="POST" action="<?php echo base_url(); ?>user/save_nilai_sikap">
 <div class="form-group">
-		<input type="hidden" name="id_mengajar" value="<?php echo $id_mengajar; ?>">
+				<input type="hidden" name="is_bk" value="<?php echo $bk; ?>">
+				<input type="hidden" name="id_mengajar" value="<?php echo $id_mengajar; ?>">
 				<input type="hidden" name="no_induk" value="<?php echo $noinduk; ?>">
 	<?php
 		if(isset($sikap)){
@@ -13,7 +14,6 @@
 			<?php
 		}
 	?>
-	
 </div>
 <div class="col-md-6">
 <div class="form-group">
