@@ -60,8 +60,10 @@ class Siswa extends CI_Controller {
 		$taaktif=$this->session->userdata('ta_aktif');
 		$idsekolah=$this->session->userdata('id');
 		$data['datapengajar']=$this->Model_pegawai->get_pengajar($idsekolah,$taaktif);
-		$data['kelasbelajar']=array();//$this->Model_siswa->get_kelas_belajar($this->session->userdata('id'));
 
+		$data['ketkelasbelajar']=$this->Model_siswa->get_ket_kelas_belajar($this->session->userdata('id'),$taaktif);
+		$data['ket_kb']=$this->Model_siswa->array_convert_nest($data['ketkelasbelajar'],"id_mengajar",array("id_mengajar","nama_kelas","nama_mapel","id_ta"));
+		$data['kelasbelajar']=$this->Model_siswa->get_kelas_belajar($this->session->userdata('id'));
 		$content=$this->load->view('siswa/belajar',$data,true);
 		$this->dashboard($content);
 	}

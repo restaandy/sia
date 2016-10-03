@@ -125,7 +125,7 @@ $(function() {
             }
             */
         });
-    if(document.getElementById("#pegawai")){    
+    if(document.getElementById("pegawai")){    
         $("#pegawai").data( "ui-autocomplete" )._renderItem = function( ul, item ) {
             var $li = $('<li>');
             var foto=item.foto;

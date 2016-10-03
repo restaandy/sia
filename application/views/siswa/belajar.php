@@ -64,12 +64,11 @@
 		<thead>
 			<tr>
 				<th width="6%">No</th>
-				<th width="20%">Nama Siswa</th>
-				<th width="20%">Tempat/Tanggal Lahir</th>
-				<th width="6%">Jenis Kelamin</th>
-				<th width="6%">Status Masuk</th>
-				<th width="6%">Status Siswa</th>
-				<th width="6%">Tahun Masuk</th>
+				<th width="10%">No Induk</th>
+				<th width="10%">Nama Siswa</th>
+				<th width="6%">Kelas</th>
+				<th width="6%">Nama Mapel</th>
+				<th width="6%">Tahun Ajaran</th>
 				<th width="10%">(View More / Edit)</th>
 			</tr>
 		</thead>
@@ -80,15 +79,13 @@
 			 ?>
 			<tr>
 				<td><?php echo $x; ?></td>
-				<td><?php echo $key['nama'] ?></td>
-				<td><?php echo $key['tmp_lahir'].", ".$key['tgl_lahir'] ?></td>
-				<td><?php echo $key['jenkel'] ?></td>
-				<td><?php echo $key['status_masuk'] ?></td>
-				<td><?php echo $key['akdm_stat'] ?></td>
-				<td><?php echo $key['thn_masuk'] ?></td>
+				<td><?php echo $key->no_induk; ?></td>
+				<td><?php echo $key->nama; ?></td>
+				<td><?php echo $ket_kb[$key->id_mengajar]['nama_kelas']; ?></td>
+				<td><?php echo $ket_kb[$key->id_mengajar]['nama_mapel']; ?></td>
+				<td><?php echo $ket_kb[$key->id_mengajar]['id_ta'];; ?></td>
 				<td>
-					<button class="btn btn-primary btn-xs" data-idsekolah="<?php echo $key['id_sekolah'] ?>"
-				 data-noinduk="<?php echo $key['no_induk'] ?>" 
+					<button class="btn btn-primary btn-xs" 
 				 onclick="tampildatasiswa(event,'<?php echo base_url(); ?>')">Edit</button>
 					<button class="btn btn-danger btn-xs">Reset</button>
 			</tr> 

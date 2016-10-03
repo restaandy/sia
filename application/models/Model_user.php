@@ -58,6 +58,33 @@ Class Model_user extends CI_Model
     $data=$query->result();
     return $data;
   }
+  public function get_siswa($noinduk){
+    $this->db->where_in('no_induk',$noinduk);
+    $data=$this->db->get("obj_siswa");
+    $data=$data->result();
+    return $data;
+  }
+  public function get_pegawai_in($in){
+    $this->db->where_in('id',$in);
+    $data=$this->db->get("obj_pegawai");
+    $data=$data->result_array();
+    return $data;
+  }
+    public function get_mapel_in($in){
+    $this->db->where_in('id',$in);
+    $data=$this->db->get("obj_mapel");
+    $data=$data->result_array();
+    return $data;
+  }
+  public function array_convert_nest($data,$keys,$value){
+    $array=array();
+    foreach ($data as $key) {
+      foreach ($value as $n) {
+        $array[$key[$keys]][$n]=$key[$n];  
+      }
+    }
+    return $array;
+  }
   public function get_siswa_perwalian($idskolah,$id_kelas,$ta){
     $this->db->select('*');
     $this->db->from('obj_perwalian a');
@@ -69,6 +96,20 @@ Class Model_user extends CI_Model
     $data=$query->result();
     return $data;
   }
+  public function get_detail_siswa_perwalian($idskolah,$noinduk,$ta){
+    $this->db->select('a.id AS Id_bljr,a.no_induk,b.id_kelas,b.id_pegawai,b.id_mapel,b.id_ta,c.nilai_praktek,c.nilai_teori,d.sikap');
+    $this->db->from('kbm_belajar a');
+    $this->db->join("kbm_mengajar b","a.id_mengajar=b.id");
+    $this->db->join("kbm_nilai_akhir c","c.id_mapel=b.id_mapel","left");
+    $this->db->join("kbm_nilai_sikap d","b.id=d.id_mengajar","left");
+    $this->db->where('a.id_sekolah', $idskolah);
+    $this->db->where('a.no_induk', $noinduk);
+    $this->db->where('b.id_ta', $ta);
+    $query = $this->db->get();
+    $data=$query->result();
+    return $data;
+  }
+
   public function simpan_nilai_uts_uas($idnilai,$nilai){
     $this->db->where('id',$idnilai);
     $this->db->update('kbm_nilai',array('nilai'=>$nilai));  

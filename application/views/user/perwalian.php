@@ -29,8 +29,8 @@
 				<td><?php echo $key->jenkel; ?></td>
 				<td><?php echo $key->agama; ?></td>
 				<td>
-					<button class="btn btn-pimary btn-xs" data-noinduk="<?php echo $key->no_induk; ?>">Sikap
-					</button>
+					<a class="btn btn-primary btn-xs" href="<?php echo base_url().'user/perwalian_detail/'.$this->enkripsi->encode($key->no_induk); ?>">Lihat Nilai Akhir
+					</a>
 				</td>
 			</tr> 
 			 <?php

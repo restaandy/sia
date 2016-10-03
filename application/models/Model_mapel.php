@@ -19,6 +19,72 @@ Class Model_mapel extends CI_Model
    $data=$data->result_array();
    return $data;
   }
+  function generate_nilai($idskolah,$noinduk,$ta,$idmapel){
+    $this->db->select("*");
+    $this->db->from("kbm_nilai a");
+    $this->db->join("kbm_sk b","a.id_sk=b.id");
+    $this->db->where('a.id_sekolah',$idskolah);
+    $this->db->where('b.id_mapel',$idmapel);
+    $this->db->where('a.ta',$ta);
+    $this->db->where('a.no_induk',$noinduk);
+    $data=$this->db->get();
+    $data=$data->result();
+    $nilai_teori=0;
+    $nilai_praktek=0;
+    $bobot_teori=0;
+    $bobot_praktek=0;
+    foreach ($data as $key) {
+      if($key->kategori=="Teori"){
+        $nilai_teori+=($key->nilai*$key->bobot);
+        $bobot_teori+=$key->bobot;
+      }else if($key->kategori=="Praktek"){
+        $nilai_praktek+=($key->nilai*$key->bobot);
+        $bobot_praktek+=$key->bobot;
+      }else if($key->kategori=="Uts"||$key->kategori=="Uas"){
+        $nilai_teori+=($key->nilai*$key->bobot);
+        $bobot_teori+=$key->bobot;
+      }
+    }
+
+    $this->db->where('id_sekolah',$idskolah);
+    $this->db->where('id_mapel',$idmapel);
+    $this->db->where('ta',$ta);
+    $this->db->where('no_induk',$noinduk);
+    $data=$this->db->get("kbm_nilai_akhir");
+    if($this->db->affected_rows()>0){
+      $teori=round(($nilai_teori/$bobot_teori),2);
+      $praktek=round(($nilai_praktek/$bobot_praktek),2);
+        $this->db->where('id_sekolah',$idskolah);
+        $this->db->where('id_mapel',$idmapel);
+        $this->db->where('ta',$ta);
+        $this->db->where('no_induk',$noinduk);
+        $this->db->update('kbm_nilai_akhir',array(
+          'nilai_teori'=>$teori,
+        'nilai_praktek'=>$praktek
+          ));
+        if($this->db->affected_rows()>0){
+          return true;
+        }else{
+          return false;
+        }
+    }else{
+      $teori=round(($nilai_teori/$bobot_teori),2);
+      $praktek=round(($nilai_praktek/$bobot_praktek),2);
+      $this->db->insert("kbm_nilai_akhir",array(
+        'id_sekolah'=>$idskolah,
+        'id_mapel'=>$idmapel,
+        'ta'=>$ta,
+        'no_induk'=>$noinduk,
+        'nilai_teori'=>$teori,
+        'nilai_praktek'=>$praktek
+        ));
+        if($this->db->affected_rows()>0){
+          return true;
+        }else{
+          return false;
+        }   
+    }
+  }
   public function get_sk_mapel($idskolah){
    $query=$this->db->query("SELECT b.id,a.nama_mapel,b.standar_kompetensi,b.kategori,a.status_mapel FROM obj_mapel a LEFT JOIN kbm_sk b ON a.id=b.id_mapel where b.id_sekolah=".$idskolah.";");
    $query=$query->result_array();
@@ -27,7 +93,7 @@ Class Model_mapel extends CI_Model
   public function cek_sk_uts_uas($id_sekolah,$id_mapel){
     $this->db->where('id_sekolah',$id_sekolah);
     $this->db->where('id_mapel',$id_mapel);
-    $this->db->where("kategori = 'Uts' OR kategori = 'Uas'");
+    $this->db->where("(kategori = 'Uts' OR kategori = 'Uas')");
     $data=$this->db->get('kbm_sk');
     $data=$data->result();
     return $data;

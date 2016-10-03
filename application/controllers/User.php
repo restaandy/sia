@@ -76,6 +76,36 @@ class User extends CI_Controller {
 			redirect("home");
 		}
 	}
+	public function perwalian_detail($id){
+		if(in_array("wali",$this->session->userdata('jabatan'))){
+			$noinduk=$this->enkripsi->decode($id);
+			if(is_numeric($noinduk)){
+				$bread['title1']="Kelas";
+				$bread['title2']="Data Siswa";
+				$bread['list']=array("Perwalian","Data Siswa");
+				$data['title']="Data Siswa | Sistem Akademik";	
+				$data['sidebar']=$this->load->view('sidebar','',true);
+				$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+				$data['ta']=$this->session->userdata('ta_aktif');
+				$data['datasiswa']=$this->Model_user->get_detail_siswa_perwalian($this->session->userdata('id_sekolah'),$noinduk,$data['ta']);
+				$ar_peg=array();
+				$ar_mpl=array();
+				foreach ($data['datasiswa'] as $key) {
+					array_push($ar_peg,$key->id_pegawai);
+					array_push($ar_mpl,$key->id_mapel);
+				}
+				$data['ket_siswa']=$this->Model_user->get_siswa($noinduk);
+				$pgw=$this->Model_user->get_pegawai_in($ar_peg);
+				$mpl=$this->Model_user->get_mapel_in($ar_mpl);
+				$arc_peg=$this->Model_user->array_convert_nest($pgw,"id",array("nama_pegawai"));
+				$arc_mpl=$this->Model_user->array_convert_nest($mpl,"id",array("nama_mapel"));
+				$data['arc_peg']=$arc_peg;
+				$data['arc_mpl']=$arc_mpl;
+				$content=$this->load->view('user/perwalian_detail',$data,true);
+				$this->dashboard($content);	
+			}
+		}	
+	}
 	public function rapor(){
 		if(in_array("wali",$this->session->userdata('jabatan'))){
 				$bread['title1']="Kelas";
@@ -119,7 +149,7 @@ class User extends CI_Controller {
 		}
 	}
 	public function siswa_bk($id){
-		if(in_array("wali",$this->session->userdata('jabatan'))){
+		if(in_array("bk",$this->session->userdata('jabatan'))){
 			$idmengajar=$this->enkripsi->decode($id);
 			if(is_numeric($idmengajar)){
 				$bread['title1']="Kelas";
@@ -170,6 +200,15 @@ class User extends CI_Controller {
 			}
 			if($uas==0){
 				$this->Model_user->simpan_nilai($noinduk,$id_sk_uas,$id_sekolah,$nilai_uas,$taktif);
+			}
+
+			$hasil=$this->Model_mapel->generate_nilai($id_sekolah,$noinduk,$taktif,$id_mapel);
+			if($hasil){
+				$this->session->set_flashdata('nilai','Data sudah masuk');
+			    $this->session->set_flashdata('warna','blue');
+			}else{
+				$this->session->set_flashdata('nilai','Data gagal masuk,');
+			    $this->session->set_flashdata('warna','red');
 			}
 			$enc=$this->enkripsi->encode($id_mengajar);
 			redirect('user/datasiswa/'.$enc);	

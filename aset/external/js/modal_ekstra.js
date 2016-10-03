@@ -56,7 +56,8 @@ $(function() {
             }
             */
         });
- 	if(document.getElementById("#pegawai")){       
+
+        if(document.getElementById("siswa_id")){       
   		$("#siswa_id").data( "ui-autocomplete" )._renderItem = function( ul, item ) {
 		            var $li = $('<li>');
 		            var foto=item.foto;
@@ -76,6 +77,27 @@ $(function() {
         };       
 
     }
+ 	if(document.getElementById("pegawai")){       
+  		$("#siswa_id").data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+		            var $li = $('<li>');
+		            var foto=item.foto;
+		            if(foto==null){foto="";}
+
+		            $img = $('<img width="40" height="50" style="padding-right:5px;">');
+		            $img.attr({
+		                src: 'http://localhost/sia/aset/img/pegawai/'+foto,
+		                alt: ''+foto,
+		                onError:'$(this).attr({src:"http://localhost/sia/aset/img/no-image.png"})'
+		            });
+
+		            $li.attr('data-value', item.label);
+		            $li.append('<a href="#">');
+		            $li.find('a').append($img).append(item.label);
+		            return $li.appendTo(ul);
+        };       
+
+    }
+
   });
 // Modal loading
 var waitingDialog = waitingDialog || (function ($) {

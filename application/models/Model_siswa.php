@@ -20,6 +20,35 @@ Class Model_siswa extends CI_Model
         return false;
       }
   }
+  public function array_convert_nest($data,$keys,$value){
+    $array=array();
+    foreach ($data as $key) {
+      foreach ($value as $n) {
+        $array[$key[$keys]][$n]=$key[$n];  
+      }
+    }
+    return $array;
+  }
+  public function get_ket_kelas_belajar($idskolah,$ta){
+    $this->db->select("a.id AS id_mengajar,b.nama_kelas,c.nama_mapel,a.id_ta");
+    $this->db->from("kbm_mengajar a");
+    $this->db->join("obj_kelas b","a.id_kelas=b.id");
+    $this->db->join("obj_mapel c","a.id_mapel=c.id");
+    $this->db->where("a.id_sekolah",$idskolah);
+    $this->db->where("a.id_ta",$ta);
+    $data=$this->db->get();
+    $data=$data->result_array();
+    return $data;
+  }
+  public function get_kelas_belajar($idskolah){
+    $this->db->select("*");
+    $this->db->from("kbm_belajar a");
+    $this->db->join("obj_siswa b","a.no_induk=b.no_induk");
+    $this->db->where("a.id_sekolah",$idskolah);
+    $data=$this->db->get();
+    $data=$data->result();
+    return $data;
+  }
   public function cek_nisn_siswa($nisn){
   	$this->db->get_where('obj_siswa', array('no_induk' => $nisn));
   	return $this->db->affected_rows();

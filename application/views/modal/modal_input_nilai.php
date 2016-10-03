@@ -29,7 +29,7 @@
 	?>
 </div>
 <form method="POST" action="<?php echo base_url(); ?>user/save_nilai">
-<div class="col-md-4">
+<div class="col-md-4 well">
 <input type="hidden" name="noinduk" value="<?php echo $noinduk; ?>">
 <input type="hidden" name="id_mapel" value="<?php echo $id_mapel; ?>">
 <input type="hidden" name="id_mengajar" value="<?php echo $id_mengajar; ?>">
@@ -41,7 +41,7 @@
 			<div class="form-group">
 				<label><?php echo $key['standar_kompetensi']; ?></label>
 				<input type="hidden" name="id_sk_uts" value="<?php echo $key['id'] ?>">
-				<input type="number" class="form-control" value="<?php echo $key['nilai']; ?>" name="uts">
+				<input type="number" class="form-control" value="<?php echo $key['nilai']; ?>" name="uts" required>
 			</div>
 			<?php
 		}
@@ -54,14 +54,12 @@
 			<div class="form-group">
 				<label><?php echo $key['standar_kompetensi']; ?></label>
 				<input type="hidden" name="id_sk_uas" value="<?php echo $key['id'] ?>">
-				<input type="number" class="form-control" value="<?php echo $key['nilai']; ?>" name="uas">
+				<input type="number" class="form-control" value="<?php echo $key['nilai']; ?>" name="uas" required>
 			</div>
 			<?php
 		}
 	}
 	?>
-</div>
-<div class="col-md-12">
 <div class="form-group">
 	<button type="submit" name="simpan" value="yes" class="btn btn-primary">Simpan</button>
 </div>
