@@ -64,10 +64,12 @@ class Mapel extends CI_Controller {
 			$idmapel=$this->input->post('id_mapel');
 			$sk_teori=$this->input->post('sk_teori');
 			$sk_praktek=$this->input->post('sk_praktek');
+			$semester=$this->input->post('semester');
 			$datainput=array();$datatemp=array();
 			foreach ($sk_teori as $key) {
 				$datainput['id_sekolah']=$idsekolah;
 				$datainput['bobot']=1;
+				$datainput['semester']=$semester;
 				$datainput['id_mapel']=$idmapel;
 				$datainput['kategori']='Teori';
 				$datainput['standar_kompetensi']=$key;
@@ -76,24 +78,27 @@ class Mapel extends CI_Controller {
 			foreach ($sk_praktek as $key) {
 				$datainput['id_sekolah']=$idsekolah;
 				$datainput['bobot']=1;
+				$datainput['semester']=$semester;
 				$datainput['id_mapel']=$idmapel;
 				$datainput['kategori']='Praktek';
 				$datainput['standar_kompetensi']=$key;
 				array_push($datatemp,$datainput);
 			}
 
-			$data=$this->Model_mapel->cek_sk_uts_uas($idsekolah,$idmapel);
+			$data=$this->Model_mapel->cek_sk_uts_uas($idsekolah,$idmapel,$semester);
 			if(sizeof($data)==0){	
 				$datainput['id_sekolah']=$idsekolah;
 				$datainput['bobot']=2;
 				$datainput['id_mapel']=$idmapel;
 				$datainput['kategori']='Uts';
+				$datainput['semester']=$semester;
 				$datainput['standar_kompetensi']="Ulangan Tengah Semester";
 				array_push($datatemp,$datainput);
 				$datainput['id_sekolah']=$idsekolah;
 				$datainput['bobot']=2;
 				$datainput['id_mapel']=$idmapel;
 				$datainput['kategori']='Uas';
+				$datainput['semester']=$semester;
 				$datainput['standar_kompetensi']="Ulangan Akhir Semester";
 				array_push($datatemp,$datainput);
 			}

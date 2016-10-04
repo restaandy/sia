@@ -94,6 +94,8 @@ class User extends CI_Controller {
 					array_push($ar_peg,$key->id_pegawai);
 					array_push($ar_mpl,$key->id_mapel);
 				}
+				$data['datasiswa2']=array();
+				
 				$data['ket_siswa']=$this->Model_user->get_siswa($noinduk);
 				$pgw=$this->Model_user->get_pegawai_in($ar_peg);
 				$mpl=$this->Model_user->get_mapel_in($ar_mpl);
@@ -181,6 +183,7 @@ class User extends CI_Controller {
 			$id_sk_uas=$this->input->post('id_sk_uas');
 			$nilai_uts=$this->input->post('uts');
 			$nilai_uas=$this->input->post('uas');
+			$semester=$this->input->post('semester');
 			$taktif=$this->session->userdata('ta_aktif');
 			$id_sekolah=$this->session->userdata('id_sekolah');
 			$data=$this->Model_user->get_nilai_bynoinduk($noinduk,$id_mapel,$id_sekolah,$taktif);		
@@ -202,7 +205,7 @@ class User extends CI_Controller {
 				$this->Model_user->simpan_nilai($noinduk,$id_sk_uas,$id_sekolah,$nilai_uas,$taktif);
 			}
 
-			$hasil=$this->Model_mapel->generate_nilai($id_sekolah,$noinduk,$taktif,$id_mapel);
+			$hasil=$this->Model_mapel->generate_nilai($id_sekolah,$noinduk,$taktif,$id_mapel,$semester);
 			if($hasil){
 				$this->session->set_flashdata('nilai','Data sudah masuk');
 			    $this->session->set_flashdata('warna','blue');

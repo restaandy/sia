@@ -1,5 +1,5 @@
 /*
-SQLyog Enterprise - MySQL GUI v8.18 
+SQLyog Professional v10.42 
 MySQL - 5.6.17 : Database - sia
 *********************************************************************
 */
@@ -133,7 +133,7 @@ CREATE TABLE `kbm_nilai` (
 
 /*Data for the table `kbm_nilai` */
 
-insert  into `kbm_nilai`(`id`,`id_sekolah`,`no_induk`,`id_sk`,`nilai`,`ta`) values (1,1,'0001',13,68.5,'2016/2017'),(2,1,'0001',14,85,'2016/2017'),(3,1,'0001',15,79,'2016/2017'),(4,1,'0001',16,80,'2016/2017'),(5,1,'0001',17,0,'2016/2017'),(6,1,'0001',18,0,'2016/2017');
+insert  into `kbm_nilai`(`id`,`id_sekolah`,`no_induk`,`id_sk`,`nilai`,`ta`) values (1,1,'0001',13,68.5,'2016/2017'),(2,1,'0001',14,85,'2016/2017'),(3,1,'0001',15,79,'2016/2017'),(4,1,'0001',16,80,'2016/2017'),(5,1,'0001',17,70,'2016/2017'),(6,1,'0001',18,60,'2016/2017');
 
 /*Table structure for table `kbm_nilai_akhir` */
 
@@ -147,12 +147,13 @@ CREATE TABLE `kbm_nilai_akhir` (
   `nilai_teori` float DEFAULT NULL,
   `nilai_praktek` float DEFAULT NULL,
   `ta` varchar(20) DEFAULT NULL,
+  `semester` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_nilai_akhir` */
 
-insert  into `kbm_nilai_akhir`(`id`,`id_sekolah`,`id_mapel`,`no_induk`,`nilai_teori`,`nilai_praktek`,`ta`) values (1,1,3,'0001',25.58,79.5,'2016/2017');
+insert  into `kbm_nilai_akhir`(`id`,`id_sekolah`,`id_mapel`,`no_induk`,`nilai_teori`,`nilai_praktek`,`ta`,`semester`) values (1,1,3,'0001',68.92,79.5,'2016/2017',1);
 
 /*Table structure for table `kbm_nilai_ekstra` */
 
@@ -228,12 +229,13 @@ CREATE TABLE `kbm_sk` (
   `standar_kompetensi` text,
   `bobot` tinyint(4) DEFAULT NULL,
   `kategori` enum('Teori','Praktek','Uts','Uas') DEFAULT NULL,
+  `semester` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_sk` */
 
-insert  into `kbm_sk`(`id`,`id_sekolah`,`id_mapel`,`standar_kompetensi`,`bobot`,`kategori`) values (1,1,1,'Paham Sintak',1,'Teori'),(2,1,1,'Paham Looping',1,'Teori'),(3,1,1,'Bisa Fungsi',1,'Teori'),(4,1,1,'Paham Semantik',1,'Praktek'),(5,1,1,'Bisa Looping',1,'Praktek'),(6,1,1,'Bisa Prosedur',1,'Praktek'),(7,1,1,'Ulangan Tengah Semester',2,'Uts'),(8,1,1,'Ulangan Akhir Semester',2,'Uas'),(13,1,3,'Memahami HTML',1,'Teori'),(14,1,3,'memahami PHP',1,'Teori'),(15,1,3,'Bisa membuat html',1,'Praktek'),(16,1,3,'membuat PHP',1,'Praktek'),(17,1,3,'Ulangan Tengah Semester',2,'Uts'),(18,1,3,'Ulangan Akhir Semester',2,'Uas');
+insert  into `kbm_sk`(`id`,`id_sekolah`,`id_mapel`,`standar_kompetensi`,`bobot`,`kategori`,`semester`) values (1,1,1,'Paham Sintak',1,'Teori',1),(2,1,1,'Paham Looping',1,'Teori',1),(3,1,1,'Bisa Fungsi',1,'Teori',1),(4,1,1,'Paham Semantik',1,'Praktek',1),(5,1,1,'Bisa Looping',1,'Praktek',1),(6,1,1,'Bisa Prosedur',1,'Praktek',1),(7,1,1,'Ulangan Tengah Semester',2,'Uts',1),(8,1,1,'Ulangan Akhir Semester',2,'Uas',1),(13,1,3,'Memahami HTML',1,'Teori',1),(14,1,3,'memahami PHP',1,'Teori',1),(15,1,3,'Bisa membuat html',1,'Praktek',1),(16,1,3,'membuat PHP',1,'Praktek',1),(17,1,3,'Ulangan Tengah Semester',2,'Uts',1),(18,1,3,'Ulangan Akhir Semester',2,'Uas',1),(20,1,3,'Database',1,'Teori',2),(21,1,3,'Class\r\n',1,'Teori',2),(22,1,3,'Membuat Database',1,'Praktek',2),(23,1,3,'Membuat Class',1,'Praktek',2),(24,1,3,'Ulangan Tengah Semester',2,'Uts',2),(25,1,3,'Ulangan Akhir Semester',2,'Uas',2);
 
 /*Table structure for table `kbm_subnilai` */
 

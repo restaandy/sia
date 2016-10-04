@@ -32,6 +32,15 @@
 				</select>
 			</div>
 			<div class="form-group">
+				<select class="form-control" name="semester" required>
+					<option value="">-- Pilih Semester --</option>
+					
+					<option value="1">1</option>
+					<option value="2">2</option>	
+					
+				</select>
+			</div>
+			<div class="form-group">
 				<button type="button" class="btn btn-warning" onclick="tambahfield();">Tambah SK</button>
 			</div>
 			<div id="sk">
@@ -60,6 +69,7 @@
 				<th>Nama Mapel</th>
 				<th>Standar Kompetensi</th>
 				<th>Kategori</th>
+				<th>Semester</th>
 				<th>Status Mapel</th>
 				<th>Aksi</th>
 			</tr>
@@ -74,6 +84,7 @@
 			  	<td><?php echo $key['nama_mapel']; ?></td>
 			  	<td><?php echo $key['standar_kompetensi']; ?></td>
 			  	<td><?php echo $key['kategori']; ?></td>
+			  	<td><?php echo $key['semester']; ?></td>
 			  	<td><?php echo $key['status_mapel']; ?></td>
 			  	<td></td>
 			  </tr>
