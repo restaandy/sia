@@ -96,20 +96,127 @@ Class Model_user extends CI_Model
     $data=$query->result();
     return $data;
   }
-  public function get_detail_siswa_perwalian($idskolah,$noinduk,$ta){
-    $this->db->select('a.id AS Id_bljr,a.no_induk,b.id_kelas,b.id_pegawai,b.id_mapel,b.id_ta,c.nilai_praktek,c.nilai_teori,d.sikap');
-    $this->db->from('kbm_belajar a');
-    $this->db->join("kbm_mengajar b","a.id_mengajar=b.id");
-    $this->db->join("kbm_nilai_akhir c","c.id_mapel=b.id_mapel","left");
-    $this->db->join("kbm_nilai_sikap d","b.id=d.id_mengajar","left");
-    $this->db->where('a.id_sekolah', $idskolah);
-    $this->db->where('a.no_induk', $noinduk);
-    $this->db->where('b.id_ta', $ta);
-    $query = $this->db->get();
-    $data=$query->result();
+  public function generate_rapot($idskolah,$semester,$ta,$noinduk,$idwali){
+     $this->db->select("*");
+    $this->db->from("kbm_nilai a");
+    $this->db->join("kbm_sk b","a.id_sk=b.id");
+    $this->db->where('a.id_sekolah',$idskolah);
+    $this->db->where('b.semester',$semester);
+    $this->db->where('a.ta',$ta);
+    $this->db->where('a.no_induk',$noinduk);
+    $data=$this->db->get();
+    $data=$data->result();
+    $nilai_teori=0;
+    $nilai_praktek=0;
+    $bobot_teori=0;
+    $bobot_praktek=0;
+    foreach ($data as $key) {
+      if($key->kategori=="Teori"){
+        $nilai_teori+=($key->nilai*$key->bobot);
+        $bobot_teori+=$key->bobot;
+      }else if($key->kategori=="Praktek"){
+        $nilai_praktek+=($key->nilai*$key->bobot);
+        $bobot_praktek+=$key->bobot;
+      }else if($key->kategori=="Uts"||$key->kategori=="Uas"){
+        $nilai_teori+=($key->nilai*$key->bobot);
+        $bobot_teori+=$key->bobot;
+      }
+    }
+
+      $teori=round(($nilai_teori/$bobot_teori),2);
+      $praktek=round(($nilai_praktek/$bobot_praktek),2);
+      $this->db->where('id_sekolah',$idskolah);
+      $this->db->where('semester',$semester);
+      $this->db->where('ta',$ta);
+      $this->db->where('no_induk',$noinduk);
+      $this->db->where('id_wali',$idwali);
+      $this->db->update('kbm_rapot',array('jml_nilai_teori'=>$teori,'jml_nilai_praktek'=>$praktek));
+  }
+  function data_rapot($idskolah,$noinduk,$ta,$semester){
+    $data=$this->db->query("SELECT a.id,
+  c.nama_mapel,
+  a.nilai_teori,
+  GROUP_CONCAT(
+    CONCAT(
+      CASE d.kategori WHEN 'Teori' THEN 
+  CASE 
+    WHEN a.nilai_teori>=86 THEN CONCAT('Sangat Menonjol dalam ',d.standar_kompetensi) 
+    WHEN a.nilai_teori>=71 THEN CONCAT('Menonjol dalam ',d.standar_kompetensi)
+  ELSE CONCAT('Kurang dalam ',d.standar_kompetensi)
+  END     
+      END
+      ) SEPARATOR ', ') AS skt,
+   a.nilai_praktek,
+   GROUP_CONCAT(
+    CONCAT(
+      CASE d.kategori WHEN 'Praktek' THEN 
+  CASE 
+    WHEN a.nilai_praktek>=86 THEN CONCAT('Sangat Menonjol dalam ',d.standar_kompetensi) 
+    WHEN a.nilai_praktek>=71 THEN CONCAT('Menonjol dalam ',d.standar_kompetensi)
+  ELSE CONCAT('Kurang dalam ',d.standar_kompetensi)
+  END  
+      END
+      ) SEPARATOR ', ') AS skp 
+ FROM kbm_nilai_akhir a 
+  JOIN kbm_mengajar b ON a.id_mengajar=b.id
+  JOIN obj_mapel c ON c.id=b.id_mapel
+  LEFT JOIN kbm_sk d ON d.id_mapel=c.id
+WHERE a.semester=".$semester." AND d.semester=".$semester." AND a.no_induk='".$noinduk."' 
+    AND a.id_sekolah=".$idskolah." 
+    AND a.ta='".$ta."';");
+    $data=$data->result();
     return $data;
   }
-
+  function get_sikap_rapot($idskolah,$idwali,$ta,$noinduk){
+      $this->db->where('id_sekolah',$idskolah);
+      $this->db->where('ta',$ta);
+      $this->db->where('no_induk',$noinduk);
+      $this->db->where('id_wali',$idwali);
+      $data=$this->db->get("kbm_rapot");
+      $data=$data->result();
+      return $data;
+  }
+  public function get_detail_siswa_perwalian($idskolah,$noinduk,$ta,$semester){
+    $this->db->select("*");
+    $this->db->from("kbm_mengajar a");
+    $this->db->join("kbm_belajar b","a.id=b.id_mengajar");
+    $this->db->join("kbm_nilai_akhir c","c.id_mengajar=a.id AND c.semester=".$semester."","left");
+    $this->db->join("kbm_nilai_sikap d","d.id_mengajar=a.id AND d.semester=".$semester."","left");
+    $this->db->where('a.id_sekolah', $idskolah);
+    $this->db->where('a.id_ta', $ta);
+    $this->db->where('b.no_induk', $noinduk);
+    $data=$this->db->get();
+    $data=$data->result();
+    return $data;
+  }
+  function simpan_sikap_wali($data){
+      $this->db->where('id_sekolah',$data['id_sekolah']);
+      $this->db->where('ta',$data['ta']);
+      $this->db->where('no_induk',$data['no_induk']);
+      $this->db->where('id_wali',$data['id_wali']);
+      $this->db->where('semester',$data['semester']);
+      $this->db->get("kbm_rapot");
+      if($this->db->affected_rows()>0){
+        $this->db->where('id_sekolah',$data['id_sekolah']);
+        $this->db->where('ta',$data['ta']);
+        $this->db->where('no_induk',$data['no_induk']);
+        $this->db->where('id_wali',$data['id_wali']);
+        $this->db->where('semester',$data['semester']);
+        $this->db->update('kbm_rapot',$data);
+         if($this->db->affected_rows()>0){
+            return true;
+         }else{
+           return false;
+         }
+      }else{
+         $this->db->insert('kbm_rapot', $data);
+         if($this->db->affected_rows()>0){
+            return true;
+         }else{
+           return false;
+         }
+      }
+  }
   public function simpan_nilai_uts_uas($idnilai,$nilai){
     $this->db->where('id',$idnilai);
     $this->db->update('kbm_nilai',array('nilai'=>$nilai));  

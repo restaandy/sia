@@ -19,7 +19,7 @@ Class Model_mapel extends CI_Model
    $data=$data->result_array();
    return $data;
   }
-  function generate_nilai($idskolah,$noinduk,$ta,$idmapel,$semester){
+  function generate_nilai($idskolah,$idmengajar,$noinduk,$ta,$idmapel,$semester){
     $this->db->select("*");
     $this->db->from("kbm_nilai a");
     $this->db->join("kbm_sk b","a.id_sk=b.id");
@@ -48,15 +48,16 @@ Class Model_mapel extends CI_Model
     }
 
     $this->db->where('id_sekolah',$idskolah);
-    $this->db->where('id_mapel',$idmapel);
+    $this->db->where('id_mengajar',$idmengajar);
     $this->db->where('ta',$ta);
+    $this->db->where('semester',$semester);
     $this->db->where('no_induk',$noinduk);
     $data=$this->db->get("kbm_nilai_akhir");
     if($this->db->affected_rows()>0){
       $teori=round(($nilai_teori/$bobot_teori),2);
       $praktek=round(($nilai_praktek/$bobot_praktek),2);
         $this->db->where('id_sekolah',$idskolah);
-        $this->db->where('id_mapel',$idmapel);
+        $this->db->where('id_mengajar',$idmengajar);
         $this->db->where('ta',$ta);
         $this->db->where('semester',$semester);
         $this->db->where('no_induk',$noinduk);
@@ -74,7 +75,7 @@ Class Model_mapel extends CI_Model
       $praktek=round(($nilai_praktek/$bobot_praktek),2);
       $this->db->insert("kbm_nilai_akhir",array(
         'id_sekolah'=>$idskolah,
-        'id_mapel'=>$idmapel,
+        'id_mengajar'=>$idmengajar,
         'ta'=>$ta,
         'no_induk'=>$noinduk,
         'nilai_teori'=>$teori,

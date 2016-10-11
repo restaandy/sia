@@ -1,5 +1,5 @@
 /*
-SQLyog Professional v10.42 
+SQLyog Enterprise - MySQL GUI v8.18 
 MySQL - 5.6.17 : Database - sia
 *********************************************************************
 */
@@ -129,11 +129,11 @@ CREATE TABLE `kbm_nilai` (
   `nilai` float DEFAULT NULL,
   `ta` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_nilai` */
 
-insert  into `kbm_nilai`(`id`,`id_sekolah`,`no_induk`,`id_sk`,`nilai`,`ta`) values (1,1,'0001',13,68.5,'2016/2017'),(2,1,'0001',14,85,'2016/2017'),(3,1,'0001',15,79,'2016/2017'),(4,1,'0001',16,80,'2016/2017'),(5,1,'0001',17,70,'2016/2017'),(6,1,'0001',18,60,'2016/2017');
+insert  into `kbm_nilai`(`id`,`id_sekolah`,`no_induk`,`id_sk`,`nilai`,`ta`) values (1,1,'0001',13,75,'2016/2017'),(2,1,'0001',14,67,'2016/2017'),(3,1,'0001',15,82.5,'2016/2017'),(4,1,'0001',16,77,'2016/2017'),(5,1,'0001',17,78,'2016/2017'),(6,1,'0001',18,89,'2016/2017'),(7,1,'0001',20,90,'2016/2017'),(8,1,'0001',21,78,'2016/2017'),(9,1,'0001',22,83.5,'2016/2017'),(10,1,'0001',23,84.5,'2016/2017'),(11,1,'0001',24,80,'2016/2017'),(12,1,'0001',25,85,'2016/2017');
 
 /*Table structure for table `kbm_nilai_akhir` */
 
@@ -142,18 +142,18 @@ DROP TABLE IF EXISTS `kbm_nilai_akhir`;
 CREATE TABLE `kbm_nilai_akhir` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_sekolah` int(11) DEFAULT NULL,
-  `id_mapel` int(11) DEFAULT NULL,
+  `id_mengajar` int(11) DEFAULT NULL,
   `no_induk` varchar(50) DEFAULT NULL,
   `nilai_teori` float DEFAULT NULL,
   `nilai_praktek` float DEFAULT NULL,
   `ta` varchar(20) DEFAULT NULL,
   `semester` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_nilai_akhir` */
 
-insert  into `kbm_nilai_akhir`(`id`,`id_sekolah`,`id_mapel`,`no_induk`,`nilai_teori`,`nilai_praktek`,`ta`,`semester`) values (1,1,3,'0001',68.92,79.5,'2016/2017',1);
+insert  into `kbm_nilai_akhir`(`id`,`id_sekolah`,`id_mengajar`,`no_induk`,`nilai_teori`,`nilai_praktek`,`ta`,`semester`) values (1,1,4,'0001',79.33,79.75,'2016/2017',1),(2,1,4,'0001',83,84,'2016/2017',2);
 
 /*Table structure for table `kbm_nilai_ekstra` */
 
@@ -170,21 +170,6 @@ CREATE TABLE `kbm_nilai_ekstra` (
 
 /*Data for the table `kbm_nilai_ekstra` */
 
-/*Table structure for table `kbm_nilai_rapot` */
-
-DROP TABLE IF EXISTS `kbm_nilai_rapot`;
-
-CREATE TABLE `kbm_nilai_rapot` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_rapot` int(11) DEFAULT NULL,
-  `id_mapel` int(11) DEFAULT NULL,
-  `nilai_teori` int(11) DEFAULT NULL,
-  `nilai_praktek` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `kbm_nilai_rapot` */
-
 /*Table structure for table `kbm_nilai_sikap` */
 
 DROP TABLE IF EXISTS `kbm_nilai_sikap`;
@@ -195,12 +180,13 @@ CREATE TABLE `kbm_nilai_sikap` (
   `id_mengajar` int(11) DEFAULT NULL,
   `no_induk` varchar(50) DEFAULT NULL,
   `sikap` text,
+  `semester` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_nilai_sikap` */
 
-insert  into `kbm_nilai_sikap`(`id`,`id_sekolah`,`id_mengajar`,`no_induk`,`sikap`) values (1,1,1,'0001','Menghargai Teman,Sopan Terhadap Guru,Tekun Belajar'),(2,1,3,'0001','Keren sopan dan gokil,selalu aktif dalam kelas'),(3,1,4,'0001','jujur dalam mengerjakan ujian,Selalu membantu teman');
+insert  into `kbm_nilai_sikap`(`id`,`id_sekolah`,`id_mengajar`,`no_induk`,`sikap`,`semester`) values (1,1,4,'0001','Ndableg,Pecicilan',1),(2,1,4,'0001','njengkeli',2);
 
 /*Table structure for table `kbm_rapot` */
 
@@ -212,11 +198,16 @@ CREATE TABLE `kbm_rapot` (
   `id_wali` int(11) DEFAULT NULL,
   `no_induk` varchar(50) DEFAULT NULL,
   `nilai_sikap` text,
-  `nilai_akhir` int(11) DEFAULT NULL,
+  `ta` varchar(20) DEFAULT NULL,
+  `jml_nilai_teori` float DEFAULT NULL,
+  `jml_nilai_praktek` float DEFAULT NULL,
+  `semester` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_rapot` */
+
+insert  into `kbm_rapot`(`id`,`id_sekolah`,`id_wali`,`no_induk`,`nilai_sikap`,`ta`,`jml_nilai_teori`,`jml_nilai_praktek`,`semester`) values (1,1,4,'0001','Ndableg,Pecicilan, oramudengan','2016/2017',79.33,79.75,1);
 
 /*Table structure for table `kbm_sk` */
 
@@ -248,11 +239,11 @@ CREATE TABLE `kbm_subnilai` (
   `ket` varchar(30) DEFAULT NULL,
   `sub_nilai` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_subnilai` */
 
-insert  into `kbm_subnilai`(`id`,`id_sk`,`no_induk`,`ket`,`sub_nilai`) values (1,1,'0001','P1','78'),(2,5,'0001','P1','80'),(3,5,'0001','P2','76'),(4,13,'0001','P1','50'),(5,13,'0001','P2','87'),(6,14,'0001','P1','85'),(7,15,'0001','P1','60'),(8,15,'0001','P2','98'),(9,16,'0001','P1','80');
+insert  into `kbm_subnilai`(`id`,`id_sk`,`no_induk`,`ket`,`sub_nilai`) values (1,13,'0001','P1','80'),(2,13,'0001','P2','70'),(3,14,'0001','P1','67'),(4,15,'0001','P1','78'),(5,15,'0001','P2','87'),(6,16,'0001','P1','78'),(7,16,'0001','P2','76'),(8,20,'0001','P1','90'),(9,21,'0001','P1','78'),(10,22,'0001','P1','78'),(11,22,'0001','P2','89'),(12,23,'0001','P1','79'),(13,23,'0001','P2','90');
 
 /*Table structure for table `kbm_ta` */
 

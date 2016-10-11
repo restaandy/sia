@@ -56,9 +56,7 @@ class Modal extends CI_Controller {
 			$data['id_mapel']=$_POST['id_mapel'];
 			$data['id_mengajar']=$_POST['id_mengajar'];
 			$sikap=$this->Model_user->get_sikap($idsekolah,$_POST['noinduk'],$data['id_mengajar']);
-			foreach ($sikap as $key) {
-		 	 $data['sikap']=$key;								
-			}
+		 	 $data['sikap']=$sikap;								
 			$this->load->view('modal/modal_input_nilai_sikap',$data);	
 		}else{
 			echo "not-found";	

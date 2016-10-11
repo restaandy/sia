@@ -8,7 +8,7 @@
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">
+<div role="tabpanel" class="tab-pane active" id="home">
     	<div class="col-md-4">
 <legend>Teori</legend>
 	<?php
@@ -123,7 +123,7 @@ if($x!=0){
 <form method="POST" action="<?php echo base_url(); ?>user/save_nilai">
 <div class="col-md-4 well">
 <input type="hidden" name="noinduk" value="<?php echo $noinduk; ?>">
-<input type="hidden" name="semester" value="1">
+<input type="hidden" name="semester" value="2">
 <input type="hidden" name="id_mapel" value="<?php echo $id_mapel; ?>">
 <input type="hidden" name="id_mengajar" value="<?php echo $id_mengajar; ?>">
 <legend>UTS / UAS</legend>

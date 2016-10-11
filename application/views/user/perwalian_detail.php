@@ -17,12 +17,13 @@
 	<div class="col-md-4">
 	<table class="table">
 	<?php
+	$no_induk="";
 	foreach ($ket_siswa as $key) {
 		?>
 		<tr>
 			<td>No Induk</td>
 			<td>:</td>
-			<td><?php echo $key->no_induk; ?></td>
+			<td><?php echo $key->no_induk; $no_induk=$key->no_induk;?></td>
 		</tr>
 		<tr>
 			<td>Nama</td>
@@ -34,6 +35,7 @@
 	?>
 	
 	</table>
+
 </div>
 <table class="table table-striped" id="tabelkelas">
 			<thead>
@@ -50,7 +52,8 @@
 		    <tbody>
 		<?php
 			$x=1;
-			foreach ($datasiswa as $key) {
+			foreach ($datasiswa1 as $key) {
+			 
 			 ?>
 			<tr>
 				<td><?php echo $x; ?></td>
@@ -68,6 +71,27 @@
 		?>
 		</tbody>	
 		</table>
+</div>
+
+<div class="panel panel-body">
+<form method="POST" action="<?php echo base_url(); ?>user/save_sikap_wali">
+<input type="hidden" name="semester" value="1">
+<input type="hidden" name="no_induk" value="<?php echo $no_induk; ?>">
+<div class="form-group">
+<label>Input Rapot Deskripsi Sikap</label>
+<textarea class="form-control" name="sikap">
+<?php
+foreach ($sikap as $key) {
+	if($key->semester==1){echo $key->nilai_sikap;}
+}
+?>
+</textarea>
+</div>
+<div class="form-group">
+<button class="btn btn-primary" type="submit" name="simpan" value="yes">Generate Rapot</button>
+</div>
+</form>
+
 </div>
 </div>
 
@@ -112,6 +136,7 @@
 		<?php
 			$x=1;
 			foreach ($datasiswa2 as $key) {
+			 
 			 ?>
 			<tr>
 				<td><?php echo $x; ?></td>
@@ -125,10 +150,29 @@
 			</tr> 
 			 <?php
 			$x++;	
+			
 			}
 		?>
 		</tbody>	
 		</table>
+</div>
+<div class="panel panel-body">
+<form method="POST" action="<?php echo base_url(); ?>user/save_sikap_wali">
+<input type="hidden" name="semester" value="2">
+<input type="hidden" name="no_induk" value="<?php echo $no_induk; ?>">
+<div class="form-group">
+<label>Input Rapot Deskripsi Sikap</label>
+<textarea class="form-control" name="sikap"><?php
+foreach ($sikap as $key) {
+	if($key->semester==2){echo $key->nilai_sikap;}
+}
+?></textarea>
+</div>
+<div class="form-group">
+<button class="btn btn-primary" type="submit" name="simpan" value="yes">Generate Rapot</button>
+</div>
+</form>
+
 </div>
 </div>
     </div>

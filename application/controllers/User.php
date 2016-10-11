@@ -87,14 +87,18 @@ class User extends CI_Controller {
 				$data['sidebar']=$this->load->view('sidebar','',true);
 				$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
 				$data['ta']=$this->session->userdata('ta_aktif');
-				$data['datasiswa']=$this->Model_user->get_detail_siswa_perwalian($this->session->userdata('id_sekolah'),$noinduk,$data['ta']);
+				$data['datasiswa1']=$this->Model_user->get_detail_siswa_perwalian($this->session->userdata('id_sekolah'),$noinduk,$data['ta'],1);
+				$data['datasiswa2']=$this->Model_user->get_detail_siswa_perwalian($this->session->userdata('id_sekolah'),$noinduk,$data['ta'],2);
 				$ar_peg=array();
 				$ar_mpl=array();
-				foreach ($data['datasiswa'] as $key) {
+				foreach ($data['datasiswa1'] as $key) {
 					array_push($ar_peg,$key->id_pegawai);
 					array_push($ar_mpl,$key->id_mapel);
 				}
-				$data['datasiswa2']=array();
+				foreach ($data['datasiswa2'] as $key) {
+					array_push($ar_peg,$key->id_pegawai);
+					array_push($ar_mpl,$key->id_mapel);
+				}
 				
 				$data['ket_siswa']=$this->Model_user->get_siswa($noinduk);
 				$pgw=$this->Model_user->get_pegawai_in($ar_peg);
@@ -103,6 +107,7 @@ class User extends CI_Controller {
 				$arc_mpl=$this->Model_user->array_convert_nest($mpl,"id",array("nama_mapel"));
 				$data['arc_peg']=$arc_peg;
 				$data['arc_mpl']=$arc_mpl;
+				$data['sikap']=$this->Model_user->get_sikap_rapot($this->session->userdata('id_sekolah'),$this->session->userdata('id'),$this->session->userdata('ta_aktif'),$noinduk);
 				$content=$this->load->view('user/perwalian_detail',$data,true);
 				$this->dashboard($content);	
 			}
@@ -174,6 +179,45 @@ class User extends CI_Controller {
 	
 //=========================================================================
 //action----------
+	function save_sikap_wali(){
+		if($this->input->post('simpan')=="yes"){
+			$data=array(
+				"no_induk"=>$this->input->post("no_induk"),
+				"id_sekolah"=>$this->session->userdata("id_sekolah"),
+				"id_wali"=>$this->session->userdata("id"),
+				"nilai_sikap"=>$this->input->post("sikap"),
+				"ta"=>$this->session->userdata("ta_aktif"),
+				"semester"=>$this->input->post("semester")
+				);
+			$hasil=$this->Model_user->simpan_sikap_wali($data);
+			$idskolah=$this->session->userdata("id_sekolah");
+			$semester=$this->input->post("semester");
+			$ta=$this->session->userdata("ta_aktif");
+			$idwali=$this->session->userdata("id");
+			$noinduk=$this->input->post("no_induk");
+			$this->Model_user->generate_rapot($idskolah,$semester,$ta,$noinduk,$idwali);
+			//$noinduk=$this->enkripsi->encode($this->input->post("no_induk"));
+			$data['rapot']=$this->Model_user->data_rapot($idskolah,$noinduk,$ta,$semester);
+			$this->load->view('user/rapor',$data);
+
+			//$noinduk=$this->enkripsi->encode($this->input->post("no_induk"));
+			//redirect("user/perwalian_detail/".$noinduk);
+		}
+	}
+	function generate_rapot(){
+		if($this->input->post('simpan')=="yes"){
+		$idskolah=$this->session->userdata("id_sekolah");
+		$semester=$this->input->post("semester");
+		$ta=$this->session->userdata("ta_aktif");
+		$idwali=$this->session->userdata("id");
+		$noinduk=$this->input->post("no_induk");
+		$this->Model_user->generate_rapot($idskolah,$semester,$ta,$noinduk,$idwali);
+		//$noinduk=$this->enkripsi->encode($this->input->post("no_induk"));
+		$data['rapot']=$this->Model_user->data_rapot($idskolah,$noinduk,$ta,$semester);
+		$this->load->view('user/rapor',$data);
+		//redirect("user/perwalian_detail/".$noinduk);
+		}
+	}
 	function save_nilai(){
 		if($this->input->post('simpan')=="yes"){
 			$id_mapel=$this->input->post('id_mapel');
@@ -205,7 +249,7 @@ class User extends CI_Controller {
 				$this->Model_user->simpan_nilai($noinduk,$id_sk_uas,$id_sekolah,$nilai_uas,$taktif);
 			}
 
-			$hasil=$this->Model_mapel->generate_nilai($id_sekolah,$noinduk,$taktif,$id_mapel,$semester);
+			$hasil=$this->Model_mapel->generate_nilai($id_sekolah,$id_mengajar,$noinduk,$taktif,$id_mapel,$semester);
 			if($hasil){
 				$this->session->set_flashdata('nilai','Data sudah masuk');
 			    $this->session->set_flashdata('warna','blue');
@@ -220,6 +264,7 @@ class User extends CI_Controller {
 	function save_nilai_sikap(){
 		if($this->input->post('simpan')=="yes"){
 		  $bk=$this->input->post('is_bk');
+		  $semester=$this->input->post('semester');
 		  $id_mengajar=$this->input->post('id_mengajar');
 		  if($this->input->post('id_nilai_sikap')!=NULL){
 		  	$data['id']=$this->input->post('id_nilai_sikap');
@@ -236,6 +281,7 @@ class User extends CI_Controller {
 		  	$data['no_induk']=$this->input->post('no_induk');
 		  	$data['id_mengajar']=$this->input->post('id_mengajar');
 		  	$data['id_sekolah']=$this->session->userdata('id_sekolah');
+		  	$data['semester']=$semester;
 		  	$sikap=$this->input->post('sikap');
 		  	$data['sikap']=implode(",",$sikap);
 		  	$hasil=$this->Model_user->simpan_nilai_sikap($data);
