@@ -268,8 +268,9 @@
                   <?php echo $this->session->userdata('username'); ?>
 
                   <?php
+                  $jbt=array();
                   if($this->session->userdata('jabatan')!=NULL){
-                    $jbt=array();
+                    
                     foreach ($this->session->userdata('jabatan') as $key) {
                       array_push($jbt,$key);
                     }

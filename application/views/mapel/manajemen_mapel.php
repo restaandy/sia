@@ -51,6 +51,14 @@
 				<label>Mapel</label>
 				<input type="text" class="form-control" name="nama_mapel">
 			</div>
+			<div class="form-group">
+				<label>Nilai Ketuntasan Pengetahuan</label>
+				<input type="number" class="form-control" name="kb">
+			</div>
+			<div class="form-group">
+				<label>Nilai Ketuntasan Keterampilan</label>
+				<input type="number" class="form-control" name="kb_p">
+			</div>
 			</div>
 			<div class="col-md-4">
 			<div class="row">

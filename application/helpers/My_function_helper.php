@@ -2,11 +2,15 @@
 if( !function_exists('deskripsi_kd') ) {
     function deskripsi_kd($nilai){
         if($nilai>=86){
-            return "Sangat Menonjol";
+            return "A";
         }else if($nilai>=71){
-            return "Menonjol";
+            return "B";
+        }else if($nilai>=60){
+            return "C";
+        }else if($nilai>=40){
+            return "D";
         }else{
-            return "Perlu Meningkatkan";
+        	return "E";
         }
     }
 }

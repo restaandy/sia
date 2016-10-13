@@ -37,7 +37,7 @@
 				</select>
 			</div>
 			<div class="form-group">
-			    <label>Nama Kelas</label>
+			    <label>Nama Siswa</label>
 				<input type="text" name="no_induk" class="form-control" id="siswa_id" required >
 			</div>
 			<div class="form-group">

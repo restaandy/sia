@@ -21,6 +21,40 @@ Class Model_user extends CI_Model
    $query=$query->result_array();
    return $query;
   }
+  function get_sekolah($id){
+    $this->db->where('id',$id);
+    $query=$this->db->get('obj_sekolah');
+    $query=$query->result();
+    $data=array();
+    foreach ($query as $key) {
+      $data=$key;
+    }
+    return $data;
+  }
+  function get_siswa_rapot($id){
+    $this->db->where('no_induk',$id);
+    $query=$this->db->get('obj_siswa');
+    $query=$query->result();
+    $data=array();
+    foreach ($query as $key) {
+      $data=$key;
+    }
+    return $data;
+  }
+  function get_kelas_rapot($noinduk){
+    $this->db->select('*');
+    $this->db->from('obj_perwalian a');
+    $this->db->join('obj_kelas b', 'a.id_kelas = b.id');
+    $this->db->where('a.no_induk', $noinduk);
+    $query=$this->db->get();
+     $query=$query->result();
+    $data=array();
+    foreach ($query as $key) {
+      $data=$key;
+    }
+    return $data;
+
+  }
   public function get_sikap($idsekolah,$noinduk,$idmengajar){
      $this->db->where('id_sekolah',$idsekolah); 
      $this->db->where('no_induk',$noinduk);
@@ -135,6 +169,8 @@ Class Model_user extends CI_Model
   function data_rapot($idskolah,$noinduk,$ta,$semester){
     $data=$this->db->query("SELECT a.id,
   c.nama_mapel,
+  c.kb,
+  c.kb_p,
   a.nilai_teori,
   GROUP_CONCAT(
     CONCAT(

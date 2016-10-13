@@ -198,6 +198,13 @@ class User extends CI_Controller {
 			$this->Model_user->generate_rapot($idskolah,$semester,$ta,$noinduk,$idwali);
 			//$noinduk=$this->enkripsi->encode($this->input->post("no_induk"));
 			$data['rapot']=$this->Model_user->data_rapot($idskolah,$noinduk,$ta,$semester);
+			$data['semester']=$semester;
+			$data['noinduk']=$noinduk;
+			$data['sekolah']=$this->Model_user->get_sekolah($this->session->userdata("id_sekolah"));
+			$data['siswa']=$this->Model_user->get_siswa_rapot($noinduk);
+			$data['kelas']=$this->Model_user->get_kelas_rapot($noinduk);
+			$data['ta']=$ta;
+			$data['sikap']=$this->input->post("sikap");
 			$this->load->view('user/rapor',$data);
 
 			//$noinduk=$this->enkripsi->encode($this->input->post("no_induk"));

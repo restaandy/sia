@@ -10,6 +10,14 @@
 				<input class="form-control" type="text" name="nama_mapel" value="<?php echo $mapel['nama_mapel']; ?>" maxlength="50" required />
 			</div>
 			<div class="form-group">
+			    <label>Nilai Ketuntasan Pengetahuan</label>
+				<input type="number" class="form-control" value="<?php echo $mapel['kb']; ?>" name="kb">
+			</div>
+			<div class="form-group">
+			    <label>Nilai Ketuntasan Keterampilan</label>
+				<input type="number" class="form-control" value="<?php echo $mapel['kb_p']; ?>" name="kb_p">
+			</div>
+			<div class="form-group">
 			    <label>Kompetensi Dasar</label>
 				<textarea class="form-control" name="komp_dasar"><?php echo $mapel['komp_dasar']; ?></textarea>
 			</div>
