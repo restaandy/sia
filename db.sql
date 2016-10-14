@@ -203,11 +203,11 @@ CREATE TABLE `kbm_rapot` (
   `jml_nilai_praktek` float DEFAULT NULL,
   `semester` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kbm_rapot` */
 
-insert  into `kbm_rapot`(`id`,`id_sekolah`,`id_wali`,`no_induk`,`nilai_sikap`,`ta`,`jml_nilai_teori`,`jml_nilai_praktek`,`semester`) values (1,1,4,'0001','Ndableg,Pecicilan, oramudengan','2016/2017',79.33,79.75,1);
+insert  into `kbm_rapot`(`id`,`id_sekolah`,`id_wali`,`no_induk`,`nilai_sikap`,`ta`,`jml_nilai_teori`,`jml_nilai_praktek`,`semester`) values (1,1,4,'0001','Ndableg,Pecicilan, oramudengan','2016/2017',79.33,79.75,1),(2,1,4,'0001','','2016/2017',83,84,2);
 
 /*Table structure for table `kbm_sk` */
 
@@ -360,6 +360,8 @@ CREATE TABLE `obj_mapel` (
   `id_program` int(11) DEFAULT NULL,
   `id_paket` int(11) DEFAULT NULL,
   `nama_mapel` varchar(100) DEFAULT NULL,
+  `kb` tinyint(4) DEFAULT NULL,
+  `kb_p` tinyint(4) DEFAULT NULL,
   `komp_inti` text,
   `komp_dasar` text,
   `status_mapel` enum('wajib','minat','bk') DEFAULT NULL,
@@ -368,7 +370,7 @@ CREATE TABLE `obj_mapel` (
 
 /*Data for the table `obj_mapel` */
 
-insert  into `obj_mapel`(`id`,`id_sekolah`,`id_bidang`,`id_program`,`id_paket`,`nama_mapel`,`komp_inti`,`komp_dasar`,`status_mapel`) values (1,1,3,3,2,'Pemrograman Dasar','Bisa membuat program sederhana','Menguasai sintak pemrograman','wajib'),(2,1,5,4,3,'BK','-','-','bk'),(3,1,3,3,2,'Web Dinamis','-','-','wajib');
+insert  into `obj_mapel`(`id`,`id_sekolah`,`id_bidang`,`id_program`,`id_paket`,`nama_mapel`,`kb`,`kb_p`,`komp_inti`,`komp_dasar`,`status_mapel`) values (1,1,3,3,2,'Pemrograman Dasar',70,80,'Bisa membuat program sederhana','Menguasai sintak pemrograman','wajib'),(2,1,5,4,3,'BK',NULL,NULL,'-','-','bk'),(3,1,3,3,2,'Web Dinamis',70,80,'-','-','wajib');
 
 /*Table structure for table `obj_pegawai` */
 
