@@ -31,6 +31,8 @@
 				<td>
 					<a class="btn btn-primary btn-xs" href="<?php echo base_url().'user/perwalian_detail/'.$this->enkripsi->encode($key->no_induk); ?>">Lihat Nilai Akhir
 					</a>
+					<a class="btn btn-info btn-xs" href="<?php echo base_url().'user/ekstra/'.$this->enkripsi->encode($key->no_induk); ?>">Input Nilai Ekstra
+					</a>
 				</td>
 			</tr> 
 			 <?php

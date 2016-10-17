@@ -76,6 +76,50 @@ class User extends CI_Controller {
 			redirect("home");
 		}
 	}
+	function edit_ekstra(){
+		$id=$this->input->post("id");
+		$id_ekstra=$this->input->post("id_ekstra");
+		$nilai=$this->input->post("nilai");
+		$noinduk=$this->input->post("no_induk");
+		$this->db->where("id",$id);
+		$this->db->update("kbm_nilai_ekstra",array('id_ekstra'=>$id_ekstra,'nilai'=>$nilai));
+		redirect('user/perwalian');
+
+	}
+	function save_ekstra(){
+		
+		$id_ekstra=$this->input->post("id_ekstra");
+		$nilai=$this->input->post("nilai");
+		$ta=$this->session->userdata('ta_aktif');
+		$noinduk=$this->input->post("no_induk");
+		$this->db->insert("kbm_nilai_ekstra",array('id_ekstra'=>$id_ekstra,'nilai'=>$nilai,'no_induk'=>$noinduk,'ta'=>$ta));
+		redirect('user/perwalian');
+	}
+	public function ekstra($id){
+		if(in_array("wali",$this->session->userdata('jabatan'))){
+				$noinduk=$this->enkripsi->decode($id);
+				if(is_numeric($noinduk)){
+				$bread['title1']="Perwalian";
+				$bread['title2']="Ekstra";
+				$bread['list']=array("Perwalian");
+				$data['title']="Data Siswa | Sistem Akademik";	
+				$data['sidebar']=$this->load->view('sidebar','',true);
+				$data['breadcumb']=$this->load->view('breadcumb',$bread,true);
+				$data['idsekolah']=$this->session->userdata('id_sekolah');
+				$data['siswa']=$this->Model_siswa->get_siswa_by_noinduk($noinduk);
+				$data['ekstra_siswa']=$this->Model_user->get_ekstra_siswa($data['idsekolah'],$noinduk);
+				$data['ekstra']=$this->Model_user->get_ekstra($data['idsekolah']);
+				$ta=$this->session->userdata('ta_aktif');
+				$data['nilai_ekstra']=$this->Model_user->get_nilai_ekstra($noinduk,$ta);
+				$content=$this->load->view('user/ekstra',$data,true);
+				$this->dashboard($content);
+				}else{
+					redirect("home");
+				}			
+		}else{
+			redirect("home");
+		}
+	}
 	public function perwalian_detail($id){
 		if(in_array("wali",$this->session->userdata('jabatan'))){
 			$noinduk=$this->enkripsi->decode($id);

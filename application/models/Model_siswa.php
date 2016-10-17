@@ -3,6 +3,16 @@
 Class Model_siswa extends CI_Model
 {
 
+  public function get_siswa_by_noinduk($noinduk){
+    $this->db->where("no_induk",$noinduk);
+    $data=$this->db->get("obj_siswa");
+    $data=$data->result();
+    $result=array();
+    foreach ($data as $key) {
+      $result=$key;
+    }
+    return $result;
+  }
   public function get_siswa($idskolah='',$nama=''){
    if($nama==''){
    	$query=$this->db->query("select * from obj_siswa where id_sekolah=".$idskolah."");

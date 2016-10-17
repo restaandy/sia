@@ -148,7 +148,7 @@
                         </a>
                         <ul class="treeview-menu">     
                               <li><a href="<?php echo base_url(); ?>user/perwalian"><i class="fa fa-circle-o"></i> Lihat Siswa</a></li>
-                              <li><a href="<?php echo base_url(); ?>user/rapor"><i class="fa fa-circle-o"></i> Rapor</a></li>
+                              
                         </ul>
                   </li>
                 <?php

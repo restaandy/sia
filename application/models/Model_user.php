@@ -21,6 +21,26 @@ Class Model_user extends CI_Model
    $query=$query->result_array();
    return $query;
   }
+  function get_nilai_ekstra($noinduk,$ta){
+    $this->db->where('no_induk',$noinduk);
+    $this->db->where('ta',$ta);
+   $query=$this->db->get('kbm_nilai_ekstra');
+   $query=$query->result();
+   return $query;
+  }
+  function get_ekstra_siswa($idsekolah,$noinduk){
+    $this->db->where('no_induk',$noinduk);
+    $this->db->where('id_sekolah',$idsekolah);
+   $query=$this->db->get('kbm_ekstra_siswa');
+   $query=$query->result();
+   return $query;
+  }
+  function get_ekstra($idsekolah){
+    $this->db->where('id_sekolah',$idsekolah);
+   $query=$this->db->get('obj_ekstra');
+   $query=$query->result();
+   return $query;
+  }
   function get_sekolah($id){
     $this->db->where('id',$id);
     $query=$this->db->get('obj_sekolah');
